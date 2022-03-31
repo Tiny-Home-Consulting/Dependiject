@@ -1,0 +1,16 @@
+PODS:
+  - swiftdi (0.1.0)
+
+DEPENDENCIES:
+  - swiftdi (from `../`)
+
+EXTERNAL SOURCES:
+  swiftdi:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  swiftdi: d603322ed3376f36798855afd645fa469b2153db
+
+PODFILE CHECKSUM: 13b6422bec3689c1c42b7aab5098c7f83797993c
+
+COCOAPODS: 1.11.3
