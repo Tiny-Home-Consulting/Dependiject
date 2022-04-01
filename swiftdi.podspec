@@ -21,14 +21,14 @@ Pod::Spec.new do |s|
 TODO: Add long description of the pod here.
                        DESC
 
-  s.homepage         = 'https://github.com/7b8b22daa36d3c215bb3b6ca10477c3178dc76af/swiftdi'
+  s.homepage         = 'https://github.com/Tiny-Home-Consulting/swiftdi'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { '7b8b22daa36d3c215bb3b6ca10477c3178dc76af' => 'bbrk24@gmail.com' }
-  s.source           = { :git => 'https://github.com/7b8b22daa36d3c215bb3b6ca10477c3178dc76af/swiftdi.git', :tag => s.version.to_s }
+  s.author           = { 'William Baker' => 'bbrk24@gmail.com' }
+  s.source           = { :git => 'https://github.com/Tiny-Home-Consulting/swiftdi.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '9.0'
+  s.ios.deployment_target = '12.4'
 
   s.source_files = 'swiftdi/Classes/**/*'
   
