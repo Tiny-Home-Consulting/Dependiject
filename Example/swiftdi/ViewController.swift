@@ -2,8 +2,8 @@
 //  ViewController.swift
 //  swiftdi
 //
-//  Created by 7b8b22daa36d3c215bb3b6ca10477c3178dc76af on 03/31/2022.
-//  Copyright (c) 2022 7b8b22daa36d3c215bb3b6ca10477c3178dc76af. All rights reserved.
+//  Created by William Baker on 03/31/2022.
+//  Copyright (c) 2022 Tiny Home Consulting LLC. All rights reserved.
 //
 
 import UIKit

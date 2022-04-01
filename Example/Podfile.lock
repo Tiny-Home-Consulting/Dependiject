@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  swiftdi: 497e5b78f0b85084dd5dfda7bec40cdc6dc31cf2
+  swiftdi: 6d366f2c672fae847bef3abe1217f4dfdf573e7d
 
 PODFILE CHECKSUM: ed76994074a96459111c96dac72e55fc0bc2630e
 

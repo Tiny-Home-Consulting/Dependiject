@@ -1,5 +1,13 @@
+//
+//  Tests.swift
+//  swiftdi_Tests
+//
+//  Created by William Baker on 03/31/2022.
+//  Copyright (c) 2022 Tiny Home Consulting LLC. All rights reserved.
+//
+
 import XCTest
-import swiftdi
+@testable import swiftdi
 
 class Tests: XCTestCase {
     
