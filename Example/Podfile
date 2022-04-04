@@ -1,6 +1,6 @@
 use_frameworks!
 
-platform :ios, '12.4'
+platform :ios, '14.0'
 
 target 'swiftdi_Example' do
   pod 'swiftdi', :path => '../'
