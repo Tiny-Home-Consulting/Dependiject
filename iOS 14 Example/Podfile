@@ -7,8 +7,6 @@ target 'swiftdi_Example' do
 
   target 'swiftdi_Tests' do
     inherit! :search_paths
-
-    
   end
 end
 

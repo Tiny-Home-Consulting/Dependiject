@@ -1,0 +1,13 @@
+use_frameworks!
+
+platform :ios, '13.0'
+
+target 'swiftdi_Example' do
+  pod 'swiftdi', :path => '../'
+
+  target 'swiftdi_Tests' do
+    inherit! :search_paths
+  end
+end
+
+install! 'cocoapods', :warn_for_unused_master_specs_repo => false
