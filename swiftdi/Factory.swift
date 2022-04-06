@@ -16,21 +16,11 @@ public class Factory: Resolver {
     private init() {
     }
     
-    /*
-     * TODO: When the buildPartialBlock syntax is available (Swift 5.7, likely September 2022)
-     * Create a resultBuilder for registrations, and add a `public static func
-     * register(@RegistrationBuilder callback: () -> [Registration])`, so that the services can be
-     * registered like so:
-     *
-     *    Factory.register {
-     *        Service(ServiceType1.self, .singleton) { r in /* ... */ }
-     *        Service(ServiceType2.self, .weak) { r in /* ... */ }
-     *        // ...
-     *    }
-     *
-     * With the way resultBuilders work in Swift 5.6, this is infeasible. See
-     * https://github.com/apple/swift-evolution/blob/main/proposals/0348-buildpartialblock.md#motivation
-     */
+    public static func register(@RegistrationBuilder builder: () -> [Registration]) {
+        for registration in builder() {
+            Self.shared.registerService(registration)
+        }
+    }
         
     /// Create a new registration.
     /// - Parameters:
@@ -50,15 +40,15 @@ public class Factory: Resolver {
         switch scope {
         case .transient:
             return registerService(
-                TransientRegistration(create: callback)
+                TransientRegistration(type, callback)
             )
         case .singleton:
             return registerService(
-                SingletonRegistration(create: callback)
+                SingletonRegistration(type, callback)
             )
         case .weak:
             return registerService(
-                WeakRegistration(create: callback)
+                WeakRegistration(type, callback)
             )
         }
     }

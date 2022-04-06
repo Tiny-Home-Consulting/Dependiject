@@ -50,20 +50,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate {
     func registerDependencies() {
-        Factory.shared
-        // data services
-            .registerService(type: DataFetcher.self, scope: .singleton) { _ in
+        Factory.register {
+            TransientRegistration(DataFetcher.self) { _ in
                 DataFetcherImplementation()
             }
-            .registerService(type: DataValidator.self, scope: .singleton) { _ in
+            
+            TransientRegistration(DataValidator.self) { _ in
                 DataValidatorImplementation()
             }
-        // view model
-            .registerService(type: ContentViewModel.self, scope: .weak) { r in
+            
+            WeakRegistration(ContentViewModel.self) { r in
                 ContentViewModelImplementation(
                     fetcher: r.getInstance()!,
                     validator: r.getInstance()!
                 )
             }
+        }
     }
 }

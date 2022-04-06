@@ -43,13 +43,13 @@ public protocol Registration {
 
 /// An abstraction around a closure-backed registration that manages its scope. Do not create this
 /// directly; instead, initialize one of its subclasses.
-internal class BaseRegistration: Registration {
+public class BaseRegistration: Registration {
     /// The actual return type of `getInstance` and `create`.
     ///
     /// This class would be generic, but Swift doesn't let you create a heterogeneous array of a
     /// generic type. You can have an array typed as `[Registration<Int>]`, but not
     /// `[any Registration]`.
-    internal let type: Any.Type
+    public let type: Any.Type
     internal let create: (Resolver) -> Any
     
     internal init<T>(create: @escaping (Resolver) -> T) {
@@ -57,16 +57,20 @@ internal class BaseRegistration: Registration {
         self.type = T.self
     }
     
-    internal func getInstance(resolver: Resolver) -> Any {
+    public func getInstance(resolver: Resolver) -> Any {
         fatalError("Must implement in subclass")
     }
 }
 
 /// A registration corresponding to the `weak` scope.
-internal class WeakRegistration: BaseRegistration {
+public class WeakRegistration: BaseRegistration {
     private weak var instance: AnyObject?
     
-    internal override func getInstance(resolver: Resolver) -> Any {
+    public init<T>(_: T.Type, _ callback: @escaping (Resolver) -> T) {
+        super.init(create: callback)
+    }
+    
+    public override func getInstance(resolver: Resolver) -> Any {
         if let retval = instance {
             return retval
         } else {
@@ -78,17 +82,25 @@ internal class WeakRegistration: BaseRegistration {
 }
 
 /// A registration corresponding to the `transient` scope.
-internal class TransientRegistration: BaseRegistration {
-    internal override func getInstance(resolver: Resolver) -> Any {
+public class TransientRegistration: BaseRegistration {
+    public init<T>(_: T.Type, _ callback: @escaping (Resolver) -> T) {
+        super.init(create: callback)
+    }
+    
+    public override func getInstance(resolver: Resolver) -> Any {
         return create(resolver)
     }
 }
 
 /// A registration corresponding to the `singleton` scope.
-internal class SingletonRegistration: BaseRegistration {
+public class SingletonRegistration: BaseRegistration {
     private var instance: Any?
     
-    internal override func getInstance(resolver: Resolver) -> Any {
+    public init<T>(_: T.Type, _ callback: @escaping (Resolver) -> T) {
+        super.init(create: callback)
+    }
+    
+    public override func getInstance(resolver: Resolver) -> Any {
         if let instance = instance {
             return instance
         } else {
