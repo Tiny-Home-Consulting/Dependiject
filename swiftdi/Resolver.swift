@@ -13,3 +13,9 @@ public protocol Resolver {
     /// instance can be provided.
     func getInstance<T>(_ type: T.Type) -> T?
 }
+
+public extension Resolver {
+    func getInstance<T>() -> T? {
+        return self.getInstance(T.self)
+    }
+}

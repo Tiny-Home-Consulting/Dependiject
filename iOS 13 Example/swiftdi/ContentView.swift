@@ -7,15 +7,32 @@
 //
 
 import SwiftUI
+import swiftdi
 
 struct ContentView: View {
+    @Store var viewModel = Factory.shared.getInstance(ContentViewModel.self)!
+    
     var body: some View {
-        Text("Hello, World!")
+        VStack(spacing: 0) {
+            Button("Fetch new data") {
+                viewModel.refreshData()
+            }
+            .padding()
+            
+            Divider()
+            
+            List(viewModel.array, id: \.self) {
+                Text("\($0)")
+            }
+            .listStyle(.grouped)
+        }
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(
+            viewModel: ContentViewModelMock()
+        )
     }
 }

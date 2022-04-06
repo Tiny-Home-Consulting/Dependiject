@@ -15,6 +15,12 @@
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
 		EC529AEC27FB2B610044EF7A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC529AEB27FB2B610044EF7A /* AppDelegate.swift */; };
 		EC7E744C27FC81B200E38C67 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC7E744B27FC81B200E38C67 /* SceneDelegate.swift */; };
+		ECD5DF7D27FDFDB000DFEA5D /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECD5DF7C27FDFDB000DFEA5D /* Store.swift */; };
+		ECD5DF7F27FDFE3900DFEA5D /* Exports.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECD5DF7E27FDFE3900DFEA5D /* Exports.swift */; };
+		ECD5DF8127FDFE8D00DFEA5D /* ErasedObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECD5DF8027FDFE8D00DFEA5D /* ErasedObservableObject.swift */; };
+		ECD5DF8327FDFEC900DFEA5D /* AnyObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECD5DF8227FDFEC900DFEA5D /* AnyObservableObject.swift */; };
+		ECD5DF8527FDFF7E00DFEA5D /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECD5DF8427FDFF7E00DFEA5D /* ContentViewModel.swift */; };
+		ECD5DF8727FE116700DFEA5D /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECD5DF8627FE116700DFEA5D /* Services.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +50,12 @@
 		E5B06887235950AD382318DD /* Pods-swiftdi_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-swiftdi_Example.release.xcconfig"; path = "Target Support Files/Pods-swiftdi_Example/Pods-swiftdi_Example.release.xcconfig"; sourceTree = "<group>"; };
 		EC529AEB27FB2B610044EF7A /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EC7E744B27FC81B200E38C67 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SceneDelegate.swift; path = swiftdi/SceneDelegate.swift; sourceTree = SOURCE_ROOT; };
+		ECD5DF7C27FDFDB000DFEA5D /* Store.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		ECD5DF7E27FDFE3900DFEA5D /* Exports.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Exports.swift; sourceTree = "<group>"; };
+		ECD5DF8027FDFE8D00DFEA5D /* ErasedObservableObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErasedObservableObject.swift; sourceTree = "<group>"; };
+		ECD5DF8227FDFEC900DFEA5D /* AnyObservableObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyObservableObject.swift; sourceTree = "<group>"; };
+		ECD5DF8427FDFF7E00DFEA5D /* ContentViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
+		ECD5DF8627FE116700DFEA5D /* Services.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,9 +110,12 @@
 		607FACD21AFB9204008FA782 /* iOS 13 Example for swiftdi */ = {
 			isa = PBXGroup;
 			children = (
+				ECD5DF7B27FDFDB000DFEA5D /* XUI */,
 				EC529AEB27FB2B610044EF7A /* AppDelegate.swift */,
 				607FACD71AFB9204008FA782 /* ContentView.swift */,
 				EC7E744B27FC81B200E38C67 /* SceneDelegate.swift */,
+				ECD5DF8427FDFF7E00DFEA5D /* ContentViewModel.swift */,
+				ECD5DF8627FE116700DFEA5D /* Services.swift */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
@@ -145,6 +160,17 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		ECD5DF7B27FDFDB000DFEA5D /* XUI */ = {
+			isa = PBXGroup;
+			children = (
+				ECD5DF8027FDFE8D00DFEA5D /* ErasedObservableObject.swift */,
+				ECD5DF8227FDFEC900DFEA5D /* AnyObservableObject.swift */,
+				ECD5DF7C27FDFDB000DFEA5D /* Store.swift */,
+				ECD5DF7E27FDFE3900DFEA5D /* Exports.swift */,
+			);
+			path = XUI;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -175,6 +201,7 @@
 				607FACE11AFB9204008FA782 /* Sources */,
 				607FACE21AFB9204008FA782 /* Frameworks */,
 				607FACE31AFB9204008FA782 /* Resources */,
+				EB0C71B55487F4E774C23450 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -310,6 +337,24 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-swiftdi_Example/Pods-swiftdi_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		EB0C71B55487F4E774C23450 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-swiftdi_Tests/Pods-swiftdi_Tests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/swiftdi/swiftdi.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/swiftdi.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-swiftdi_Tests/Pods-swiftdi_Tests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -320,6 +365,12 @@
 				EC529AEC27FB2B610044EF7A /* AppDelegate.swift in Sources */,
 				607FACD81AFB9204008FA782 /* ContentView.swift in Sources */,
 				EC7E744C27FC81B200E38C67 /* SceneDelegate.swift in Sources */,
+				ECD5DF7D27FDFDB000DFEA5D /* Store.swift in Sources */,
+				ECD5DF8327FDFEC900DFEA5D /* AnyObservableObject.swift in Sources */,
+				ECD5DF7F27FDFE3900DFEA5D /* Exports.swift in Sources */,
+				ECD5DF8527FDFF7E00DFEA5D /* ContentViewModel.swift in Sources */,
+				ECD5DF8727FE116700DFEA5D /* Services.swift in Sources */,
+				ECD5DF8127FDFE8D00DFEA5D /* ErasedObservableObject.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

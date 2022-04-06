@@ -16,6 +16,22 @@ public class Factory: Resolver {
     private init() {
     }
     
+    /*
+     * TODO: When the buildPartialBlock syntax is available (Swift 5.7, likely September 2022)
+     * Create a resultBuilder for registrations, and add a `public static func
+     * register(@RegistrationBuilder callback: () -> [Registration])`, so that the services can be
+     * registered like so:
+     *
+     *    Factory.register {
+     *        Service(ServiceType1.self, .singleton) { r in /* ... */ }
+     *        Service(ServiceType2.self, .weak) { r in /* ... */ }
+     *        // ...
+     *    }
+     *
+     * With the way resultBuilders work in Swift 5.6, this is infeasible. See
+     * https://github.com/apple/swift-evolution/blob/main/proposals/0348-buildpartialblock.md#motivation
+     */
+        
     /// Create a new registration.
     /// - Parameters:
     ///   - type: The type to register the service as. This may be different from the actual type of
@@ -25,22 +41,23 @@ public class Factory: Resolver {
     ///   - callback: How to retrieve or create an instance of the specified type. Takes one
     ///   argument, a `Resolver`, used for any further dependencies required for the creation of the
     ///   object.
+    @discardableResult
     public func registerService<T>(
         type: T.Type,
         scope: Scope,
         callback: @escaping (Resolver) -> T
-    ) {
+    ) -> Self {
         switch scope {
         case .transient:
-            registerService(
+            return registerService(
                 TransientRegistration(create: callback)
             )
         case .singleton:
-            registerService(
+            return registerService(
                 SingletonRegistration(create: callback)
             )
         case .weak:
-            registerService(
+            return registerService(
                 WeakRegistration(create: callback)
             )
         }
@@ -48,12 +65,14 @@ public class Factory: Resolver {
     
     /// Register a service with a custom registration manager. Generally you don't call this
     /// overload directly; see the documentation for `Registration` for details.
-    public func registerService(_ registration: Registration) {
+    @discardableResult
+    public func registerService(_ registration: Registration) -> Self {
         if let index = getIndex(for: registration.type) {
             registrations[index] = registration
         } else {
             registrations.append(registration)
         }
+        return self
     }
     
     public func getInstance<T>(_ type: T.Type) -> T? {

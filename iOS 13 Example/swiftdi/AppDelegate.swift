@@ -7,15 +7,20 @@
 //
 
 import UIKit
+import swiftdi
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(
-        _ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?
+        _ application: UIApplication,
+        didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?
     ) -> Bool {
         // Override point for customization after application launch.
+        
+        registerDependencies()
+        
         return true
     }
 
@@ -40,5 +45,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the user discards a scene session.
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
+    }
+}
+
+extension AppDelegate {
+    func registerDependencies() {
+        Factory.shared
+        // data services
+            .registerService(type: DataFetcher.self, scope: .singleton) { _ in
+                DataFetcherImplementation()
+            }
+            .registerService(type: DataValidator.self, scope: .singleton) { _ in
+                DataValidatorImplementation()
+            }
+        // view model
+            .registerService(type: ContentViewModel.self, scope: .weak) { r in
+                ContentViewModelImplementation(
+                    fetcher: r.getInstance()!,
+                    validator: r.getInstance()!
+                )
+            }
     }
 }
