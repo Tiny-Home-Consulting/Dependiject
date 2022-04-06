@@ -6,6 +6,32 @@
 //  Copyright (c) 2022 Tiny Home Consulting LLC. All rights reserved.
 //
 
+/// This protocol represents a single entry in the factory's registrations list. Generally you don't
+/// use this directly, and use `registerService(type:scope:callback:)` instead.
+///
+/// In some cases, the provided scopes may not be sufficient. In such cases, you may implement the
+/// `Registration` protocol, and add it to the factory using the `registerService(_:)` method.
+///
+/// For example, the following registration uses a boolean variable to determine when to re-use the
+/// existing instance:
+///
+///     class CustomRegistration: Registration {
+///         let type: Any.Type
+///         let callback: (Resolver) -> Any
+///
+///         var shouldReuse: Bool
+///         private var instance: Any?
+///
+///         func getInstance(resolver: Resolver) -> Any {
+///             if shouldReuse,
+///                let instance = self.instance {
+///                 return instance
+///             } else {
+///                 instance = callback(resolver)
+///                 return instance!
+///             }
+///         }
+///     }
 public protocol Registration {
     /// A workaround for the associated type system. `getInstance()` should return something of this
     /// type. This should always return the same type.
@@ -15,8 +41,8 @@ public protocol Registration {
     func getInstance(resolver: Resolver) -> Any
 }
 
-/// An abstraction around a registration that manages its scope. Do not create this directly;
-/// instead, initialize one of its subclasses.
+/// An abstraction around a closure-backed registration that manages its scope. Do not create this
+/// directly; instead, initialize one of its subclasses.
 internal class BaseRegistration: Registration {
     /// The actual return type of `getInstance` and `create`.
     ///

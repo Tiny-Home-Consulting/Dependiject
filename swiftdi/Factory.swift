@@ -22,30 +22,32 @@ public class Factory: Resolver {
     ///   the object, for example it may be the superclass, or a protocol that the object conforms
     ///   to.
     ///   - scope: How often to call the registration callback.
-    ///   - create: How to retrieve or create an instance of the specified type. Takes one argument,
-    ///   a `Resolver`, used for any further dependencies required for the creation of the object.
+    ///   - callback: How to retrieve or create an instance of the specified type. Takes one
+    ///   argument, a `Resolver`, used for any further dependencies required for the creation of the
+    ///   object.
     public func registerService<T>(
         type: T.Type,
         scope: Scope,
-        create: @escaping (Resolver) -> T
+        callback: @escaping (Resolver) -> T
     ) {
         switch scope {
         case .transient:
             registerService(
-                TransientRegistration(create: create)
+                TransientRegistration(create: callback)
             )
         case .singleton:
             registerService(
-                SingletonRegistration(create: create)
+                SingletonRegistration(create: callback)
             )
         case .weak:
             registerService(
-                WeakRegistration(create: create)
+                WeakRegistration(create: callback)
             )
         }
     }
     
-    /// Register a service with a custom registration manager.
+    /// Register a service with a custom registration manager. Generally you don't call this
+    /// overload directly; see the documentation for `Registration` for details.
     public func registerService(_ registration: Registration) {
         if let index = getIndex(for: registration.type) {
             registrations[index] = registration
