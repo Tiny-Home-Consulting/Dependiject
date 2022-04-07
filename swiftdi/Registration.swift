@@ -32,6 +32,10 @@
 ///             }
 ///         }
 ///     }
+///
+/// Although reference semantics are not required -- that is, the custom registration can be a
+/// struct rather than a class -- the `getInstance(resolver:)` method is non-mutating for value
+/// types.
 public protocol Registration {
     /// A workaround for the associated type system. `getInstance()` should return something of this
     /// type. This should always return the same type.
@@ -41,40 +45,59 @@ public protocol Registration {
     func getInstance(resolver: Resolver) -> Any
 }
 
-/// An abstraction around a closure-backed registration that manages its scope. Do not create this
-/// directly; instead, initialize one of its subclasses.
-public class BaseRegistration: Registration {
-    /// The actual return type of `getInstance` and `create`.
-    ///
-    /// This class would be generic, but Swift doesn't let you create a heterogeneous array of a
-    /// generic type. You can have an array typed as `[Registration<Int>]`, but not
-    /// `[any Registration]`.
-    public let type: Any.Type
-    internal let create: (Resolver) -> Any
+/// A wrapper around a `Registration` object, intended for use with `Factory.register(_:)`.
+public struct Service: Registration {
+    private let backingValue: Registration
     
-    internal init<T>(create: @escaping (Resolver) -> T) {
-        self.create = create
-        self.type = T.self
+    public var type: Any.Type {
+        return backingValue.type
+    }
+    
+    /// - Parameters:
+    ///   - scope: How often to call the registration callback.
+    ///   - type: The type to register the service as. This may be different from the actual type of
+    ///   the object, for example it may be the superclass, or a protocol that the object conforms
+    ///   to.
+    ///   - callback: How to retrieve or create an instance of the specified type. Takes one
+    ///   argument, a `Resolver`, used for any further dependencies required for the creation of the
+    ///   object.
+    public init<T>(
+        _ scope: Scope,
+        _ type: T.Type,
+        _ callback: @escaping (Resolver) -> T
+    ) {
+        switch scope {
+        case .transient:
+            self.backingValue = TransientRegistration(type, callback)
+        case .singleton:
+            self.backingValue = SingletonRegistration(type, callback)
+        case .weak:
+            self.backingValue = WeakRegistration(type, callback)
+        }
     }
     
     public func getInstance(resolver: Resolver) -> Any {
-        fatalError("Must implement in subclass")
+        return backingValue.getInstance(resolver: resolver)
     }
 }
 
 /// A registration corresponding to the `weak` scope.
-public class WeakRegistration: BaseRegistration {
+internal class WeakRegistration: Registration {
+    internal let type: Any.Type
+    private let callback: (Resolver) -> Any
+    
     private weak var instance: AnyObject?
     
-    public init<T>(_: T.Type, _ callback: @escaping (Resolver) -> T) {
-        super.init(create: callback)
+    internal init<T>(_ type: T.Type, _ callback: @escaping (Resolver) -> T) {
+        self.type = type
+        self.callback = callback
     }
     
-    public override func getInstance(resolver: Resolver) -> Any {
-        if let retval = instance {
+    internal func getInstance(resolver: Resolver) -> Any {
+        if let retval = self.instance {
             return retval
         } else {
-            let value = create(resolver)
+            let value = callback(resolver)
             instance = value as AnyObject
             return value
         }
@@ -82,29 +105,39 @@ public class WeakRegistration: BaseRegistration {
 }
 
 /// A registration corresponding to the `transient` scope.
-public class TransientRegistration: BaseRegistration {
-    public init<T>(_: T.Type, _ callback: @escaping (Resolver) -> T) {
-        super.init(create: callback)
+/// - Remark: Since this doesn't track any state, `getInstance(resolver:)` is non-mutating, and this
+/// can be a struct. Right now it's a class for consistency with the other two, but this isn't necessary.
+internal class TransientRegistration: Registration {
+    internal let type: Any.Type
+    private let callback: (Resolver) -> Any
+    
+    internal init<T>(_ type: T.Type, _ callback: @escaping (Resolver) -> T) {
+        self.type = type
+        self.callback = callback
     }
     
-    public override func getInstance(resolver: Resolver) -> Any {
-        return create(resolver)
+    internal func getInstance(resolver: Resolver) -> Any {
+        return callback(resolver)
     }
 }
 
 /// A registration corresponding to the `singleton` scope.
-public class SingletonRegistration: BaseRegistration {
+internal class SingletonRegistration: Registration {
+    internal let type: Any.Type
+    private let callback: (Resolver) -> Any
+    
     private var instance: Any?
     
-    public init<T>(_: T.Type, _ callback: @escaping (Resolver) -> T) {
-        super.init(create: callback)
+    internal init<T>(_ type: T.Type, _ callback: @escaping (Resolver) -> T) {
+        self.type = type
+        self.callback = callback
     }
     
-    public override func getInstance(resolver: Resolver) -> Any {
-        if let instance = instance {
+    internal func getInstance(resolver: Resolver) -> Any {
+        if let instance = self.instance {
             return instance
         } else {
-            instance = create(resolver)
+            instance = callback(resolver)
             return instance!
         }
     }

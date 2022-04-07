@@ -7,9 +7,9 @@
 //
 
 /// This enum represents the different lifecycles for dependencies that are provided by default.
-/// It's meant to be used with the factory's `registerService(type:scope:callback:)` method; each
-/// case describes a different way of determining when the callback should be called vs. when the
-/// previous return value should be re-used.
+/// It's meant to be used with the factory's `registerService(type:scope:callback:)` method or
+/// `Service` initializer; each case describes a different way of determining when the callback
+/// should be called vs. when the previous return value should be re-used.
 public enum Scope {
     /// Call the provided callback every time the dependency is requested.
     case transient

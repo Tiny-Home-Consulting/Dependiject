@@ -51,15 +51,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate {
     func registerDependencies() {
         Factory.register {
-            TransientRegistration(DataFetcher.self) { _ in
+            Service(.transient, DataFetcher.self) { _ in
                 DataFetcherImplementation()
             }
             
-            TransientRegistration(DataValidator.self) { _ in
+            Service(.transient, DataValidator.self) { _ in
                 DataValidatorImplementation()
             }
             
-            WeakRegistration(ContentViewModel.self) { r in
+            Service(.weak, ContentViewModel.self) { r in
                 ContentViewModelImplementation(
                     fetcher: r.getInstance()!,
                     validator: r.getInstance()!
