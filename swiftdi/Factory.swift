@@ -37,20 +37,9 @@ public class Factory: Resolver {
         scope: Scope,
         callback: @escaping (Resolver) -> T
     ) -> Self {
-        switch scope {
-        case .transient:
-            return registerService(
-                TransientRegistration(type, callback)
-            )
-        case .singleton:
-            return registerService(
-                SingletonRegistration(type, callback)
-            )
-        case .weak:
-            return registerService(
-                WeakRegistration(type, callback)
-            )
-        }
+        return self.registerService(
+            Service(scope, type, callback)
+        )
     }
     
     /// Register a service with a custom registration manager. Generally you don't call this

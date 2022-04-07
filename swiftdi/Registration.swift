@@ -7,7 +7,8 @@
 //
 
 /// This protocol represents a single entry in the factory's registrations list. Generally you don't
-/// use this directly, and use `registerService(type:scope:callback:)` instead.
+/// use this directly, and call `registerService(type:scope:callback:)` or register a `Service`
+/// instance instead.
 ///
 /// In some cases, the provided scopes may not be sufficient. In such cases, you may implement the
 /// `Registration` protocol, and add it to the factory using the `registerService(_:)` method.
@@ -34,7 +35,7 @@
 ///     }
 ///
 /// Although reference semantics are not required -- that is, the custom registration can be a
-/// struct rather than a class -- the `getInstance(resolver:)` method is non-mutating for value
+/// struct rather than a class -- the `getInstance(resolver:)` method must be non-mutating for value
 /// types.
 public protocol Registration {
     /// A workaround for the associated type system. `getInstance()` should return something of this
