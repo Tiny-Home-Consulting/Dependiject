@@ -24,12 +24,12 @@ TODO: Add long description of the pod here.
   s.homepage         = 'https://github.com/Tiny-Home-Consulting/swiftdi'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MPL-2.0', :file => 'LICENSE' }
-  s.author           = { 'William Baker' => 'bbrk24@gmail.com' }
-  s.source           = { :git => 'https://github.com/Tiny-Home-Consulting/swiftdi.git', :tag => s.version.to_s }
+  s.authors          = { 'William Baker' => 'bbrk24@gmail.com' }
+  s.source           = { :git => 'https://github.com/Tiny-Home-Consulting/swiftdi.git', :tag => s.version }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '13.0'
-
+  s.swift_versions = '5.4'
   s.source_files = 'swiftdi/**/*'
   
   # s.resource_bundles = {
