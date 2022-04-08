@@ -10,8 +10,6 @@ import SwiftUI
 import swiftdi
 
 struct ContentView: View {
-    // Maybe there should be something else that is the same instance as `Factory.shared` but only
-    // exposed as type `Resolver`, rather than `Factory`?
     @Store var viewModel = Factory.shared.getInstance(ContentViewModel.self)!
     
     var body: some View {

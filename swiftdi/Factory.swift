@@ -16,42 +16,38 @@ public class Factory: Resolver {
     private init() {
     }
     
+    /// Register several services at once.
+    ///
+    /// The closure collects any instances created in it and registers them all at once. For
+    /// example, when registering view models that have no dependencies, one could say:
+    /// ```swift
+    /// Factory.register {
+    ///     Service(.weak, FirstViewModel.self) { _ in
+    ///         FirstViewModel()
+    ///     }
+    ///
+    ///     Service(.weak, SecondViewModel.self) { _ in
+    ///         SecondViewModel()
+    ///     }
+    /// }
+    /// ```
+    /// Dependencies that themselves have further dependencies can use the argument passed into the
+    /// closure to resolve them:
+    /// ```swift
+    /// Factory.register {
+    ///     Service(.singleton, NetworkManager.self) { _ in
+    ///         NetworkManager()
+    ///     }
+    ///
+    ///     Service(.weak, ViewModel.self) { r in
+    ///         ViewModel(networkManager: r.getInstance()!)
+    ///     }
+    /// }
+    /// ```
+    /// Custom `Registration` objects can be created inside the closure, in the same way that
+    /// ``Service`` is in the example.
     public static func register(@RegistrationBuilder builder: () -> [Registration]) {
-        for registration in builder() {
-            Self.shared.registerService(registration)
-        }
-    }
-        
-    /// Create a new registration.
-    /// - Parameters:
-    ///   - type: The type to register the service as. This may be different from the actual type of
-    ///   the object, for example it may be the superclass, or a protocol that the object conforms
-    ///   to.
-    ///   - scope: How often to call the registration callback.
-    ///   - callback: How to retrieve or create an instance of the specified type. Takes one
-    ///   argument, a `Resolver`, used for any further dependencies required for the creation of the
-    ///   object.
-    @discardableResult
-    public func registerService<T>(
-        type: T.Type,
-        scope: Scope,
-        callback: @escaping (Resolver) -> T
-    ) -> Self {
-        return self.registerService(
-            Service(scope, type, callback)
-        )
-    }
-    
-    /// Register a service with a custom registration manager. Generally you don't call this
-    /// overload directly; see the documentation for `Registration` for details.
-    @discardableResult
-    public func registerService(_ registration: Registration) -> Self {
-        if let index = getIndex(for: registration.type) {
-            registrations[index] = registration
-        } else {
-            registrations.append(registration)
-        }
-        return self
+        self.shared.registrations += builder()
     }
     
     public func getInstance<T>(_ type: T.Type) -> T? {

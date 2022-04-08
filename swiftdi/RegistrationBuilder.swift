@@ -6,13 +6,17 @@
 //  Copyright (c) 2022 Tiny Home Consulting LLC. All rights reserved.
 //
 
+/// A result builder that collects `Registration`s and ``RegistrationConvertible``s, and produces
+/// a list of registrations usable by the factory.
+///
+/// This result builder is solely used for the ``Factory/register(builder:)`` method. See the
+/// documentation there for details.
 @resultBuilder
-public struct RegistrationBuilder {
+public enum RegistrationBuilder {
     public typealias Component = [Registration]
-    public typealias Expression = Registration
     
-    public static func buildExpression(_ expression: Registration) -> [Registration] {
-        return [expression]
+    public static func buildExpression(_ expression: RegistrationConvertible) -> [Registration] {
+        return [expression.registration]
     }
     
     public static func buildOptional(_ component: [Registration]?) -> [Registration] {

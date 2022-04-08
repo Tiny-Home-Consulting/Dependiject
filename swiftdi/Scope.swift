@@ -6,20 +6,21 @@
 //  Copyright (c) 2022 Tiny Home Consulting LLC. All rights reserved.
 //
 
-/// This enum represents the different lifecycles for dependencies that are provided by default.
-/// It's meant to be used with the factory's `registerService(type:scope:callback:)` method or
-/// `Service` initializer; each case describes a different way of determining when the callback
-/// should be called vs. when the previous return value should be re-used.
+/// The different lifecycles for dependencies that are provided by default.
+///
+/// This is meant to be used with the ``Service`` initializer; each case describes a different way
+/// of determining when the callback should be called vs. when the previous return value should be
+/// re-used.
 public enum Scope {
     /// Call the provided callback every time the dependency is requested.
     case transient
     /// Create a lazy-loaded singleton, and re-use the same one for further requests.
     /// - Note: This scope is for singletons that are created by the callback. If the singleton is
-    /// created elsewhere and the callback only accesses it, `transient` is more memory-efficient.
+    /// created elsewhere and the callback only accesses it, ``transient`` is more memory-efficient.
     case singleton
     /// Re-use an existing instance if it exists, but do not hold onto an unused instance.
     /// - Note: Although the type system permits using this with a value type (struct, enum, or
     /// tuple), this only works for a reference type (class or actor). For value types, this behaves
-    /// the same as `transient`.
+    /// the same as ``transient``.
     case weak
 }

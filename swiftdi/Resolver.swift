@@ -15,6 +15,11 @@ public protocol Resolver {
 }
 
 public extension Resolver {
+    /// Get a dependency of the implicit type. Returns the instance if available, or `nil` if no
+    /// instance can be provided.
+    ///
+    /// - Note: If the inferred type is incorrect, or if Swift cannot infer the type, use
+    /// ``getInstance(_:)`` instead (which takes the type as a parameter).
     func getInstance<T>() -> T? {
         return self.getInstance(T.self)
     }
