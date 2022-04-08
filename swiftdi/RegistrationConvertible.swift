@@ -8,6 +8,30 @@
 
 /// This protocol represents a type that may not be a `Registration` per se, but contains or can
 /// produce one.
+///
+/// If you wanted to, for example, use different names for different scopes (instead of calling them
+/// all `Service`), you could write custom implementations such as the following:
+/// ```swift
+/// struct Singleton: RegistrationConvertible {
+///     private let service: Service
+///
+///     var registration: Registration {
+///         return service.registration
+///     }
+///
+///     init<T>(_ type: T.Type, _ callback: @escaping (Resolver) -> T) {
+///         self.service = Service(.singleton, type, callback)
+///     }
+/// }
+/// ```
+/// Then, you can use your custom type in ``Factory/register(builder:)``:
+/// ```swift
+/// Factory.register {
+///     Singleton(DependencyProtocol.self) { _ in
+///         DependencyClass()
+///     }
+/// }
+/// ```
 public protocol RegistrationConvertible {
     var registration: Registration { get }
 }

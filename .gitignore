@@ -19,7 +19,7 @@ DerivedData
 *.hmap
 *.ipa
 **/xcuserdata/
-Example/swiftdi.xcodeproj/xcshareddata/
+**/*.xcodeproj/xcshareddata/
 
 # Bundler
 .bundle
