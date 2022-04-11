@@ -14,7 +14,7 @@
 /// For example, the following registration uses a boolean variable to determine when to re-use the
 /// existing instance:
 /// ```swift
-/// struct CustomRegistration: Registration {
+/// class CustomRegistration: Registration {
 ///     let type: Any.Type
 ///     let callback: (Resolver) -> Any
 ///
@@ -32,6 +32,9 @@
 ///     }
 /// }
 /// ```
+/// Although reference semantics are not required -- that is, the custom registration can be a
+/// struct rather than a class -- the `getInstance(resolver:)` method must be non-mutating for value
+/// types.
 public protocol Registration: RegistrationConvertible {
     /// A workaround for the associated type system.
     ///
@@ -40,11 +43,11 @@ public protocol Registration: RegistrationConvertible {
     var type: Any.Type { get }
     /// Retrieve or create the actual instance. Provided a `Resolver`, in case the creation of the
     /// instance requires further dependencies.
-    mutating func getInstance(resolver: Resolver) -> Any
+    func getInstance(resolver: Resolver) -> Any
 }
 
 /// A registration corresponding to the `weak` scope.
-internal struct WeakRegistration: Registration {
+internal class WeakRegistration: Registration {
     internal let type: Any.Type
     private let callback: (Resolver) -> Any
     
@@ -55,7 +58,7 @@ internal struct WeakRegistration: Registration {
         self.callback = callback
     }
     
-    internal mutating func getInstance(resolver: Resolver) -> Any {
+    internal func getInstance(resolver: Resolver) -> Any {
         if let retval = self.instance {
             return retval
         } else {
@@ -67,7 +70,9 @@ internal struct WeakRegistration: Registration {
 }
 
 /// A registration corresponding to the `transient` scope.
-internal struct TransientRegistration: Registration {
+/// - Remark: Since this doesn't track any state, `getInstance(resolver:)` is non-mutating, and this
+/// can be a struct. Right now it's a class for consistency with the other two, but this isn't necessary.
+internal class TransientRegistration: Registration {
     internal let type: Any.Type
     private let callback: (Resolver) -> Any
     
@@ -82,7 +87,7 @@ internal struct TransientRegistration: Registration {
 }
 
 /// A registration corresponding to the `singleton` scope.
-internal struct SingletonRegistration: Registration {
+internal class SingletonRegistration: Registration {
     internal let type: Any.Type
     private let callback: (Resolver) -> Any
     
@@ -93,7 +98,7 @@ internal struct SingletonRegistration: Registration {
         self.callback = callback
     }
     
-    internal mutating func getInstance(resolver: Resolver) -> Any {
+    internal func getInstance(resolver: Resolver) -> Any {
         if let instance = self.instance {
             return instance
         } else {
