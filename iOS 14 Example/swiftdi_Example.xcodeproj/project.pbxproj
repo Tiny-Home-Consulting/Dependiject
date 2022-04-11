@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A2F148688F031E86EE6CF14 /* swiftdi_Tests-swiftdi_ExampleMocks.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377A202B0ACDBEF424DB5957 /* swiftdi_Tests-swiftdi_ExampleMocks.generated.swift */; };
 		2A9FAFCDE89942B9DA1B7BC3 /* Pods_swiftdi_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1600AE06E4CE2600652C09AE /* Pods_swiftdi_Tests.framework */; };
 		5BE4AF7EC1A0B49AA14C8446 /* Pods_swiftdi_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28DA735C8996680846334790 /* Pods_swiftdi_Example.framework */; };
 		EC4C0DDD27FC888100D97DD6 /* swiftdi_ExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4C0DDC27FC888100D97DD6 /* swiftdi_ExampleApp.swift */; };
@@ -31,6 +32,7 @@
 /* Begin PBXFileReference section */
 		1600AE06E4CE2600652C09AE /* Pods_swiftdi_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_swiftdi_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		28DA735C8996680846334790 /* Pods_swiftdi_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_swiftdi_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		377A202B0ACDBEF424DB5957 /* swiftdi_Tests-swiftdi_ExampleMocks.generated.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; lastKnownFileType = sourcecode.swift; name = "swiftdi_Tests-swiftdi_ExampleMocks.generated.swift"; path = "MockingbirdMocks/swiftdi_Tests-swiftdi_ExampleMocks.generated.swift"; sourceTree = "<group>"; };
 		4A64C8AEDCD3B098F9B2D473 /* Pods-swiftdi_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-swiftdi_Example.debug.xcconfig"; path = "Target Support Files/Pods-swiftdi_Example/Pods-swiftdi_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		639428914B6FEFDF8FFD03F2 /* Pods-swiftdi_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-swiftdi_Example.release.xcconfig"; path = "Target Support Files/Pods-swiftdi_Example/Pods-swiftdi_Example.release.xcconfig"; sourceTree = "<group>"; };
 		6E353DD13C19DC9678C5F51A /* Pods-swiftdi_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-swiftdi_Tests.release.xcconfig"; path = "Target Support Files/Pods-swiftdi_Tests/Pods-swiftdi_Tests.release.xcconfig"; sourceTree = "<group>"; };
@@ -66,6 +68,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		01F74D0961CD0032C08320B9 /* Generated Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				377A202B0ACDBEF424DB5957 /* swiftdi_Tests-swiftdi_ExampleMocks.generated.swift */,
+			);
+			name = "Generated Mocks";
+			sourceTree = "<group>";
+		};
 		0992EF7B737954B4C086140D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -94,6 +104,7 @@
 				EC4C0DDA27FC888100D97DD6 /* Products */,
 				71D9C3A767723400161B3887 /* Pods */,
 				0992EF7B737954B4C086140D /* Frameworks */,
+				01F74D0961CD0032C08320B9 /* Generated Mocks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -162,6 +173,7 @@
 			buildConfigurationList = EC4C0E0027FC888300D97DD6 /* Build configuration list for PBXNativeTarget "swiftdi_Tests" */;
 			buildPhases = (
 				F25636EC500511D2F3C3311C /* [CP] Check Pods Manifest.lock */,
+				DB88ACD91D0E10C3F3F49029 /* Generate Mockingbird Mocks */,
 				EC4C0DE527FC888300D97DD6 /* Sources */,
 				EC4C0DE627FC888300D97DD6 /* Frameworks */,
 				EC4C0DE727FC888300D97DD6 /* Resources */,
@@ -265,14 +277,34 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-swiftdi_Example/Pods-swiftdi_Example-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-swiftdi_Example/Pods-swiftdi_Example-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-swiftdi_Example/Pods-swiftdi_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		DB88ACD91D0E10C3F3F49029 /* Generate Mockingbird Mocks */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Generate Mockingbird Mocks";
+			outputPaths = (
+				"$(SRCROOT)/MockingbirdMocks/swiftdi_Tests-swiftdi_ExampleMocks.generated.swift",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -eu\n\n# Prevent Xcode 13 from running this script while indexing.\n[[ \"${ACTION}\" == \"indexbuild\" ]] && exit 0\n\n\"${SRCROOT}/Pods/MockingbirdFramework/mockingbird\" generate --targets \"swiftdi_Example\" --outputs \"${SRCROOT}/MockingbirdMocks/swiftdi_Tests-swiftdi_ExampleMocks.generated.swift\"";
 		};
 		F25636EC500511D2F3C3311C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -304,9 +336,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-swiftdi_Tests/Pods-swiftdi_Tests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-swiftdi_Tests/Pods-swiftdi_Tests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -332,6 +368,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EC4C0DEE27FC888300D97DD6 /* Tests.swift in Sources */,
+				1A2F148688F031E86EE6CF14 /* swiftdi_Tests-swiftdi_ExampleMocks.generated.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

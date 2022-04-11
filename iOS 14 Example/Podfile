@@ -11,6 +11,7 @@ target 'swiftdi_Tests' do
   use_frameworks!
   
   pod 'swiftdi', :path => '../'
+  pod 'MockingbirdFramework', '~> 0.20'
 end
 
 install! 'cocoapods', :warn_for_unused_master_specs_repo => false
