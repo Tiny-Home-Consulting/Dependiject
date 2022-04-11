@@ -7,9 +7,29 @@
 //
 
 import SwiftUI
+import swiftdi
 
 @main
 struct swiftdi_ExampleApp: App {
+    init() {
+        Factory.register {
+            Service(.transient, DataFetcher.self) { _ in
+                DataFetcherImplementation()
+            }
+            
+            Service(.transient, DataValidator.self) { _ in
+                DataValidatorImplementation()
+            }
+            
+            Service(.weak, ContentViewModel.self) { r in
+                ContentViewModelImplementation(
+                    fetcher: r.getInstance()!,
+                    validator: r.getInstance()!
+                )
+            }
+        }
+    }
+    
     var body: some Scene {
         WindowGroup {
             ContentView()

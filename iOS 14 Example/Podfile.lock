@@ -1,16 +1,27 @@
 PODS:
   - swiftdi (0.1.0)
+  - XUI (0.1.0)
 
 DEPENDENCIES:
   - swiftdi (from `../`)
+  - XUI (from `https://github.com/Tiny-Home-Consulting/XUI.git`, commit `337f1ad37d2542f3f7eca4de155824a5bedba3e8`)
 
 EXTERNAL SOURCES:
   swiftdi:
     :path: "../"
+  XUI:
+    :commit: 337f1ad37d2542f3f7eca4de155824a5bedba3e8
+    :git: https://github.com/Tiny-Home-Consulting/XUI.git
+
+CHECKOUT OPTIONS:
+  XUI:
+    :commit: 337f1ad37d2542f3f7eca4de155824a5bedba3e8
+    :git: https://github.com/Tiny-Home-Consulting/XUI.git
 
 SPEC CHECKSUMS:
-  swiftdi: 890495d08909b626bd15e3d2fa312bb0f24b2a9d
+  swiftdi: 309387ab1dac55d3b19cc005091ec09e8d527a5c
+  XUI: 316770a7cdc294c5fc26056bd2fb3ce5c43be920
 
-PODFILE CHECKSUM: c3094bf0b4137db00d7952c4b37f7c2518558933
+PODFILE CHECKSUM: fc5940bd63e3c01f664da9a9fb259cd006255a9d
 
 COCOAPODS: 1.11.3

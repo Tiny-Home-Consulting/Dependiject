@@ -1,13 +1,16 @@
-use_frameworks!
-
 platform :ios, '14.0'
 
 target 'swiftdi_Example' do
+  use_frameworks!
+  
   pod 'swiftdi', :path => '../'
+  pod 'XUI', :git => 'https://github.com/Tiny-Home-Consulting/XUI.git', :commit => '337f1ad37d2542f3f7eca4de155824a5bedba3e8'
+end
 
-  target 'swiftdi_Tests' do
-    inherit! :search_paths
-  end
+target 'swiftdi_Tests' do
+  use_frameworks!
+  
+  pod 'swiftdi', :path => '../'
 end
 
 install! 'cocoapods', :warn_for_unused_master_specs_repo => false

@@ -14,6 +14,8 @@
 		EC4C0DE127FC888200D97DD6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC4C0DE027FC888200D97DD6 /* Assets.xcassets */; };
 		EC4C0DE427FC888200D97DD6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC4C0DE327FC888200D97DD6 /* Preview Assets.xcassets */; };
 		EC4C0DEE27FC888300D97DD6 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4C0DED27FC888300D97DD6 /* Tests.swift */; };
+		ECCC43322804727E006BED31 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCC43312804727E006BED31 /* ContentViewModel.swift */; };
+		ECCC4334280472B4006BED31 /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCC4333280472B4006BED31 /* Services.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +42,8 @@
 		EC4C0DE327FC888200D97DD6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		EC4C0DE927FC888300D97DD6 /* swiftdi_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = swiftdi_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC4C0DED27FC888300D97DD6 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
+		ECCC43312804727E006BED31 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
+		ECCC4333280472B4006BED31 /* Services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +111,8 @@
 			children = (
 				EC4C0DDC27FC888100D97DD6 /* swiftdi_ExampleApp.swift */,
 				EC4C0DDE27FC888100D97DD6 /* ContentView.swift */,
+				ECCC43312804727E006BED31 /* ContentViewModel.swift */,
+				ECCC4333280472B4006BED31 /* Services.swift */,
 				EC4C0DE027FC888200D97DD6 /* Assets.xcassets */,
 				EC4C0DE227FC888200D97DD6 /* Preview Content */,
 			);
@@ -159,6 +165,7 @@
 				EC4C0DE527FC888300D97DD6 /* Sources */,
 				EC4C0DE627FC888300D97DD6 /* Frameworks */,
 				EC4C0DE727FC888300D97DD6 /* Resources */,
+				FC8AC82576C31563890B4D6B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -289,6 +296,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		FC8AC82576C31563890B4D6B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-swiftdi_Tests/Pods-swiftdi_Tests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-swiftdi_Tests/Pods-swiftdi_Tests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-swiftdi_Tests/Pods-swiftdi_Tests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -297,7 +321,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				EC4C0DDF27FC888100D97DD6 /* ContentView.swift in Sources */,
+				ECCC4334280472B4006BED31 /* Services.swift in Sources */,
 				EC4C0DDD27FC888100D97DD6 /* swiftdi_ExampleApp.swift in Sources */,
+				ECCC43322804727E006BED31 /* ContentViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -500,7 +526,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 799636C1301A6213D23E4413 /* Pods-swiftdi_Tests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -521,7 +547,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6E353DD13C19DC9678C5F51A /* Pods-swiftdi_Tests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
