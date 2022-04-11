@@ -17,13 +17,6 @@ struct DataFetcherImplementation: DataFetcher {
     }
 }
 
-struct DataFetcherMock: DataFetcher {
-    func getData() -> [Int] {
-        return [1, 2, 3, 4, 5, 6]
-    }
-}
-
-
 protocol DataValidator {
     func pickValidItems(from array: [Int]) -> [Int]
 }
@@ -33,11 +26,5 @@ struct DataValidatorImplementation: DataValidator {
         return array.filter {
             $0.isMultiple(of: 2)
         }
-    }
-}
-
-struct DataValidatorMock: DataValidator {
-    func pickValidItems(from array: [Int]) -> [Int] {
-        return array
     }
 }

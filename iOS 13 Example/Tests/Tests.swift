@@ -8,30 +8,52 @@
 
 import XCTest
 import swiftdi
+import Mockingbird
 @testable import swiftdi_Example
 
 class Tests: XCTestCase {
+    var mockFetcher: DataFetcherMock!
+    var mockValidator: DataValidatorMock!
+    var sut: ContentViewModel!
     
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
+        
+        mockFetcher = mock(DataFetcher.self)
+        given(mockFetcher.getData()).willReturn([1, 2, 3, 4, 5, 6])
+        
+        mockValidator = mock(DataValidator.self)
+        given(mockValidator.pickValidItems(from: any())).will { $0 }
+        
+        /*
+         * In this example case, I'll admit that using the factory here isn't entirely necessary,
+         * since the SUT takes its dependencies as arguments to the initializer. However, that isn't
+         * necessarily the case -- for example, the view grabs its own view model from the factory
+         * -- so I'm using the factory here to demonstrate that it is possible.
+         */
+        
+        Factory.register {
+            Service(.transient, DataFetcher.self) { _ in
+                self.mockFetcher
+            }
+            
+            Service(.transient, DataValidator.self) { _ in
+                self.mockValidator
+            }
+        }
+        
+        sut = ContentViewModelImplementation(
+            fetcher: Factory.shared.getInstance()!,
+            validator: Factory.shared.getInstance()!
+        )
     }
     
     func testExample() {
-        // This is an example of a functional test case.
-        XCTAssert(true, "Pass")
+        sut.refreshData()
+        
+        XCTAssertEqual(sut.array, [1, 2, 3, 4, 5, 6])
+        
+        verify(mockFetcher.getData()).wasCalled(1)
+        verify(mockValidator.pickValidItems(from: any())).wasCalled(1)
     }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure() {
-            // Put the code you want to measure the time of here.
-        }
-    }
-    
 }

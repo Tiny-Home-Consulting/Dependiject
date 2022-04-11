@@ -37,3 +37,7 @@ Carthage/Build
 # `pod install` in .travis.yml
 #
 Pods/
+
+# Mockingbird
+*.generated.swift
+**/*.xcodeproj/MockingbirdCache
