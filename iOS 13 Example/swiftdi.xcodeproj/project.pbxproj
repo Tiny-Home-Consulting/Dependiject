@@ -16,10 +16,6 @@
 		7A8CB3E3B624F38871A08757 /* swiftdi_Tests-swiftdi_ExampleMocks.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F42BEB3F61B5A330C7A507 /* swiftdi_Tests-swiftdi_ExampleMocks.generated.swift */; };
 		EC529AEC27FB2B610044EF7A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC529AEB27FB2B610044EF7A /* AppDelegate.swift */; };
 		EC7E744C27FC81B200E38C67 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC7E744B27FC81B200E38C67 /* SceneDelegate.swift */; };
-		ECD5DF7D27FDFDB000DFEA5D /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECD5DF7C27FDFDB000DFEA5D /* Store.swift */; };
-		ECD5DF7F27FDFE3900DFEA5D /* Exports.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECD5DF7E27FDFE3900DFEA5D /* Exports.swift */; };
-		ECD5DF8127FDFE8D00DFEA5D /* ErasedObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECD5DF8027FDFE8D00DFEA5D /* ErasedObservableObject.swift */; };
-		ECD5DF8327FDFEC900DFEA5D /* AnyObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECD5DF8227FDFEC900DFEA5D /* AnyObservableObject.swift */; };
 		ECD5DF8527FDFF7E00DFEA5D /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECD5DF8427FDFF7E00DFEA5D /* ContentViewModel.swift */; };
 		ECD5DF8727FE116700DFEA5D /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECD5DF8627FE116700DFEA5D /* Services.swift */; };
 /* End PBXBuildFile section */
@@ -52,10 +48,6 @@
 		E5B06887235950AD382318DD /* Pods-swiftdi_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-swiftdi_Example.release.xcconfig"; path = "Target Support Files/Pods-swiftdi_Example/Pods-swiftdi_Example.release.xcconfig"; sourceTree = "<group>"; };
 		EC529AEB27FB2B610044EF7A /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EC7E744B27FC81B200E38C67 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SceneDelegate.swift; path = swiftdi/SceneDelegate.swift; sourceTree = SOURCE_ROOT; };
-		ECD5DF7C27FDFDB000DFEA5D /* Store.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
-		ECD5DF7E27FDFE3900DFEA5D /* Exports.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Exports.swift; sourceTree = "<group>"; };
-		ECD5DF8027FDFE8D00DFEA5D /* ErasedObservableObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErasedObservableObject.swift; sourceTree = "<group>"; };
-		ECD5DF8227FDFEC900DFEA5D /* AnyObservableObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyObservableObject.swift; sourceTree = "<group>"; };
 		ECD5DF8427FDFF7E00DFEA5D /* ContentViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
 		ECD5DF8627FE116700DFEA5D /* Services.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -113,7 +105,6 @@
 		607FACD21AFB9204008FA782 /* iOS 13 Example for swiftdi */ = {
 			isa = PBXGroup;
 			children = (
-				ECD5DF7B27FDFDB000DFEA5D /* XUI */,
 				EC529AEB27FB2B610044EF7A /* AppDelegate.swift */,
 				607FACD71AFB9204008FA782 /* ContentView.swift */,
 				EC7E744B27FC81B200E38C67 /* SceneDelegate.swift */,
@@ -169,17 +160,6 @@
 				28F42BEB3F61B5A330C7A507 /* swiftdi_Tests-swiftdi_ExampleMocks.generated.swift */,
 			);
 			name = "Generated Mocks";
-			sourceTree = "<group>";
-		};
-		ECD5DF7B27FDFDB000DFEA5D /* XUI */ = {
-			isa = PBXGroup;
-			children = (
-				ECD5DF8027FDFE8D00DFEA5D /* ErasedObservableObject.swift */,
-				ECD5DF8227FDFEC900DFEA5D /* AnyObservableObject.swift */,
-				ECD5DF7C27FDFDB000DFEA5D /* Store.swift */,
-				ECD5DF7E27FDFE3900DFEA5D /* Exports.swift */,
-			);
-			path = XUI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -354,10 +334,12 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-swiftdi_Example/Pods-swiftdi_Example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/XUI/XUI.framework",
 				"${BUILT_PRODUCTS_DIR}/swiftdi/swiftdi.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XUI.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/swiftdi.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -395,12 +377,8 @@
 				EC529AEC27FB2B610044EF7A /* AppDelegate.swift in Sources */,
 				607FACD81AFB9204008FA782 /* ContentView.swift in Sources */,
 				EC7E744C27FC81B200E38C67 /* SceneDelegate.swift in Sources */,
-				ECD5DF7D27FDFDB000DFEA5D /* Store.swift in Sources */,
-				ECD5DF8327FDFEC900DFEA5D /* AnyObservableObject.swift in Sources */,
-				ECD5DF7F27FDFE3900DFEA5D /* Exports.swift in Sources */,
 				ECD5DF8527FDFF7E00DFEA5D /* ContentViewModel.swift in Sources */,
 				ECD5DF8727FE116700DFEA5D /* Services.swift in Sources */,
-				ECD5DF8127FDFE8D00DFEA5D /* ErasedObservableObject.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
