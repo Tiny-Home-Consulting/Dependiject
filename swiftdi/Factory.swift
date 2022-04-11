@@ -10,7 +10,7 @@
 public class Factory: Resolver {
     private var registrations: [Registration] = []
     
-    /// The singleton instance of the factory.
+    /// The singleton instance of the factory, used for dependency resolution.
     public static let shared = Factory()
     
     private init() {
@@ -44,8 +44,8 @@ public class Factory: Resolver {
     ///     }
     /// }
     /// ```
-    /// Custom `Registration` objects can be created inside the closure, in the same way that
-    /// ``Service`` is in the example.
+    /// Custom `Registration` and ``RegistrationConvertible`` objects can be created inside the
+    /// closure, in the same way that ``Service`` is in the example.
     public static func register(@RegistrationBuilder builder: () -> [Registration]) {
         self.shared.registrations += builder()
     }

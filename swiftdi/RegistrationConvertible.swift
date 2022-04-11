@@ -6,8 +6,7 @@
 //  Copyright (c) 2022 Tiny Home Consulting LLC. All rights reserved.
 //
 
-/// This protocol represents a type that may not be a `Registration` per se, but contains or can
-/// produce one.
+/// An object or structure that can produce a `Registration`.
 ///
 /// If you wanted to, for example, use different names for different scopes (instead of calling them
 /// all `Service`), you could write custom implementations such as the following:
@@ -33,6 +32,8 @@
 /// }
 /// ```
 public protocol RegistrationConvertible {
+    /// The wrapped registration object.
+    /// - Note: The default implementation is only available for types that adopt `Registration`.
     var registration: Registration { get }
 }
 
