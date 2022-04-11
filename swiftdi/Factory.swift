@@ -50,16 +50,18 @@ public class Factory: Resolver {
         self.shared.registrations += builder()
     }
     
-    public func getInstance<T>(_ type: T.Type) -> T? {
-        if let index = getIndex(for: type) {
+    public func getInstance<T>(_ type: T.Type, name: String?) -> T? {
+        if let index = getIndex(type: type, name: name) {
             return registrations[index].getInstance(resolver: self) as? T
         } else {
             return nil
         }
     }
     
-    /// Get the index within `registrations` where the specified type is registered.
-    private func getIndex(for type: Any.Type) -> Int? {
-        return registrations.lastIndex(where: { $0.type == type })
+    /// Get the index within `registrations` where the specified type and name are registered.
+    private func getIndex(type: Any.Type, name: String?) -> Int? {
+        return registrations.lastIndex {
+            return $0.type == type && $0.name == name
+        }
     }
 }

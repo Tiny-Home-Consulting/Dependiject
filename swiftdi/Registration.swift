@@ -16,6 +16,7 @@
 /// ```swift
 /// class CustomRegistration: Registration {
 ///     let type: Any.Type
+///     let name: String?
 ///     let callback: (Resolver) -> Any
 ///
 ///     var shouldReuse: Bool
@@ -41,6 +42,8 @@ public protocol Registration: RegistrationConvertible {
     /// ``getInstance(resolver:)`` should return something of this type. This should always return
     /// the same type.
     var type: Any.Type { get }
+    /// The name of the object, used for disambiguating registrations to the same type. Usually `nil`.
+    var name: String? { get }
     /// Retrieve or create the actual instance. Provided a `Resolver`, in case the creation of the
     /// instance requires further dependencies.
     func getInstance(resolver: Resolver) -> Any
@@ -49,12 +52,14 @@ public protocol Registration: RegistrationConvertible {
 /// A registration corresponding to the `weak` scope.
 internal class WeakRegistration: Registration {
     internal let type: Any.Type
+    internal let name: String?
     private let callback: (Resolver) -> Any
     
     private weak var instance: AnyObject?
     
-    internal init<T>(_ type: T.Type, _ callback: @escaping (Resolver) -> T) {
+    internal init<T>(_ type: T.Type, _ name: String?, _ callback: @escaping (Resolver) -> T) {
         self.type = type
+        self.name = name
         self.callback = callback
     }
     
@@ -74,10 +79,12 @@ internal class WeakRegistration: Registration {
 /// can be a struct. Right now it's a class for consistency with the other two, but this isn't necessary.
 internal class TransientRegistration: Registration {
     internal let type: Any.Type
+    internal let name: String?
     private let callback: (Resolver) -> Any
     
-    internal init<T>(_ type: T.Type, _ callback: @escaping (Resolver) -> T) {
+    internal init<T>(_ type: T.Type, _ name: String?, _ callback: @escaping (Resolver) -> T) {
         self.type = type
+        self.name = name
         self.callback = callback
     }
     
@@ -89,12 +96,14 @@ internal class TransientRegistration: Registration {
 /// A registration corresponding to the `singleton` scope.
 internal class SingletonRegistration: Registration {
     internal let type: Any.Type
+    internal let name: String?
     private let callback: (Resolver) -> Any
     
     private var instance: Any?
     
-    internal init<T>(_ type: T.Type, _ callback: @escaping (Resolver) -> T) {
+    internal init<T>(_ type: T.Type, _ name: String?, _ callback: @escaping (Resolver) -> T) {
         self.type = type
+        self.name = name
         self.callback = callback
     }
     

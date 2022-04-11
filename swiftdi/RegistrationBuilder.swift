@@ -38,4 +38,31 @@ public enum RegistrationBuilder {
     public static func buildOptional(_ component: [Registration]?) -> [Registration] {
         return component ?? []
     }
+    
+// MARK: Uniqueness checking
+// Anything below this point isn't required, but helps verify uniqueness of registration.
+    
+    public typealias FinalResult = [Registration]
+    
+    public static func buildFinalResult(_ component: [Registration]) -> [Registration] {
+        var seenRegistrations: Set<RegistrationIdentifier> = []
+        
+        // reverse before filtering, so that later registrations override earlier ones
+        return component.reversed()
+            .filter { registration in
+                seenRegistrations.insert(
+                    RegistrationIdentifier(registration)
+                ).inserted
+            }
+    }
+}
+
+internal struct RegistrationIdentifier: Hashable {
+    private let name: String?
+    private let type: ObjectIdentifier // since Any.Type isn't hashable
+    
+    internal init(_ registration: Registration) {
+        self.name = registration.name
+        self.type = ObjectIdentifier(registration.type)
+    }
 }

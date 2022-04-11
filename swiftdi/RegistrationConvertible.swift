@@ -55,21 +55,24 @@ public struct Service: RegistrationConvertible {
     ///   - type: The type to register the service as. This may be different from the actual type of
     ///   the object, for example it may be the superclass, or a protocol that the object conforms
     ///   to.
+    ///   - name: The name to give the registration object. This can usually be `nil`; it is only
+    ///   necessary when registering two different services of the same type.
     ///   - callback: How to retrieve or create an instance of the specified type. Takes one
     ///   argument, a `Resolver`, used for any further dependencies required for the creation of the
     ///   object.
     public init<T>(
         _ scope: Scope,
         _ type: T.Type,
+        _ name: String? = nil,
         _ callback: @escaping (Resolver) -> T
     ) {
         switch scope {
         case .transient:
-            self.registration = TransientRegistration(type, callback)
+            self.registration = TransientRegistration(type, name, callback)
         case .singleton:
-            self.registration = SingletonRegistration(type, callback)
+            self.registration = SingletonRegistration(type, name, callback)
         case .weak:
-            self.registration = WeakRegistration(type, callback)
+            self.registration = WeakRegistration(type, name, callback)
         }
     }
 }
