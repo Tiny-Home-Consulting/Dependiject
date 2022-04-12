@@ -1,13 +1,13 @@
 //
 //  AppDelegate.swift
-//  swiftdi
+//  Dependiject_Example
 //
 //  Created by William Baker on 03/31/2022.
 //  Copyright (c) 2022 Tiny Home Consulting LLC. All rights reserved.
 //
 
 import UIKit
-import swiftdi
+import Dependiject
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

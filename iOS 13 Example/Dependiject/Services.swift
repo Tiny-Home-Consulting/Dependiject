@@ -1,8 +1,8 @@
 //
 //  Services.swift
-//  swiftdi_Example
+//  Dependiject_Example
 //
-//  Created by William Baker on 04/11/22.
+//  Created by William Baker on 04/06/2022.
 //  Copyright (c) 2022 Tiny Home Consulting LLC. All rights reserved.
 //
 
@@ -28,4 +28,3 @@ struct DataValidatorImplementation: DataValidator {
         }
     }
 }
-

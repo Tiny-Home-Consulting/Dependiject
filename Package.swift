@@ -2,7 +2,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "swiftdi",
+    name: "Dependiject",
     platforms: [
         .iOS(.v13),
         .macOS(.v10_15),
@@ -10,10 +10,10 @@ let package = Package(
         .tvOS(.v13)
     ],
     products: [
-        .library(name: "swiftdi", targets: ["swiftdi"])
+        .library(name: "Dependiject", targets: ["Dependiject"])
     ],
     targets: [
-        .target(name: "swiftdi", path: "swiftdi")
+        .target(name: "Dependiject", path: "Dependiject")
     ],
     swiftLanguageVersions: [
         .v5

@@ -1,6 +1,6 @@
 //
 //  ContentViewModel.swift
-//  swiftdi_Example
+//  Dependiject_Example
 //
 //  Created by William Baker on 04/11/22.
 //  Copyright (c) 2022 Tiny Home Consulting LLC. All rights reserved.

@@ -1,15 +1,15 @@
 //
 //  Tests.swift
-//  swiftdi_Tests
+//  Dependiject_Tests
 //
 //  Created by William Baker on 03/31/2022.
 //  Copyright (c) 2022 Tiny Home Consulting LLC. All rights reserved.
 //
 
 import XCTest
-import swiftdi
+import Dependiject
 import Mockingbird
-@testable import swiftdi_Example
+@testable import Dependiject_Example
 
 class Tests: XCTestCase {
     var mockFetcher: DataFetcherMock!

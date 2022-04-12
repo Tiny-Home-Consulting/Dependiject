@@ -1,6 +1,6 @@
 //
 //  SceneDelegate.swift
-//  swiftdi
+//  Dependiject_Example
 //
 //  Created by William Baker on 04/05/2022.
 //  Copyright (c) 2022 Tiny Home Consulting LLC. All rights reserved.

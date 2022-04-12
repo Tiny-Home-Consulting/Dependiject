@@ -1,16 +1,16 @@
 //
-//  swiftdi_ExampleApp.swift
-//  swiftdi_Example
+//  Dependiject_ExampleApp.swift
+//  Dependiject_Example
 //
 //  Created by William Baker on 04/05/22.
 //  Copyright (c) 2022 Tiny Home Consulting LLC. All rights reserved.
 //
 
 import SwiftUI
-import swiftdi
+import Dependiject
 
 @main
-struct swiftdi_ExampleApp: App {
+struct Dependiject_ExampleApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()

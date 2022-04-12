@@ -1,13 +1,13 @@
 //
 //  ContentView.swift
-//  swiftdi_Example
+//  Dependiject_Example
 //
 //  Created by William Baker on 04/05/22.
 //  Copyright (c) 2022 Tiny Home Consulting LLC. All rights reserved.
 //
 
 import SwiftUI
-import swiftdi
+import Dependiject
 
 struct ContentView: View {
     @Store var viewModel = Factory.shared.getInstance(ContentViewModel.self)!
