@@ -36,6 +36,6 @@ TODO: Add long description of the pod here.
   s.swift_versions = '5.4'
   s.source_files = 'Dependiject/**/*.swift'
 
-  # s.frameworks = 'UIKit', 'MapKit'
+  s.frameworks = 'SwiftUI', 'Combine'
   # s.dependency 'AFNetworking', '~> 2.3'
 end

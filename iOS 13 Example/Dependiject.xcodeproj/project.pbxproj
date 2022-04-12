@@ -16,10 +16,6 @@
 		EC4928BD2805F023004E11C6 /* Dependiject_Tests-Dependiject_ExampleMocks.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4928BC2805F023004E11C6 /* Dependiject_Tests-Dependiject_ExampleMocks.generated.swift */; };
 		EC529AEC27FB2B610044EF7A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC529AEB27FB2B610044EF7A /* AppDelegate.swift */; };
 		EC7E744C27FC81B200E38C67 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC7E744B27FC81B200E38C67 /* SceneDelegate.swift */; };
-		ECCC43372805B5EE006BED31 /* AnyObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCC43362805B5EE006BED31 /* AnyObservableObject.swift */; };
-		ECCC43392805B635006BED31 /* ErasedObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCC43382805B635006BED31 /* ErasedObservableObject.swift */; };
-		ECCC433B2805B663006BED31 /* Exports.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCC433A2805B663006BED31 /* Exports.swift */; };
-		ECCC433D2805B681006BED31 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCC433C2805B681006BED31 /* Store.swift */; };
 		ECD5DF8527FDFF7E00DFEA5D /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECD5DF8427FDFF7E00DFEA5D /* ContentViewModel.swift */; };
 		ECD5DF8727FE116700DFEA5D /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECD5DF8627FE116700DFEA5D /* Services.swift */; };
 /* End PBXBuildFile section */
@@ -56,10 +52,6 @@
 		EC4928BC2805F023004E11C6 /* Dependiject_Tests-Dependiject_ExampleMocks.generated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Dependiject_Tests-Dependiject_ExampleMocks.generated.swift"; path = "MockingbirdMocks/Dependiject_Tests-Dependiject_ExampleMocks.generated.swift"; sourceTree = "<group>"; };
 		EC529AEB27FB2B610044EF7A /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EC7E744B27FC81B200E38C67 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SceneDelegate.swift; path = Dependiject/SceneDelegate.swift; sourceTree = SOURCE_ROOT; };
-		ECCC43362805B5EE006BED31 /* AnyObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyObservableObject.swift; sourceTree = "<group>"; };
-		ECCC43382805B635006BED31 /* ErasedObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErasedObservableObject.swift; sourceTree = "<group>"; };
-		ECCC433A2805B663006BED31 /* Exports.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exports.swift; sourceTree = "<group>"; };
-		ECCC433C2805B681006BED31 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		ECD5DF8427FDFF7E00DFEA5D /* ContentViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
 		ECD5DF8627FE116700DFEA5D /* Services.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -117,7 +109,6 @@
 		607FACD21AFB9204008FA782 /* Dependiject */ = {
 			isa = PBXGroup;
 			children = (
-				ECCC433E2805B6CE006BED31 /* XUI */,
 				EC529AEB27FB2B610044EF7A /* AppDelegate.swift */,
 				607FACD71AFB9204008FA782 /* ContentView.swift */,
 				EC7E744B27FC81B200E38C67 /* SceneDelegate.swift */,
@@ -160,17 +151,6 @@
 				EC4928BC2805F023004E11C6 /* Dependiject_Tests-Dependiject_ExampleMocks.generated.swift */,
 			);
 			name = "Generated Mocks";
-			sourceTree = "<group>";
-		};
-		ECCC433E2805B6CE006BED31 /* XUI */ = {
-			isa = PBXGroup;
-			children = (
-				ECCC43362805B5EE006BED31 /* AnyObservableObject.swift */,
-				ECCC433A2805B663006BED31 /* Exports.swift */,
-				ECCC43382805B635006BED31 /* ErasedObservableObject.swift */,
-				ECCC433C2805B681006BED31 /* Store.swift */,
-			);
-			path = XUI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -385,11 +365,7 @@
 			files = (
 				EC529AEC27FB2B610044EF7A /* AppDelegate.swift in Sources */,
 				607FACD81AFB9204008FA782 /* ContentView.swift in Sources */,
-				ECCC43372805B5EE006BED31 /* AnyObservableObject.swift in Sources */,
-				ECCC433D2805B681006BED31 /* Store.swift in Sources */,
-				ECCC43392805B635006BED31 /* ErasedObservableObject.swift in Sources */,
 				EC7E744C27FC81B200E38C67 /* SceneDelegate.swift in Sources */,
-				ECCC433B2805B663006BED31 /* Exports.swift in Sources */,
 				ECD5DF8527FDFF7E00DFEA5D /* ContentViewModel.swift in Sources */,
 				ECD5DF8727FE116700DFEA5D /* Services.swift in Sources */,
 			);

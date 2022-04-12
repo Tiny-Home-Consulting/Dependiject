@@ -17,10 +17,6 @@
 		EC4C0DEE27FC888300D97DD6 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4C0DED27FC888300D97DD6 /* Tests.swift */; };
 		ECCC43322804727E006BED31 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCC43312804727E006BED31 /* ContentViewModel.swift */; };
 		ECCC4334280472B4006BED31 /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCC4333280472B4006BED31 /* Services.swift */; };
-		ECCC43442805B72A006BED31 /* ErasedObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCC43402805B72A006BED31 /* ErasedObservableObject.swift */; };
-		ECCC43452805B72A006BED31 /* Exports.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCC43412805B72A006BED31 /* Exports.swift */; };
-		ECCC43462805B72A006BED31 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCC43422805B72A006BED31 /* Store.swift */; };
-		ECCC43472805B72A006BED31 /* AnyObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCC43432805B72A006BED31 /* AnyObservableObject.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,10 +49,6 @@
 		EC4C0DED27FC888300D97DD6 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		ECCC43312804727E006BED31 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
 		ECCC4333280472B4006BED31 /* Services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
-		ECCC43402805B72A006BED31 /* ErasedObservableObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErasedObservableObject.swift; sourceTree = "<group>"; };
-		ECCC43412805B72A006BED31 /* Exports.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Exports.swift; sourceTree = "<group>"; };
-		ECCC43422805B72A006BED31 /* Store.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
-		ECCC43432805B72A006BED31 /* AnyObservableObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyObservableObject.swift; sourceTree = "<group>"; };
 		ED13DE09199B08AAC34CCC47 /* Pods-Dependiject_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dependiject_Tests.release.xcconfig"; path = "Target Support Files/Pods-Dependiject_Tests/Pods-Dependiject_Tests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -136,7 +128,6 @@
 		EC4C0DDB27FC888100D97DD6 /* Dependiject_Example */ = {
 			isa = PBXGroup;
 			children = (
-				ECCC433F2805B72A006BED31 /* XUI */,
 				EC4C0DDC27FC888100D97DD6 /* Dependiject_ExampleApp.swift */,
 				EC4C0DDE27FC888100D97DD6 /* ContentView.swift */,
 				ECCC43312804727E006BED31 /* ContentViewModel.swift */,
@@ -161,17 +152,6 @@
 				EC4C0DED27FC888300D97DD6 /* Tests.swift */,
 			);
 			path = Dependiject_ExampleTests;
-			sourceTree = "<group>";
-		};
-		ECCC433F2805B72A006BED31 /* XUI */ = {
-			isa = PBXGroup;
-			children = (
-				ECCC43402805B72A006BED31 /* ErasedObservableObject.swift */,
-				ECCC43412805B72A006BED31 /* Exports.swift */,
-				ECCC43422805B72A006BED31 /* Store.swift */,
-				ECCC43432805B72A006BED31 /* AnyObservableObject.swift */,
-			);
-			path = XUI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -376,14 +356,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ECCC43472805B72A006BED31 /* AnyObservableObject.swift in Sources */,
-				ECCC43462805B72A006BED31 /* Store.swift in Sources */,
 				EC4C0DDF27FC888100D97DD6 /* ContentView.swift in Sources */,
-				ECCC43442805B72A006BED31 /* ErasedObservableObject.swift in Sources */,
 				ECCC4334280472B4006BED31 /* Services.swift in Sources */,
 				EC4C0DDD27FC888100D97DD6 /* Dependiject_ExampleApp.swift in Sources */,
 				ECCC43322804727E006BED31 /* ContentViewModel.swift in Sources */,
-				ECCC43452805B72A006BED31 /* Exports.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
