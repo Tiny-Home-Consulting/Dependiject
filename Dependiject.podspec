@@ -21,11 +21,11 @@ Pod::Spec.new do |s|
 TODO: Add long description of the pod here.
                        DESC
 
-  s.homepage         = 'https://github.com/Tiny-Home-Consulting/swiftdi'
+  s.homepage         = 'https://github.com/Tiny-Home-Consulting/Dependiject'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MPL-2.0', :file => 'LICENSE' }
   s.authors          = { 'William Baker' => 'bbrk24@gmail.com' }
-  s.source           = { :git => 'https://github.com/Tiny-Home-Consulting/swiftdi.git', :tag => s.version }
+  s.source           = { :git => 'https://github.com/Tiny-Home-Consulting/Dependiject.git', :tag => s.version }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '13.0'
