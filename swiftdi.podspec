@@ -29,14 +29,13 @@ TODO: Add long description of the pod here.
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '13.0'
+  s.osx.deployment_target = '10.15'
+  s.watchos.deployment_target = '6.0'
+  s.tvos.deployment_target = '13.0'
+
   s.swift_versions = '5.4'
   s.source_files = 'swiftdi/**/*'
-  
-  # s.resource_bundles = {
-  #   'swiftdi' => ['swiftdi/Assets/*.png']
-  # }
 
-  # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
   # s.dependency 'AFNetworking', '~> 2.3'
 end
