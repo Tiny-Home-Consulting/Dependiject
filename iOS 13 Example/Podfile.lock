@@ -1,12 +1,10 @@
 PODS:
   - MockingbirdFramework (0.20.0)
   - swiftdi (0.1.0)
-  - XUI (0.1.0)
 
 DEPENDENCIES:
   - MockingbirdFramework (~> 0.20)
   - swiftdi (from `../`)
-  - XUI (from `https://github.com/Tiny-Home-Consulting/XUI.git`, commit `337f1ad37d2542f3f7eca4de155824a5bedba3e8`)
 
 SPEC REPOS:
   trunk:
@@ -15,20 +13,11 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   swiftdi:
     :path: "../"
-  XUI:
-    :commit: 337f1ad37d2542f3f7eca4de155824a5bedba3e8
-    :git: https://github.com/Tiny-Home-Consulting/XUI.git
-
-CHECKOUT OPTIONS:
-  XUI:
-    :commit: 337f1ad37d2542f3f7eca4de155824a5bedba3e8
-    :git: https://github.com/Tiny-Home-Consulting/XUI.git
 
 SPEC CHECKSUMS:
   MockingbirdFramework: 54e35fbbb47b806c1a1fae2cf3ef99f6eceb55e5
-  swiftdi: 309387ab1dac55d3b19cc005091ec09e8d527a5c
-  XUI: 316770a7cdc294c5fc26056bd2fb3ce5c43be920
+  swiftdi: 789bb20a5d9e77ba8bb5009c0d84b2267ca532da
 
-PODFILE CHECKSUM: d1fa7371903a042d9d07ef27562bd4b98f3692c3
+PODFILE CHECKSUM: ff84e668d0d6d92f4b9cad0befcb5a2198cfe594
 
 COCOAPODS: 1.11.3

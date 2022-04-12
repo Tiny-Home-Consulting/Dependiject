@@ -17,6 +17,10 @@
 		EC4C0DEE27FC888300D97DD6 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4C0DED27FC888300D97DD6 /* Tests.swift */; };
 		ECCC43322804727E006BED31 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCC43312804727E006BED31 /* ContentViewModel.swift */; };
 		ECCC4334280472B4006BED31 /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCC4333280472B4006BED31 /* Services.swift */; };
+		ECCC43442805B72A006BED31 /* ErasedObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCC43402805B72A006BED31 /* ErasedObservableObject.swift */; };
+		ECCC43452805B72A006BED31 /* Exports.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCC43412805B72A006BED31 /* Exports.swift */; };
+		ECCC43462805B72A006BED31 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCC43422805B72A006BED31 /* Store.swift */; };
+		ECCC43472805B72A006BED31 /* AnyObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCC43432805B72A006BED31 /* AnyObservableObject.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,7 +36,7 @@
 /* Begin PBXFileReference section */
 		1600AE06E4CE2600652C09AE /* Pods_swiftdi_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_swiftdi_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		28DA735C8996680846334790 /* Pods_swiftdi_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_swiftdi_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		377A202B0ACDBEF424DB5957 /* swiftdi_Tests-swiftdi_ExampleMocks.generated.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; lastKnownFileType = sourcecode.swift; name = "swiftdi_Tests-swiftdi_ExampleMocks.generated.swift"; path = "MockingbirdMocks/swiftdi_Tests-swiftdi_ExampleMocks.generated.swift"; sourceTree = "<group>"; };
+		377A202B0ACDBEF424DB5957 /* swiftdi_Tests-swiftdi_ExampleMocks.generated.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = "swiftdi_Tests-swiftdi_ExampleMocks.generated.swift"; path = "MockingbirdMocks/swiftdi_Tests-swiftdi_ExampleMocks.generated.swift"; sourceTree = "<group>"; };
 		4A64C8AEDCD3B098F9B2D473 /* Pods-swiftdi_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-swiftdi_Example.debug.xcconfig"; path = "Target Support Files/Pods-swiftdi_Example/Pods-swiftdi_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		639428914B6FEFDF8FFD03F2 /* Pods-swiftdi_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-swiftdi_Example.release.xcconfig"; path = "Target Support Files/Pods-swiftdi_Example/Pods-swiftdi_Example.release.xcconfig"; sourceTree = "<group>"; };
 		6E353DD13C19DC9678C5F51A /* Pods-swiftdi_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-swiftdi_Tests.release.xcconfig"; path = "Target Support Files/Pods-swiftdi_Tests/Pods-swiftdi_Tests.release.xcconfig"; sourceTree = "<group>"; };
@@ -46,6 +50,10 @@
 		EC4C0DED27FC888300D97DD6 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		ECCC43312804727E006BED31 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
 		ECCC4333280472B4006BED31 /* Services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
+		ECCC43402805B72A006BED31 /* ErasedObservableObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErasedObservableObject.swift; sourceTree = "<group>"; };
+		ECCC43412805B72A006BED31 /* Exports.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Exports.swift; sourceTree = "<group>"; };
+		ECCC43422805B72A006BED31 /* Store.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		ECCC43432805B72A006BED31 /* AnyObservableObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyObservableObject.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +128,7 @@
 		EC4C0DDB27FC888100D97DD6 /* swiftdi_Example */ = {
 			isa = PBXGroup;
 			children = (
+				ECCC433F2805B72A006BED31 /* XUI */,
 				EC4C0DDC27FC888100D97DD6 /* swiftdi_ExampleApp.swift */,
 				EC4C0DDE27FC888100D97DD6 /* ContentView.swift */,
 				ECCC43312804727E006BED31 /* ContentViewModel.swift */,
@@ -144,6 +153,17 @@
 				EC4C0DED27FC888300D97DD6 /* Tests.swift */,
 			);
 			path = swiftdi_ExampleTests;
+			sourceTree = "<group>";
+		};
+		ECCC433F2805B72A006BED31 /* XUI */ = {
+			isa = PBXGroup;
+			children = (
+				ECCC43402805B72A006BED31 /* ErasedObservableObject.swift */,
+				ECCC43412805B72A006BED31 /* Exports.swift */,
+				ECCC43422805B72A006BED31 /* Store.swift */,
+				ECCC43432805B72A006BED31 /* AnyObservableObject.swift */,
+			);
+			path = XUI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -277,13 +297,9 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-swiftdi_Example/Pods-swiftdi_Example-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-swiftdi_Example/Pods-swiftdi_Example-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -336,13 +352,9 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-swiftdi_Tests/Pods-swiftdi_Tests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-swiftdi_Tests/Pods-swiftdi_Tests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -356,10 +368,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ECCC43472805B72A006BED31 /* AnyObservableObject.swift in Sources */,
+				ECCC43462805B72A006BED31 /* Store.swift in Sources */,
 				EC4C0DDF27FC888100D97DD6 /* ContentView.swift in Sources */,
+				ECCC43442805B72A006BED31 /* ErasedObservableObject.swift in Sources */,
 				ECCC4334280472B4006BED31 /* Services.swift in Sources */,
 				EC4C0DDD27FC888100D97DD6 /* swiftdi_ExampleApp.swift in Sources */,
 				ECCC43322804727E006BED31 /* ContentViewModel.swift in Sources */,
+				ECCC43452805B72A006BED31 /* Exports.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

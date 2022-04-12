@@ -6,7 +6,7 @@
 //  Copyright (c) 2022 Tiny Home Consulting LLC. All rights reserved.
 //
 
-import XUI
+import Combine
 
 protocol ContentViewModel: AnyObservableObject {
     /// A list of things to display.

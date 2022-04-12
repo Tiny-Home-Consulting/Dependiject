@@ -11,6 +11,12 @@ import swiftdi
 
 @main
 struct swiftdi_ExampleApp: App {
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
+        }
+    }
+    
     init() {
         Factory.register {
             Service(.transient, DataFetcher.self) { _ in
@@ -27,12 +33,6 @@ struct swiftdi_ExampleApp: App {
                     validator: r.getInstance()!
                 )
             }
-        }
-    }
-    
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
         }
     }
 }

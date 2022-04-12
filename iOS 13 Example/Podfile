@@ -4,7 +4,6 @@ target 'swiftdi_Example' do
   use_frameworks!
   
   pod 'swiftdi', :path => '../'
-  pod 'XUI', :git => 'https://github.com/Tiny-Home-Consulting/XUI.git', :commit => '337f1ad37d2542f3f7eca4de155824a5bedba3e8'
 end
 
 target 'swiftdi_Tests' do

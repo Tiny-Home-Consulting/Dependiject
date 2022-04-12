@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import XUI
 import swiftdi
 
 struct ContentView: View {
