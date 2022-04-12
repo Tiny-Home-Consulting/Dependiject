@@ -10,10 +10,20 @@ let package = Package(
         .tvOS(.v13)
     ],
     products: [
-        .library(name: "Dependiject", targets: ["Dependiject"])
+        .library(
+            name: "Dependiject",
+            targets: ["Dependiject"]
+        )
     ],
     targets: [
-        .target(name: "Dependiject", path: "Dependiject")
+        .target(
+            name: "Dependiject",
+            path: "Dependiject",
+            linkerSettings: [
+                .linkedFramework("SwiftUI"),
+                .linkedFramework("Combine")
+            ]
+        )
     ],
     swiftLanguageVersions: [
         .v5
