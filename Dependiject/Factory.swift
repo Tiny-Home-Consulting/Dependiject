@@ -46,6 +46,10 @@ public class Factory: Resolver {
     /// ```
     /// Custom `Registration` and ``RegistrationConvertible`` objects can be created inside the
     /// closure, in the same way that ``Service`` is in the example.
+    ///
+    /// It is also possible to use a sequence of registration-convertible objects, such as a
+    /// `[Registration]`, as a top-level expression. For an example of this, see
+    /// ``MultitypeService``.
     public static func register(@RegistrationBuilder builder: () -> [Registration]) {
         self.shared.registrations += builder()
     }

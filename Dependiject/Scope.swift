@@ -8,7 +8,7 @@
 
 /// The different lifecycles for dependencies that are provided by default.
 ///
-/// This is meant to be used with ``Service/init(_:_:_:)``; each case describes a different way of
+/// This is meant to be used with ``Service/init(_:_:_:_:)``; each case describes a different way of
 /// determining when the callback should be called vs. when the previous return value should be
 /// re-used.
 public enum Scope {

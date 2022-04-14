@@ -35,6 +35,22 @@ public enum RegistrationBuilder {
         return [expression.registration]
     }
     
+    public static func buildExpression<S: Sequence>(_ expression: S) -> [Registration]
+    where S.Element: RegistrationConvertible {
+        return expression.map(\.registration)
+    }
+    
+    // These overloads prevent "protocol as a type cannot conform to the protocol itself" errors
+    public static func buildExpression<S: Sequence>(_ expression: S) -> [Registration]
+    where S.Element == RegistrationConvertible {
+        return expression.map(\.registration)
+    }
+    
+    public static func buildExpression<S: Sequence>(_ expression: S) -> [Registration]
+    where S.Element == Registration {
+        return Array(expression)
+    }
+    
     public static func buildOptional(_ component: [Registration]?) -> [Registration] {
         return component ?? []
     }

@@ -57,7 +57,7 @@ internal class WeakRegistration: Registration {
     
     private weak var instance: AnyObject?
     
-    internal init<T>(_ type: T.Type, _ name: String?, _ callback: @escaping (Resolver) -> T) {
+    internal init(_ type: Any.Type, _ name: String?, _ callback: @escaping (Resolver) -> Any) {
         self.type = type
         self.name = name
         self.callback = callback
@@ -82,7 +82,7 @@ internal class TransientRegistration: Registration {
     internal let name: String?
     private let callback: (Resolver) -> Any
     
-    internal init<T>(_ type: T.Type, _ name: String?, _ callback: @escaping (Resolver) -> T) {
+    internal init(_ type: Any.Type, _ name: String?, _ callback: @escaping (Resolver) -> Any) {
         self.type = type
         self.name = name
         self.callback = callback
@@ -101,7 +101,7 @@ internal class SingletonRegistration: Registration {
     
     private var instance: Any?
     
-    internal init<T>(_ type: T.Type, _ name: String?, _ callback: @escaping (Resolver) -> T) {
+    internal init(_ type: Any.Type, _ name: String?, _ callback: @escaping (Resolver) -> Any) {
         self.type = type
         self.name = name
         self.callback = callback
