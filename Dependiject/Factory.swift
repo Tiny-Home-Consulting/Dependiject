@@ -65,7 +65,7 @@ public class Factory: Resolver {
     /// Get the index within `registrations` where the specified type and name are registered.
     private func getIndex(type: Any.Type, name: String?) -> Int? {
         return registrations.lastIndex {
-            return $0.type == type && $0.name == name
+            $0.type == type && $0.name == name
         }
     }
 }

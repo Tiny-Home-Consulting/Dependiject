@@ -15,8 +15,8 @@ public protocol Resolver {
 }
 
 public extension Resolver {
-    /// Get an unnamed dependency of the specified type.  Returns the instance if available, or
-    /// `nil` if no instance can be provided.
+    /// Get an unnamed dependency of the specified type. Returns the instance if available, or `nil`
+    /// if no instance can be provided.
     /// - Note: When resolving a named dependency, use ``getInstance(_:name:)`` or
     /// ``getInstance(name:)`` instead.
     func getInstance<T>(_ type: T.Type) -> T? {

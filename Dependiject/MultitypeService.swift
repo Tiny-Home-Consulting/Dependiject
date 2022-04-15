@@ -34,7 +34,12 @@ public struct MultitypeService<T: AnyObject> {
     ///   - types: The types under which the object should be exposed.
     ///   - callback: The callback to use to create the shared instance of the dependency.
     /// - Important: The return type of the calback must be a subtype of every member of the `types`
-    /// array, but currently this is not checked.
+    /// array.
+    ///
+    /// Currently, if one of the types in the array is not a supertype of `T`, then attempting to
+    /// resolve an instance of that type will result in `nil` (as if it had never been registered).
+    /// However, a future version may have an assertion, precondition, or even compile-time type
+    /// check to prevent such a registration, so this behavior should not be relied upon.
     public init(
         exposedAs types: [Any.Type],
         callback: @escaping (Resolver) -> T
