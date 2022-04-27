@@ -6,8 +6,9 @@
 //  Copyright (c) 2022 Tiny Home Consulting LLC. All rights reserved.
 //
 
-/// A result builder that collects ``Registration``s and ``RegistrationConvertible``s, and produces
-/// a list of registrations usable by the factory.
+/// A result builder that collects [Registrations](dependiject/Registration) and
+/// [RegistrationConvertibles](dependiject/RegistrationConvertible), and produces a list of
+/// registrations usable by the factory.
 ///
 /// This result builder is solely used for the ``Factory/register(builder:)`` method. See the
 /// documentation there for details.

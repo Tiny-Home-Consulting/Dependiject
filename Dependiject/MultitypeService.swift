@@ -33,8 +33,8 @@ public struct MultitypeService<T: AnyObject> {
     /// - Parameters:
     ///   - types: The types under which the object should be exposed.
     ///   - callback: The callback to use to create the shared instance of the dependency.
-    /// - Important: The return type of the calback must be a subtype of every member of the `types`
-    /// array.
+    /// - Important: The return type of the callback must be a subtype of every member of the 
+    /// `types` array.
     ///
     /// Currently, if one of the types in the array is not a supertype of `T`, then attempting to
     /// resolve an instance of that type will result in `nil` (as if it had never been registered).
