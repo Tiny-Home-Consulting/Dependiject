@@ -45,3 +45,6 @@ Pods/
 # Swift Package Manager
 .swiftpm/
 .build/
+
+# Documentation hosting
+**/node_modules/

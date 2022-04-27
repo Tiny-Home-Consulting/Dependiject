@@ -1,0 +1,10 @@
+{
+  "name": "docserver",
+  "version": "0.1.0",
+  "main": "index.js",
+  "license": "MPL-2.0",
+  "dependencies": {
+    "@hapi/hapi": "^20.2.2",
+    "@hapi/inert": "^6.0.5"
+  }
+}
