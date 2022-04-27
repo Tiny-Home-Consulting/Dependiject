@@ -15,7 +15,8 @@ Pod::Spec.new do |s|
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MPL-2.0', :file => 'LICENSE' }
   s.authors          = { 'William Baker' => 'bbrk24@gmail.com',
-                         'Liam Gleeson' => 'ljgleeson2106@gmail.com' }
+                         'Liam Gleeson' => 'ljgleeson2106@gmail.com',
+                         'Wesley Boyd' => 'u4qr@protonmail.com' }
   s.source           = { :git => 'https://github.com/Tiny-Home-Consulting/Dependiject.git', :tag => s.version }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
