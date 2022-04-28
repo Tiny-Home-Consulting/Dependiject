@@ -25,6 +25,7 @@ Pod::Spec.new do |s|
   s.watchos.deployment_target = '6.0'
   s.tvos.deployment_target = '13.0'
 
+  s.cocoapods_version = '~> 1.10'
   s.swift_versions = '5.4'
   s.source_files = 'Dependiject/**/*.swift'
 

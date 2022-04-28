@@ -12,8 +12,11 @@ testibility in SwiftUI apps.
 To use this library requires Xcode 12.5 / Swift 5.4 or later. Dependiject is supported for all
 platforms that support SwiftUI.
 
-To view the documentation in-browser (see [Documentation][4] below) requires NodeJS v12 or later and
-expects yarn to be installed globally.
+To install the library with CocoaPods requires version 1.10.0 or later, but we recommend using
+version 1.11.0 or later.
+
+To view the documentation in-browser (see [Documentation][4] below) requires CocoaPods 1.11.3 and
+NodeJS 12.0.0 or later, and expects yarn to be installed globally.
 
 ## Examples
 
@@ -32,7 +35,7 @@ To view the documentation in a browser, run `./dochost.sh`.
 Dependiject is released under the MPL-2.0 license. See [LICENSE][7] for details.
 
 [1]: https://img.shields.io/badge/Swift-5.4_5.5_5.6-orange
-[2]: https://img.shields.io/badge/license-MPL--2.0-blue.svg
+[2]: https://img.shields.io/badge/license-MPL--2.0-blue
 [3]: https://img.shields.io/badge/Platforms-macOS_iOS_tvOS_watchOS-yellowgreen
 [4]: #documentation
 [5]: ./iOS%2013%20Example/
