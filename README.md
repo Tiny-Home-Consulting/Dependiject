@@ -4,8 +4,8 @@
 ![License: MPL-2.0][2]
 ![Platforms: macOS, iOS, tvOS, watchOS][3]
 
-Dependiject provides simple and flexible dependency injection for inversion of control and
-testibility in SwiftUI apps.
+Dependiject provides simple and flexible dependency injection for testability and inversion of
+control in SwiftUI apps.
 
 ## Requirements
 
