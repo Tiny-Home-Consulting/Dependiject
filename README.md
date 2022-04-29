@@ -1,6 +1,6 @@
 # Dependiject
 
-![Swift: 5.4, 5.5, 5.6][1]
+![Swift: ~> 5.4][1]
 ![License: MPL-2.0][2]
 ![Platforms: macOS, iOS, tvOS, watchOS][3]
 
@@ -101,9 +101,9 @@ To view the documentation in a browser, run `./dochost.sh`.
 
 Dependiject is released under the MPL-2.0 license. See [LICENSE][7] for details.
 
-[1]: https://img.shields.io/badge/Swift-5.4_5.5_5.6-orange
+[1]: https://img.shields.io/badge/Swift-~%3E%205.4-orange
 [2]: https://img.shields.io/badge/license-MPL--2.0-blue
-[3]: https://img.shields.io/badge/Platforms-macOS_iOS_tvOS_watchOS-yellowgreen
+[3]: https://img.shields.io/badge/Platforms-macOS,%20iOS,%20tvOS,%20watchOS-yellowgreen
 [4]: #documentation
 [5]: ./iOS%2013%20Example/
 [6]: ./iOS%2014%20Example/
