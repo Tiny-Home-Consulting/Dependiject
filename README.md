@@ -14,6 +14,9 @@ maximum utility and flexibility in a modern SwiftUI app.
 
 ### The Problem
 
+We wanted simple dependency injection for SwiftUI, but found all well-known existing solutions
+inadequate.
+
 SwinjectStoryboard is specially designed to work with AppKit and UIKit applications that use
 storyboards for their UI. It's a great library, but the fact that it requires a storyboard limits
 its usefulness in a SwiftUI application.
