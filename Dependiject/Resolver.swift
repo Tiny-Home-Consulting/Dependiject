@@ -28,7 +28,8 @@ public extension Resolver {
     /// - Precondition: A registration exists with the specified name and inferred type.
     /// - Returns: The instance of the type with the given name.
     /// 
-    /// If the inferred type is incorrect, or if Swift cannot infer the type, use ``resolve(_:name:)`` or ``resolve(_:)`` instead (which take the type as a parameter).
+    /// If the inferred type is incorrect, or if Swift cannot infer the type, use
+    /// ``resolve(_:name:)`` or ``resolve(_:)`` instead (which take the type as a parameter).
     func resolve<T>(name: String? = nil) -> T {
         return self.resolve(T.self, name: name)
     }

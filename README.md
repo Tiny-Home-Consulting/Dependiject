@@ -68,7 +68,7 @@ Factory.register {
 
 struct SomeView: View {
     // Use the singleton Factory instance to get what you registered:
-    @Store var viewModel = Factory.shared.resolve(AViewModelProtocol.self)!
+    @Store var viewModel = Factory.shared.resolve(AViewModelProtocol.self)
     
     var body: some View {
         // ...
