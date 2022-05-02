@@ -54,21 +54,21 @@ Factory.register {
     // Type inference makes resolving further dependencies even easier:
     Service(.weak, AViewModelProtocol.self) { r in
         AViewModel(
-            stateAccessor: r.getInstance()!
+            stateAccessor: r.resolve()!
         )
     }
     
     Service(.weak, AnotherViewModelProtocol.self) { r in
         AnotherViewModel(
-            networkManager: r.getInstance()!,
-            stateUpdater: r.getInstance()!
+            networkManager: r.resolve()!,
+            stateUpdater: r.resolve()!
         )
     }
 }
 
 struct SomeView: View {
     // Use the singleton Factory instance to get what you registered:
-    @Store var viewModel = Factory.shared.getInstance(AViewModelProtocol.self)!
+    @Store var viewModel = Factory.shared.resolve(AViewModelProtocol.self)!
     
     var body: some View {
         // ...
