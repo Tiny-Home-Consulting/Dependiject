@@ -59,9 +59,8 @@ public enum Scope {
     /// created elsewhere and the callback only accesses it, ``transient`` is more memory-efficient.
     case singleton
     /// Re-use an existing instance if it exists, but do not hold onto an unused instance.
-    /// - Note: Although the type system permits using this with a value type (struct, enum, or
-    /// tuple), this only works for a reference type (class or actor). For value types, this behaves
-    /// the same as ``transient``.
+    /// - Important: This scope can only be used with classes and actors. Value types are not
+    /// allowed to be registered weakly.
     case weak
 }
 

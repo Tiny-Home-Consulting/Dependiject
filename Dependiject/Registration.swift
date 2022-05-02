@@ -68,7 +68,10 @@ internal class WeakRegistration: Registration {
             return retval
         } else {
             let value = callback(resolver)
+            
+            assert(Swift.type(of: value) is AnyClass, "Cannot register value type as weak")
             instance = value as AnyObject
+            
             return value
         }
     }
