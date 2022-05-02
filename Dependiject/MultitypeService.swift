@@ -34,7 +34,8 @@ public struct MultitypeService<T: AnyObject> {
     ///   - types: The types under which the object should be exposed.
     ///   - callback: The callback to use to create the shared instance of the dependency.
     /// - Important: The return type of the callback must be a subtype of every member of the 
-    /// `types` array. If this is not the case, attempting to re
+    /// `types` array. If this is not the case, attempting to resolve the instance will result in a
+    /// fatal error.
     public init(
         exposedAs types: [Any.Type],
         callback: @escaping (Resolver) -> T
