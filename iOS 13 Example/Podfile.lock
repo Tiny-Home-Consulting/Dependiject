@@ -1,16 +1,23 @@
 PODS:
-  - swiftdi (0.1.0)
+  - Dependiject (0.1.0)
+  - MockingbirdFramework (0.20.0)
 
 DEPENDENCIES:
-  - swiftdi (from `../`)
+  - Dependiject (from `../`)
+  - MockingbirdFramework (~> 0.20)
+
+SPEC REPOS:
+  trunk:
+    - MockingbirdFramework
 
 EXTERNAL SOURCES:
-  swiftdi:
+  Dependiject:
     :path: "../"
 
 SPEC CHECKSUMS:
-  swiftdi: 890495d08909b626bd15e3d2fa312bb0f24b2a9d
+  Dependiject: ecbefd07b5c4fabb5e06e8b685572c8fd2f6fd6f
+  MockingbirdFramework: 54e35fbbb47b806c1a1fae2cf3ef99f6eceb55e5
 
-PODFILE CHECKSUM: 58d170d083f3f47c52db04d7560d2fd90b44baf7
+PODFILE CHECKSUM: 69b53b587fc6c75eef571f57668f2e8e0e0ecf77
 
 COCOAPODS: 1.11.3
