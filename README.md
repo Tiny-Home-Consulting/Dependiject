@@ -1,8 +1,9 @@
 # Dependiject
 
-![Swift: ~> 5.4][1]
-![License: MPL-2.0][2]
-![Platforms: macOS, iOS, tvOS, watchOS][3]
+![Swift Version][1]
+![License][2]
+![Supported Platforms][3]
+![Version][8]
 
 Dependiject provides simple and flexible dependency injection for testability and inversion of
 control in SwiftUI apps.
@@ -87,6 +88,27 @@ version 1.11.0 or later.
 To view the documentation in-browser (see [Documentation][4] below) requires CocoaPods 1.11.3 and
 NodeJS 12.0.0 or later, and expects yarn to be installed globally.
 
+## Installation
+
+### CocoaPods
+
+Add the following line to your Podfile:
+
+```ruby
+pod 'Dependiject', '~> 0.1.0'
+```
+
+### Swift Package Manager
+
+Add the following entry to the `dependencies` array in your Package.swift:
+
+```swift
+.package(
+    url: "https://github.com/Tiny-Home-Consulting/Dependiject.git",
+    .upToNextMinor(from: "0.1.0")
+)
+```
+
 ## Example Projects
 
 There are two examples provided: 
@@ -103,10 +125,11 @@ To view the documentation in a browser, run `./dochost.sh`.
 
 Dependiject is released under the MPL-2.0 license. See [LICENSE][7] for details.
 
-[1]: https://img.shields.io/badge/Swift-~%3E%205.4-orange
-[2]: https://img.shields.io/badge/license-MPL--2.0-blue
-[3]: https://img.shields.io/badge/Platforms-macOS,%20iOS,%20tvOS,%20watchOS-yellowgreen
+[1]: https://img.shields.io/badge/swift-~%3E%205.4-orange
+[2]: https://img.shields.io/cocoapods/l/Dependiject?color=blue
+[3]: https://img.shields.io/cocoapods/p/Dependiject?color=yellowgreen
 [4]: #documentation
 [5]: ./iOS%2013%20Example/
 [6]: ./iOS%2014%20Example/
 [7]: ./LICENSE
+[8]: https://img.shields.io/cocoapods/v/Dependiject
