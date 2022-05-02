@@ -61,7 +61,7 @@ extension MultitypeService: Sequence {
     public func makeIterator() -> Iterator {
         let arr = self.exposedTypes.map { type in
             TransientRegistration(type, nil) { r in
-                r.getInstance(T.self)!
+                r.resolve(T.self)!
             }
         } + CollectionOfOne<Registration>(
             SingletonRegistration(T.self, nil, self.callback)

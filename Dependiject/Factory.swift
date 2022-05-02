@@ -40,7 +40,7 @@ public class Factory: Resolver {
     ///     }
     ///
     ///     Service(.weak, ViewModel.self) { r in
-    ///         ViewModel(networkManager: r.getInstance()!)
+    ///         ViewModel(networkManager: r.resolve()!)
     ///     }
     /// }
     /// ```
@@ -54,9 +54,9 @@ public class Factory: Resolver {
         self.shared.registrations += builder()
     }
     
-    public func getInstance<T>(_ type: T.Type, name: String?) -> T? {
+    public func resolve<T>(_ type: T.Type, name: String?) -> T? {
         if let index = getIndex(type: type, name: name) {
-            return registrations[index].getInstance(resolver: self) as? T
+            return registrations[index].resolve(self) as? T
         } else {
             return nil
         }

@@ -29,8 +29,8 @@ struct Dependiject_ExampleApp: App {
             
             Service(.weak, ContentViewModel.self) { r in
                 ContentViewModelImplementation(
-                    fetcher: r.getInstance()!,
-                    validator: r.getInstance()!
+                    fetcher: r.resolve()!,
+                    validator: r.resolve()!
                 )
             }
         }

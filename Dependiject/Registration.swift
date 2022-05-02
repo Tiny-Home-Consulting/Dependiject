@@ -22,7 +22,7 @@
 ///     var shouldReuse: Bool
 ///     private var instance: Any?
 ///
-///     func getInstance(resolver: Resolver) -> Any {
+///     func resolve(_ resolver: Resolver) -> Any {
 ///         if shouldReuse,
 ///            let instance = self.instance {
 ///             return instance
@@ -34,19 +34,18 @@
 /// }
 /// ```
 /// Although reference semantics are not required -- that is, the custom registration can be a
-/// struct rather than a class -- the `getInstance(resolver:)` method must be non-mutating for value
-/// types.
+/// struct rather than a class -- the `resolve(_:)` method must be non-mutating for value types.
 public protocol Registration: RegistrationConvertible {
     /// A workaround for the associated type system.
     ///
-    /// ``getInstance(resolver:)`` should return something of this type. This should always return
-    /// the same type.
+    /// ``resolve(_:)`` should return something of this type. This should always return the same
+    /// type.
     var type: Any.Type { get }
     /// The name of the object, used for disambiguating registrations to the same type. Usually `nil`.
     var name: String? { get }
     /// Retrieve or create the actual instance. Provided a `Resolver`, in case the creation of the
     /// instance requires further dependencies.
-    func getInstance(resolver: Resolver) -> Any
+    func resolve(_ resolver: Resolver) -> Any
 }
 
 /// A registration corresponding to the `weak` scope.
@@ -63,7 +62,7 @@ internal class WeakRegistration: Registration {
         self.callback = callback
     }
     
-    internal func getInstance(resolver: Resolver) -> Any {
+    internal func resolve(_ resolver: Resolver) -> Any {
         if let retval = self.instance {
             return retval
         } else {
@@ -78,8 +77,8 @@ internal class WeakRegistration: Registration {
 }
 
 /// A registration corresponding to the `transient` scope.
-/// - Remark: Since this doesn't track any state, `getInstance(resolver:)` is non-mutating, and this
-/// can be a struct. Right now it's a class for consistency with the other two, but this isn't necessary.
+/// - Remark: Since this doesn't track any state, `resolve(_:)` is non-mutating, and this can be a
+/// struct. Right now it's a class for consistency with the other two, but this isn't necessary.
 internal class TransientRegistration: Registration {
     internal let type: Any.Type
     internal let name: String?
@@ -91,7 +90,7 @@ internal class TransientRegistration: Registration {
         self.callback = callback
     }
     
-    internal func getInstance(resolver: Resolver) -> Any {
+    internal func resolve(_ resolver: Resolver) -> Any {
         return callback(resolver)
     }
 }
@@ -110,7 +109,7 @@ internal class SingletonRegistration: Registration {
         self.callback = callback
     }
     
-    internal func getInstance(resolver: Resolver) -> Any {
+    internal func resolve(_ resolver: Resolver) -> Any {
         if let instance = self.instance {
             return instance
         } else {
