@@ -54,14 +54,14 @@ Factory.register {
     // Type inference makes resolving further dependencies even easier:
     Service(.weak, AViewModelProtocol.self) { r in
         AViewModel(
-            stateAccessor: r.resolve()!
+            stateAccessor: r.resolve()
         )
     }
     
     Service(.weak, AnotherViewModelProtocol.self) { r in
         AnotherViewModel(
-            networkManager: r.resolve()!,
-            stateUpdater: r.resolve()!
+            networkManager: r.resolve(),
+            stateUpdater: r.resolve()
         )
     }
 }

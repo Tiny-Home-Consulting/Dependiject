@@ -61,8 +61,8 @@ extension AppDelegate {
             
             Service(.weak, ContentViewModel.self) { r in
                 ContentViewModelImplementation(
-                    fetcher: r.resolve()!,
-                    validator: r.resolve()!
+                    fetcher: r.resolve(),
+                    validator: r.resolve()
                 )
             }
         }

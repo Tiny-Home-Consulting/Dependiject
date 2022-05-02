@@ -40,7 +40,7 @@ public class Factory: Resolver {
     ///     }
     ///
     ///     Service(.weak, ViewModel.self) { r in
-    ///         ViewModel(networkManager: r.resolve()!)
+    ///         ViewModel(networkManager: r.resolve())
     ///     }
     /// }
     /// ```
@@ -54,12 +54,15 @@ public class Factory: Resolver {
         self.shared.registrations += builder()
     }
     
-    public func resolve<T>(_ type: T.Type, name: String?) -> T? {
-        if let index = getIndex(type: type, name: name) {
-            return registrations[index].resolve(self) as? T
-        } else {
-            return nil
+    public func resolve<T>(_ type: T.Type, name: String?) -> T {
+        guard let index = getIndex(type: type, name: name) else {
+            let nameToDisplay = name?.debugDescription ?? "nil"
+            preconditionFailure(
+                "Could not resolve dependency of type \(type) with name \(nameToDisplay)."
+            )
         }
+        
+        return registrations[index].resolve(self) as! T
     }
     
     /// Get the index within `registrations` where the specified type and name are registered.

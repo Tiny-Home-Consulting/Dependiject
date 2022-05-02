@@ -10,7 +10,7 @@ import SwiftUI
 import Dependiject
 
 struct ContentView: View {
-    @Store var viewModel = Factory.shared.resolve(ContentViewModel.self)!
+    @Store var viewModel = Factory.shared.resolve(ContentViewModel.self)
     
     var body: some View {
         VStack(spacing: 0) {

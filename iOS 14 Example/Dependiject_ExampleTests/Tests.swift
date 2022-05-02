@@ -43,8 +43,8 @@ class Tests: XCTestCase {
         }
         
         sut = ContentViewModelImplementation(
-            fetcher: Factory.shared.resolve()!,
-            validator: Factory.shared.resolve()!
+            fetcher: Factory.shared.resolve(),
+            validator: Factory.shared.resolve()
         )
     }
     
