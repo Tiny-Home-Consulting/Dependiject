@@ -14,19 +14,18 @@ maximum utility and flexibility in a modern SwiftUI app.
 
 ### The Problem
 
-We wanted simple dependency injection for SwiftUI, but found all well-known existing solutions
-inadequate.
+We wanted simple dependency injection for SwiftUI, but were unable to find an existing solution that
+fully met our needs.
 
-SwinjectStoryboard is specially designed to work with AppKit and UIKit applications that use
-storyboards for their UI. It's a great library, but the fact that it requires a storyboard limits
-its usefulness in a SwiftUI application.
+Some existing libraries require the app to create an instance of the dependency container, which
+must then be passed from view to view. This is less than ideal because it violates inversion of
+control.
 
-Property wrapper injection is easy to write and easy to find resources on, but it's quite
+Property wrapper injection is easy to write and easy to find resources on, but it's somewhat
 restrictive -- you can't mark a variable as both `@Injected` and `@StateObject`.
 
-Even SwiftUI's builtins, like `@EnvironmentObject`, are limited and can be dangerous: they prevent
-the use of protocols as abstractions and require all dependencies to be created eagerly on app
-launch.
+SwiftUI's built-in property wrappers `@StateObject` and `@EnvironmentObject` prevent the use of
+protocols, making it difficult to separate the interface of a dependency from its implementation.
 
 ### Our Solution
 
