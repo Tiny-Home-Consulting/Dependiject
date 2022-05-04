@@ -26,7 +26,7 @@ these guidelines:
  - Any lines that are added should not change if you re-indent them in Xcode (Ctrl-I by default). In
    other words, Xcode should consider the intendation to already be correct.
  - All lines should be no more than 100 characters if possible. Exceptions are allowed in certain
-   situations  (e.g. a long string literal, or a URL in a comment); however, doc comments are not
+   situations  (e.g. a long string literal or a URL in a comment); however, doc comments are not
    necessarily an exception. Doc comments may show up narrower in Xcode, but they do not in other
    editors such as GitHub or VS Code.
  - Try to avoid committing whitespace-only changes in functions or declarations the PR does not

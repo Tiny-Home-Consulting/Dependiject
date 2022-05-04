@@ -31,7 +31,7 @@ labels:
 ## Behavior
 
 <!--
-    What did you expect to happen, and how does the actual behavior differ?
+    What did you expect to happen and how does the actual behavior differ?
 -->
 
 ## Environment
