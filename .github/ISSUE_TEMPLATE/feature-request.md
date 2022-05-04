@@ -26,8 +26,7 @@ labels:
 ## Value
 
 <!--
-    Why should it be part of this library? Explain the benefits of adding this to Dependiject
-    instead of another library or the app code.
+    Why should it be part of this library? Explain the benefits of adding this to Dependiject.
 -->
 
 [1]: https://github.com/Tiny-Home-Consulting/Dependiject/issues?q=is%3Aissue
