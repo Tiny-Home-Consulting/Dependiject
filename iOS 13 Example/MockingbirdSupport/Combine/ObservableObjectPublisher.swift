@@ -1,5 +1,5 @@
 //
-//  SecondaryViewModelTests.swift
+//  ObservableObjectPublisher.swift
 //  Dependiject_Tests
 //
 //  Created by Wesley Boyd on 5/9/22.
