@@ -1,5 +1,5 @@
 //
-//  Store.swift
+//  AnyObservableObject.swift
 //  XUI
 //
 //  Created by Paul Kraft on 01.03.21.
