@@ -11,14 +11,17 @@ import Dependiject
 import Mockingbird
 @testable import Dependiject_Example
 
-class Tests: XCTestCase {
+class PrimaryViewModelTests: XCTestCase {
     var mockFetcher: DataFetcherMock!
     var mockValidator: DataValidatorMock!
-    var sut: ContentViewModel!
+    var mockDataStateManager: DataStateManagerMock!
+    var sut: PrimaryViewModelImplementation!
     
     override func setUp() async throws {
         try await super.setUp()
         
+        mockDataStateManager = mock(DataStateManager.self)
+
         mockFetcher = mock(DataFetcher.self)
         given(await mockFetcher.getData()).willReturn([1, 2, 3, 4, 5, 6])
         
@@ -40,11 +43,16 @@ class Tests: XCTestCase {
             Service(.transient, DataValidator.self) { _ in
                 self.mockValidator
             }
+            
+            MultitypeService(exposedAs: [DataStateAccessor.self, DataStateUpdater.self]) { _ in
+                self.mockDataStateManager
+            }
         }
         
-        sut = ContentViewModelImplementation(
+        sut = PrimaryViewModelImplementation(
             fetcher: Factory.shared.resolve(),
-            validator: Factory.shared.resolve()
+            validator: Factory.shared.resolve(),
+            updater: Factory.shared.resolve()
         )
     }
     
@@ -55,5 +63,13 @@ class Tests: XCTestCase {
         verify(mockValidator.pickValidItems(from: any())).wasCalled(1)
         
         XCTAssertEqual(sut.array, [1, 2, 3, 4, 5, 6])
+    }
+    
+    func testConfirmData() async {
+        await sut.refreshData()
+        
+        sut.confirmData()
+        
+        verify(mockDataStateManager.setDataState(confirmed: true)).wasCalled(1)
     }
 }

@@ -11,31 +11,14 @@ import Dependiject
 import Combine
 
 struct ContentView: View {
-    @Store var viewModel = Factory.shared.resolve(ContentViewModel.self)
+    @Store var dataStateAccessor = Factory.shared.resolve(DataStateAccessor.self)
     
     var body: some View {
-        VStack(spacing: 0) {
-            Button("Fetch new data") {
-                Task {
-                    await viewModel.refreshData()
-                }
-            }
-            .padding()
-            
-            Divider()
-            
-            List(viewModel.array, id: \.self) {
-                Text("\($0)")
-            }
-            .listStyle(.grouped)
+        switch dataStateAccessor.dataState {
+        case .unconfirmed:
+            PrimaryView()
+        case .confirmed:
+            SecondaryView()
         }
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView(
-            viewModel: ContentViewModelMock()
-        )
     }
 }
