@@ -14,13 +14,13 @@ import Mockingbird
 class SecondaryViewModelTests: XCTestCase {
     var mockDataStateManager: DataStateManagerMock!
     var sut: SecondaryViewModelImplementation!
-    
+
     override func setUp() {
         super.setUp()
         mockDataStateManager = mock(DataStateManager.self)
         sut = SecondaryViewModelImplementation(updater: mockDataStateManager)
     }
-    
+
     func testResetData() {
         sut.resetData()
         verify(mockDataStateManager.setDataState(confirmed: false)).wasCalled(1)
