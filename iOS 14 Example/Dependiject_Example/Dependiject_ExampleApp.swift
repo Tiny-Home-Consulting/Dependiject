@@ -27,10 +27,21 @@ struct Dependiject_ExampleApp: App {
                 DataValidatorImplementation()
             }
             
-            Service(.weak, ContentViewModel.self) { r in
-                ContentViewModelImplementation(
+            MultitypeService(exposedAs: [DataStateUpdater.self, DataStateAccessor.self]) { r in
+                DataStateManagerImplementation()
+            }
+            
+            Service(.weak, PrimaryViewModel.self) { r in
+                PrimaryViewModelImplementation(
                     fetcher: r.resolve(),
-                    validator: r.resolve()
+                    validator: r.resolve(),
+                    updater: r.resolve()
+                )
+            }
+            
+            Service(.weak, SecondaryViewModel.self) { r in
+                SecondaryViewModelImplementation(
+                    updater: r.resolve()
                 )
             }
         }
