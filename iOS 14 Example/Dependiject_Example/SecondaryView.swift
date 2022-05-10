@@ -10,7 +10,7 @@ import SwiftUI
 import Dependiject
 
 struct SecondaryView: View {
-    @Store var viewModel = Factory.shared.resolve(SecondaryViewModel.self)
+    var viewModel = Factory.shared.resolve(SecondaryViewModel.self)
     
     var body: some View {
         VStack(spacing: 0) {
@@ -18,5 +18,11 @@ struct SecondaryView: View {
                 viewModel.resetData()
             }
         }
+    }
+}
+
+struct SecondaryView_Previews: PreviewProvider {
+    static var previews: some View {
+        SecondaryView()
     }
 }

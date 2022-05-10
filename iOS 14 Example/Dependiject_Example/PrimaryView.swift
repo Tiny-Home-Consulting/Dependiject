@@ -32,3 +32,9 @@ struct PrimaryView: View {
         }
     }
 }
+
+struct PrimaryView_Previews: PreviewProvider {
+    static var previews: some View {
+        PrimaryView()
+    }
+}

@@ -8,12 +8,12 @@
 
 import Dependiject
 
-protocol SecondaryViewModel: AnyObservableObject {
+protocol SecondaryViewModel {
     /// Go back to PrimaryView to edit data, updates global state
     func resetData()
 }
 
-final class SecondaryViewModelImplementation: SecondaryViewModel, ObservableObject {
+final class SecondaryViewModelImplementation: SecondaryViewModel {
     private let dataStateUpdater: DataStateUpdater
     
     init(updater: DataStateUpdater) {

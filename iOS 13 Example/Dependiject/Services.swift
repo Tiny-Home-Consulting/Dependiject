@@ -40,9 +40,7 @@ protocol DataStateAccessor: AnyObservableObject {
     var dataState: DataState { get }
 }
 
-protocol DataStateManager: DataStateUpdater, DataStateAccessor {
-    init()
-}
+protocol DataStateManager: DataStateUpdater, DataStateAccessor {}
 
 final class DataStateManagerImplementation: DataStateManager & ObservableObject {
     @Published var dataState: DataState
