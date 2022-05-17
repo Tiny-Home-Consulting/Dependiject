@@ -23,6 +23,13 @@ let package = Package(
                 .linkedFramework("SwiftUI"),
                 .linkedFramework("Combine")
             ]
+        ),
+        .testTarget(
+            name: "DependijectTests",
+            dependencies: [
+                .target(name: "Dependiject")
+            ],
+            path: "Tests"
         )
     ],
     swiftLanguageVersions: [
