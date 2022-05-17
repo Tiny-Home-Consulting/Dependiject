@@ -20,17 +20,9 @@ class RegistrationNameTests: XCTestCase {
     func test_names_disambiguate() {
         // set up the dependency container
         Factory.register {
-            Service(.transient, String.self, nil) { _ in
-                "unnamed"
-            }
-            
-            Service(.transient, String.self, "1") { _ in
-                "named 1"
-            }
-            
-            Service(.transient, String.self, "2") { _ in
-                "named 2"
-            }
+            Service(.transient, String.self, nil) { _ in "unnamed" }
+            Service(.transient, String.self, "1") { _ in "named 1" }
+            Service(.transient, String.self, "2") { _ in "named 2" }
         }
         
         // ensure the default is unnamed
