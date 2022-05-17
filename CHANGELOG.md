@@ -7,10 +7,13 @@ formatting guidelines.
 
 ### Changed
 
+- `MultitypeService` no longer exposes the implementation type by default. It may still be exposed
+  explicitly.
 - `@Store` now publishes changes on `RunLoop.main` by default, rather than immediately.
 
 ### Added
 
+- Added automated tests.
 - Created a changelog, contributing guidelines, and issue templates.
 
 ## [0.1.0] - 2022-05-02

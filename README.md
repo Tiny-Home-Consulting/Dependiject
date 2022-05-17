@@ -121,6 +121,11 @@ All documentation is provided via inline doc comments that can be parsed by Xcod
 
 To view the documentation in a browser, run `./dochost.sh`.
 
+## Automated Tests
+
+To run the automated tests, simply run the command `swift test` in the terminal. The tests can also
+be run in Xcode.
+
 ## License
 
 Dependiject is released under the MPL-2.0 license. See [LICENSE][7] for details.
