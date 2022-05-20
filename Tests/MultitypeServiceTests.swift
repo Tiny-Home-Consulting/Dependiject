@@ -22,7 +22,7 @@ class MultitypeServiceTests: XCTestCase {
     }
     
     /// Test that the exposed types both resolve the same instance.
-    func test_bothProtocols_resolveSame() {
+    func test_multitypeService_typesResolveSame() {
         // set up the dependency container
         Factory.register {
             MultitypeService(exposedAs: [P1.self, P2.self]) { _ in
@@ -37,11 +37,9 @@ class MultitypeServiceTests: XCTestCase {
         XCTAssertIdentical(p1Instance, p2Instance, "Both protocols should give the same instance")
     }
     
-    /// Test that the original class is hidden and not resolvable (i.e. it's registered with an
-    /// internal name the caller may not know, rather than being nameless).
+    /// Test that the original class is hidden by default (i.e. it's registered with an internal
+    /// name the caller may not know, rather than being nameless).
     func test_multitypeService_hidesOriginal() {
-        // FIXME: This currently fails due to the way MultitypeService is written.
-        
         // Because `resolve()` causes a preconditionFailure when no matches are found, we can't use
         // the factory here. Instead, we have to inspect the `MultitypeService` object itself.
         
@@ -59,5 +57,18 @@ class MultitypeServiceTests: XCTestCase {
                 "Original type should be hidden but was found with no name"
             )
         }
+    }
+    
+    /// Test that the class can be exposed if desired.
+    func test_multitypeService_allowsResolvingOriginal() {
+        // set up the dependency container
+        Factory.register {
+            MultitypeService(exposedAs: [P1.self, P2.self, C.self]) { _ in
+                C()
+            }
+        }
+        
+        // check that it actually works
+        _ = Factory.shared.resolve(C.self)
     }
 }
