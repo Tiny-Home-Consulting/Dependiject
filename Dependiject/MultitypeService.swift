@@ -25,6 +25,15 @@
 /// return an object (as opposed to a struct). If Swift cannot or does not correctly infer the
 /// generic type, you may explicitly specify (e.g. `MultitypeService<StateManager>` rather than just
 /// `MultitypeService`).
+///
+/// By default, the original type is hidden. In the example above,
+/// `Factory.shared.resolve(StateManager.self)` would fail. If resolving the original type is
+/// desired, you may add the class itself to the type array:
+/// ```swift
+/// MultitypeService(exposedAs: [StateAccessor.self, StateUpdater.self, StateManager.self]) { _ in
+///     StateManager()
+/// }
+/// ```
 public struct MultitypeService<T: AnyObject> {
     fileprivate let exposedTypes: [Any.Type]
     fileprivate let callback: (Resolver) -> T
@@ -33,7 +42,7 @@ public struct MultitypeService<T: AnyObject> {
     /// - Parameters:
     ///   - types: The types under which the object should be exposed.
     ///   - callback: The callback to use to create the shared instance of the dependency.
-    /// - Important: The return type of the callback must be a subtype of every member of the 
+    /// - Important: The return type of the callback must be a subtype of every member of the
     /// `types` array. If this is not the case, attempting to resolve the instance will result in a
     /// fatal error.
     public init(
@@ -55,12 +64,23 @@ extension MultitypeService: Sequence {
     }
     
     public func makeIterator() -> Iterator {
+        // handle allowing/hiding the original type
+        var name: String?
+        
+        if self.exposedTypes.contains(where: { $0 == T.self }) {
+            // The class itself is also exposed.
+            name = nil
+        } else {
+            // The class itself is hidden; use a private name to do so.
+            name = "__Multitype_\(self.exposedTypes)_\(T.self)"
+        }
+        
         let arr = self.exposedTypes.map { type in
             TransientRegistration(type, nil) { r in
-                r.resolve(T.self)
+                r.resolve(T.self, name: name)
             }
         } + CollectionOfOne<Registration>(
-            SingletonRegistration(T.self, nil, self.callback)
+            SingletonRegistration(T.self, name, self.callback)
         )
         
         return arr.makeIterator()

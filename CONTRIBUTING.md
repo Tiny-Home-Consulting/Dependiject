@@ -16,7 +16,8 @@ When you create the PR, please follow the pull request template. We will reject 
 follow the instructions left in the comments of the template.
 
 For any PR that adds new functionality, we expect documentation (inline and/or doc comments) as
-necessary.
+necessary. Any code changes, including new functionality and bug fixes, should provide unit tests in
+the `Tests/` directory as well.
 
 ## Code Style
 
