@@ -56,8 +56,5 @@ class RegistrationNameTests: XCTestCase {
             namedResolution,
             "Expected expliticly-named to be named '1' but saw registration \(namedResolution)"
         )
-        
-        // If you un-comment this, it'll crash
-        // _ = Factory.shared.resolve(String.self, name: "3")
     }
 }

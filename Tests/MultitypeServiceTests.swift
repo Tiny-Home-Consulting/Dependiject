@@ -68,7 +68,8 @@ class MultitypeServiceTests: XCTestCase {
             }
         }
         
-        // check that it actually works
+        // check that we can resolve it without crashing
+        // if `C.self` were not in the above array, this would crash
         _ = Factory.shared.resolve(C.self)
     }
 }
