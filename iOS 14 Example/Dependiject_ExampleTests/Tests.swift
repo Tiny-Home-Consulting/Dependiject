@@ -16,11 +16,11 @@ class Tests: XCTestCase {
     var mockValidator: DataValidatorMock!
     var sut: ContentViewModel!
     
-    override func setUp() {
-        super.setUp()
+    override func setUp() async throws {
+        try await super.setUp()
         
         mockFetcher = mock(DataFetcher.self)
-        given(mockFetcher.getData()).willReturn([1, 2, 3, 4, 5, 6])
+        given(await mockFetcher.getData()).willReturn([1, 2, 3, 4, 5, 6])
         
         mockValidator = mock(DataValidator.self)
         given(mockValidator.pickValidItems(from: any())).will { $0 }
@@ -48,12 +48,12 @@ class Tests: XCTestCase {
         )
     }
     
-    func testExample() {
-        sut.refreshData()
+    func testExample() async {
+        await sut.refreshData()
+        
+        verify(await mockFetcher.getData()).wasCalled(1)
+        verify(mockValidator.pickValidItems(from: any())).wasCalled(1)
         
         XCTAssertEqual(sut.array, [1, 2, 3, 4, 5, 6])
-        
-        verify(mockFetcher.getData()).wasCalled(1)
-        verify(mockValidator.pickValidItems(from: any())).wasCalled(1)
     }
 }

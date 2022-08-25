@@ -7,6 +7,7 @@
 //  MIT License
 
 import SwiftUI
+import Combine
 
 @propertyWrapper
 public struct Store<Model>: DynamicProperty {
@@ -36,15 +37,27 @@ public struct Store<Model>: DynamicProperty {
     }
     
     // MARK: Initialization
-    public init(wrappedValue: Model) {
+    // Usage example: @Store(on: RunLoop.main) var foo = Foo()
+    public init<S: Scheduler>(
+        wrappedValue: Model,
+        on scheduler: S,
+        schedulerOptions: S.SchedulerOptions? = nil
+    ) {
         self.wrappedValue = wrappedValue
         
         if let objectWillChange = (wrappedValue as? AnyObservableObject)?.objectWillChange {
-            self.observableObject = .init(objectWillChange: objectWillChange.eraseToAnyPublisher())
+            self.observableObject = .init(
+                objectWillChange: objectWillChange.receive(on: scheduler, options: schedulerOptions)
+                    .eraseToAnyPublisher()
+            )
         } else {
             assertionFailure("Only use the `Store` property wrapper with instances conforming to `AnyObservableObject`.")
             self.observableObject = .empty()
         }
+    }
+    
+    public init(wrappedValue: Model) {
+        self.init(wrappedValue: wrappedValue, on: RunLoop.main)
     }
     
     // MARK: Methods

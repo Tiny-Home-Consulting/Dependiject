@@ -7,12 +7,14 @@
 //
 
 protocol DataFetcher {
-    func getData() -> [Int]
+    func getData() async -> [Int]
 }
 
 struct DataFetcherImplementation: DataFetcher {
-    func getData() -> [Int] {
+    func getData() async -> [Int] {
         let upperLimit = Int.random(in: 4...20)
+        // Not noticeably long, but enough to potentially change threads
+        try? await Task.sleep(nanoseconds: 1000)
         return Array(1...upperLimit)
     }
 }

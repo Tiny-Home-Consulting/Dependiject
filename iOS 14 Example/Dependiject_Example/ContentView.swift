@@ -8,6 +8,7 @@
 
 import SwiftUI
 import Dependiject
+import Combine
 
 struct ContentView: View {
     @Store var viewModel = Factory.shared.resolve(ContentViewModel.self)
@@ -15,7 +16,9 @@ struct ContentView: View {
     var body: some View {
         VStack(spacing: 0) {
             Button("Fetch new data") {
-                viewModel.refreshData()
+                Task {
+                    await viewModel.refreshData()
+                }
             }
             .padding()
             

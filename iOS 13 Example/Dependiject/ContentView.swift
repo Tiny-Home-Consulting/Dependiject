@@ -15,7 +15,9 @@ struct ContentView: View {
     var body: some View {
         VStack(spacing: 0) {
             Button("Fetch new data") {
-                viewModel.refreshData()
+                Task {
+                    await viewModel.refreshData()
+                }
             }
             .padding()
             

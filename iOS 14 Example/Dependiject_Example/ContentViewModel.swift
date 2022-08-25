@@ -12,7 +12,7 @@ protocol ContentViewModel: AnyObservableObject {
     /// A list of things to display.
     var array: [Int] { get }
     /// Update the array.
-    func refreshData()
+    func refreshData() async
 }
 
 final class ContentViewModelImplementation: ContentViewModel, ObservableObject {
@@ -26,8 +26,8 @@ final class ContentViewModelImplementation: ContentViewModel, ObservableObject {
         self.validator = validator
     }
     
-    func refreshData() {
-        let rawData = fetcher.getData()
+    func refreshData() async {
+        let rawData = await fetcher.getData()
         let filteredData = validator.pickValidItems(from: rawData)
         self.array = filteredData
     }
@@ -36,7 +36,7 @@ final class ContentViewModelImplementation: ContentViewModel, ObservableObject {
 final class ContentViewModelMock: ContentViewModel, ObservableObject {
     @Published var array: [Int] = [2, 4, 6, 8]
     
-    func refreshData() {
+    func refreshData() async {
         // no-op
     }
 }
