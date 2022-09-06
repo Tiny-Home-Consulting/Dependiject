@@ -15,8 +15,9 @@ reserve the right to reject PRs on the basis that they were not first discussed 
 When you create the PR, please follow the pull request template. We will reject PRs that do not
 follow the instructions left in the comments of the template.
 
-For any PR that adds new functionality, we expect documentation (inline and/or doc comments) as
-necessary. Additionally, PRs should add an entry to the changelog.
+For any PR that adds new functionality, we expect documentation (inline and/or doc comments, and a
+changelog entry) as necessary. Any code changes, including new functionality and bug fixes, should
+provide unit tests in the `Tests/` directory as well.
 
 ## Code Style
 

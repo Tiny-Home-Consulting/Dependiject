@@ -57,7 +57,6 @@ public enum RegistrationBuilder {
     }
     
 // MARK: Uniqueness checking
-// Anything below this point isn't required, but helps verify uniqueness of registration.
     
     public typealias FinalResult = [Registration]
     
