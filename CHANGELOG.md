@@ -5,6 +5,10 @@ formatting guidelines.
 
 ## Unreleased
 
+### Changed
+
+- `@Store` now publishes changes on `RunLoop.main` by default, rather than immediately.
+
 ### Added
 
 - Created a changelog, contributing guidelines, and issue templates.
