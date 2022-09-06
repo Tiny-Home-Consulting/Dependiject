@@ -13,6 +13,7 @@ formatting guidelines.
 
 ### Added
 
+- Examples for testing `AnyObservableObject` in both example projects.
 - Added automated tests.
 - Created a changelog, contributing guidelines, and issue templates.
 
