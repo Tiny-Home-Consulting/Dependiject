@@ -6,6 +6,9 @@
 //  Copyright (c) 2022 Tiny Home Consulting LLC. All rights reserved.
 //
 
+import Dependiject
+import Combine
+
 protocol DataFetcher {
     func getData() async -> [Int]
 }
@@ -27,6 +30,32 @@ struct DataValidatorImplementation: DataValidator {
     func pickValidItems(from array: [Int]) -> [Int] {
         return array.filter {
             $0.isMultiple(of: 2)
+        }
+    }
+}
+
+protocol DataStateUpdater {
+    func setDataState(confirmed: Bool)
+}
+
+protocol DataStateAccessor: AnyObservableObject {
+    var dataState: DataState { get }
+}
+
+protocol DataStateManager: DataStateUpdater, DataStateAccessor {}
+
+final class DataStateManagerImplementation: DataStateManager & ObservableObject {
+    @Published var dataState: DataState
+    
+    init() {
+        self.dataState = .unconfirmed
+    }
+    
+    func setDataState(confirmed: Bool) {
+        if confirmed {
+            self.dataState = .confirmed
+        } else {
+            self.dataState = .unconfirmed
         }
     }
 }

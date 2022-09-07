@@ -1,5 +1,5 @@
 //
-//  ContentViewModel.swift
+//  PrimaryViewModel.swift
 //  Dependiject_Example
 //
 //  Created by William Baker on 04/11/22.
@@ -8,22 +8,30 @@
 
 import Dependiject
 
-protocol ContentViewModel: AnyObservableObject {
+protocol PrimaryViewModel: AnyObservableObject {
     /// A list of things to display.
     var array: [Int] { get }
     /// Update the array.
     func refreshData() async
+    /// Confirms data, updates global state
+    func confirmData()
 }
 
-final class ContentViewModelImplementation: ContentViewModel, ObservableObject {
+final class PrimaryViewModelImplementation: PrimaryViewModel, ObservableObject {
     @Published var array: [Int] = []
     
     private let fetcher: DataFetcher
     private let validator: DataValidator
+    private let dataStateUpdater: DataStateUpdater
     
-    init(fetcher: DataFetcher, validator: DataValidator) {
+    init(
+        fetcher: DataFetcher,
+        validator: DataValidator,
+        updater: DataStateUpdater
+    ) {
         self.fetcher = fetcher
         self.validator = validator
+        self.dataStateUpdater = updater
     }
     
     func refreshData() async {
@@ -31,12 +39,8 @@ final class ContentViewModelImplementation: ContentViewModel, ObservableObject {
         let filteredData = validator.pickValidItems(from: rawData)
         self.array = filteredData
     }
-}
-
-final class ContentViewModelMock: ContentViewModel, ObservableObject {
-    @Published var array: [Int] = [2, 4, 6, 8]
     
-    func refreshData() async {
-        // no-op
+    func confirmData() {
+        dataStateUpdater.setDataState(confirmed: true)
     }
 }
