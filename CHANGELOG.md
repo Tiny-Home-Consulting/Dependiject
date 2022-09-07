@@ -23,5 +23,5 @@ formatting guidelines.
 
 Initial release.
 
-[Keep a Changelog]: https://keepachangelog.com/en/1.0.0/
+[Keep a Changelog]: https://keepachangelog.com/en
 [0.1.0]: https://github.com/Tiny-Home-Consulting/Dependiject/tree/0.1.0
