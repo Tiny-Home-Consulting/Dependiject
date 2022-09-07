@@ -14,17 +14,14 @@ import Combine
 // - Subject from ObservedObject.Wrapper.subscript<Subject>(dynamicMember:)
 // - S from Publisher.receive<S>(on:options:)
 
-/// A property wrapper similar to SwiftUI's
+/// A property wrapper used to wrap injected observable objects.
+///
+/// This is similar to SwiftUI's
 /// [`StateObject`](https://developer.apple.com/documentation/swiftui/stateobject), but without
-/// compile-time type restrictions.
+/// compile-time type restrictions. The lack of compile-time restrictions means that `ObjectType`
+/// may be a protocol rather than a class.
 ///
-/// Use this property wrapper to wrap observables which are injected. Unlike `StateObject`, this
-/// does not have any constraints at compile-time, which allows the wrapped type to be a protocol.
-///
-/// - Important: At runtime, the wrapped value must conform to `AnyObservableObject`. Though not
-/// enforced at compile-time, this is enforced at runtime.
-///
-/// Injected objects which are not observable do not need to be given a property wrapper.
+/// - Important: At runtime, the wrapped value must conform to ``AnyObservableObject``.
 ///
 /// To pass properties of the observable object down the view hierarchy as bindings, use the
 /// projected value:
@@ -37,6 +34,8 @@ import Combine
 ///     }
 /// }
 /// ```
+/// Not all injected objects need this property wrapper. See the example projects for examples each
+/// way.
 @propertyWrapper
 public struct Store<ObjectType> {
     /// The underlying object being stored.
@@ -63,8 +62,7 @@ public struct Store<ObjectType> {
     
     /// Create a stored value on a custom scheduler.
     ///
-    /// Use this init when it is not desirable to always present updates on the main thread. This
-    /// should not be necessary within a view.
+    /// Use this init to schedule updates on a specific scheduler other than `RunLoop.main`.
     ///
     /// - Note: When using this property wrapper within a view, you should always use
     /// ``init(wrappedValue:)``.
@@ -88,7 +86,7 @@ public struct Store<ObjectType> {
         }
     }
     
-    /// Create a value that is stored on the main thread.
+    /// Create a stored value which publishes on the main thread.
     ///
     /// To control when updates are published, see ``init(wrappedValue:on:schedulerOptions:)``.
     public init(wrappedValue: ObjectType) {
