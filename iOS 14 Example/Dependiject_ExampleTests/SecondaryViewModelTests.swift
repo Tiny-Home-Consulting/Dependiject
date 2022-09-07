@@ -23,6 +23,6 @@ class SecondaryViewModelTests: XCTestCase {
     
     func testResetData() {
         sut.resetData()
-        verify(mockDataStateManager.setDataState(confirmed: false)).wasCalled(1)
+        verify(mockDataStateManager.setDataState(confirmed: false)).wasCalled(once)
     }
 }

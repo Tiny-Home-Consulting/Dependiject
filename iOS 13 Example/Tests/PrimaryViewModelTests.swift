@@ -60,7 +60,7 @@ class PrimaryViewModelTests: XCTestCase {
         await sut.refreshData()
         
         verify(await mockFetcher.getData()).wasCalled(1)
-        verify(mockValidator.pickValidItems(from: any())).wasCalled(1)
+        verify(mockValidator.pickValidItems(from: any())).wasCalled(once)
         
         XCTAssertEqual(sut.array, [1, 2, 3, 4, 5, 6])
     }
@@ -70,6 +70,6 @@ class PrimaryViewModelTests: XCTestCase {
         
         sut.confirmData()
         
-        verify(mockDataStateManager.setDataState(confirmed: true)).wasCalled(1)
+        verify(mockDataStateManager.setDataState(confirmed: true)).wasCalled(once)
     }
 }
