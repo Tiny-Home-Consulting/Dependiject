@@ -14,6 +14,7 @@ formatting guidelines.
 
 ### Added
 
+- The podspec now includes a documentation URL.
 - Added documentation for `@Store`.
 - Examples for testing `AnyObservableObject` in both example projects.
 - Added automated tests.

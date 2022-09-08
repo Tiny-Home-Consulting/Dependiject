@@ -19,6 +19,7 @@ Pod::Spec.new do |s|
                          'Wesley Boyd' => 'u4qr@protonmail.com' }
   s.source           = { :git => 'https://github.com/Tiny-Home-Consulting/Dependiject.git', :tag => s.version }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+  s.documentation_url = 'https://dependiject.tinyhomeconsultingllc.com/documentation/'
 
   s.ios.deployment_target = '13.0'
   s.osx.deployment_target = '10.15'

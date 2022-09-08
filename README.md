@@ -85,7 +85,7 @@ platforms that support SwiftUI.
 To install the library with CocoaPods requires version 1.10.0 or later, but we recommend using
 version 1.11.0 or later.
 
-To view the documentation in-browser (see [Documentation][4] below) requires CocoaPods 1.11.3 and
+To host the documentation locally (see [Documentation][4] below) requires CocoaPods 1.11.3 and
 NodeJS 12.0.0 or later, and expects yarn to be installed globally.
 
 ## Installation
@@ -119,9 +119,10 @@ There are two examples provided:
 
 All documentation is provided via inline doc comments that can be parsed by Xcode.
 
-To view the documentation in a browser, run `./dochost.sh`. By default, it will search for an
-available port to open on, but the port can be set by the environment variable `DOC_PORT`. For
-example, to run it on port 3000, type:  
+The documentation is hosted at <https://dependiject.tinyhomeconsultingllc.com/documentation/>. To
+host it locally, run `./dochost.sh`. By default, it will search for an available port to open on,
+but the port can be set by the environment variable `DOC_PORT`. For example, to run it on port 3000,
+type:  
 `DOC_PORT=3000 ./dochost.sh`  
 Attempting to run on port 0 will result in the default behavior.
 
