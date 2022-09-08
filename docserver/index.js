@@ -23,7 +23,7 @@ const basePath = path.join(
             }
         },
         host: 'localhost',
-        port: 3000
+        port: process.env.DOC_PORT || 0
     });
 
     await server.register(inert);

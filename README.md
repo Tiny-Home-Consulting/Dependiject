@@ -119,7 +119,11 @@ There are two examples provided:
 
 All documentation is provided via inline doc comments that can be parsed by Xcode.
 
-To view the documentation in a browser, run `./dochost.sh`.
+To view the documentation in a browser, run `./dochost.sh`. By default, it will search for an
+available port to open on, but the port can be set by the environment variable `DOC_PORT`. For
+example, to run it on port 3000, type:  
+`DOC_PORT=3000 ./dochost.sh`  
+Attempting to run on port 0 will result in the default behavior.
 
 ## Automated Tests
 

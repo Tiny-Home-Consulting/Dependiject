@@ -7,6 +7,7 @@ formatting guidelines.
 
 ### Changed
 
+- The documentation can be run on any port when hosted locally, rather than always using port 3000.
 - `MultitypeService` no longer exposes the implementation type by default. It may still be exposed
   explicitly.
 - `@Store` now publishes changes on `RunLoop.main` by default, rather than immediately.
