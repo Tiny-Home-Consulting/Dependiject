@@ -40,21 +40,21 @@ labels:
     Replace the entries in the table below with the actual versions you're using.
 -->
 
-| Software    |  Version   |
-|:------------|:-----------|
-| macOS       | `v12.3.1`  |
-| Xcode       | `v13.3.1`  |
-| Dependiject | `v0.1.0`   |
+| Software    | Version |
+|:------------|:--------|
+| macOS       | `x.y.z` |
+| Xcode       | `x.y.z` |
+| Dependiject | `x.y.z` |
 
 <!--
     If you're using CocoaPods, add the following line to the table:
-        | CocoaPods   | `v1.11.3`  |
+        | CocoaPods   | `x.y.z` |
 -->
 
 <!--
     If the problem pertains to the documentation server, add the following lines to the table:
-        | NodeJS      | `v16.15.0` |
-        | yarn        | `v1.22.18` |
+        | NodeJS      | `x.y.z` |
+        | yarn        | `x.y.z` |
 -->
 
 [1]: https://github.com/Tiny-Home-Consulting/Dependiject/issues?q=is%3Aissue
