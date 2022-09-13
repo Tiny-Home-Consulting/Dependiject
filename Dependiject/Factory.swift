@@ -24,7 +24,7 @@ public enum ErrorCheckMode {
     case always
 }
 
-/// The options struct used by the ``Factory`` for sanity checks.
+/// The options struct used by the ``Factory`` to configure error checks.
 public struct ResolutionOptions {
     /// The mode used to check for errors.
     public var mode: ErrorCheckMode
