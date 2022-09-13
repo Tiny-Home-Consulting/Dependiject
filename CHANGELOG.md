@@ -14,6 +14,7 @@ formatting guidelines.
 
 ### Added
 
+- The factory can now check for circular dependencies. This is enabled by default in debug builds.
 - The podspec now includes a documentation URL.
 - Added documentation for `@Store`.
 - Examples for testing `AnyObservableObject` in both example projects.
