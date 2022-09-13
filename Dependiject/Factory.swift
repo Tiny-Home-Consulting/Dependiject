@@ -8,8 +8,8 @@
 
 /// When to check for errors.
 ///
-/// This is used by the ``Factory`` to determine whether to error if the calls to ``Resolver/resolve(_:name:)`` exceed a
-/// certain depth.
+/// This is used by the ``Factory`` to determine whether to error if the calls to
+/// ``Resolver/resolve(_:name:)`` exceed a certain depth.
 public enum ErrorCheckMode {
     /// Never perform any error checking.
     case never
