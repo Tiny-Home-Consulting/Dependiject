@@ -23,14 +23,23 @@ struct PrimaryView: View {
             
             Divider()
             
-            List(viewModel.array, id: \.self) {
-                Text("\($0)")
+            // If there's not enough items to fill the whole area, the background will be colored
+            // UIColor.systemGroupedBackground. Starting in iOS 16, however, this does not happen
+            // for a list that is completely empty.
+            if #available(iOS 16, *),
+               viewModel.array.isEmpty {
+                Color(UIColor.systemGroupedBackground)
+            } else {
+                List(viewModel.array, id: \.self) {
+                    Text("\($0)")
+                }
+                .listStyle(.grouped)
             }
-            .listStyle(.grouped)
             
             Button("Confirm Data") {
                 viewModel.confirmData()
             }
+            .padding()
         }
     }
 }
