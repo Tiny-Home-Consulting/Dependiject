@@ -5,7 +5,7 @@ formatting guidelines.
 
 ## Unreleased
 
-## [0.2.0] - 2022-09-09
+## [0.2.0] - 2022-09-14
 
 ### Changed
 
