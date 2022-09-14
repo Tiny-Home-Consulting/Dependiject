@@ -5,6 +5,8 @@ formatting guidelines.
 
 ## Unreleased
 
+## [0.2.0] - 2022-09-09
+
 ### Changed
 
 - The documentation can be run on any port when hosted locally, rather than always using port 3000.
@@ -27,3 +29,4 @@ Initial release.
 
 [Keep a Changelog]: https://keepachangelog.com/en
 [0.1.0]: https://github.com/Tiny-Home-Consulting/Dependiject/tree/0.1.0
+[0.2.0]: https://github.com/Tiny-Home-Consulting/Dependiject/tree/0.2.0

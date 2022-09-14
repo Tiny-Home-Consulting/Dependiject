@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Dependiject'
-  s.version          = '0.1.0'
+  s.version          = '0.2.0'
   s.summary          = 'Dependiject provides simple and flexible dependency injection for testability and inversion of control in SwiftUI apps.'
 
   s.homepage         = 'https://github.com/Tiny-Home-Consulting/Dependiject'
