@@ -29,6 +29,12 @@ fileprivate class TestObservable: ObservableObject, AnyObservableObject {
 }
 
 class StoreTests: XCTestCase {
+    override func setUp() {
+        super.setUp()
+        
+        self.continueAfterFailure = false
+    }
+    
     func test_projectedValue_bindsWrappedValue() {
         // This test does not subscribe to the publisher, so the scheduler used doesn't matter.
         @Store var observable = TestObservable()
