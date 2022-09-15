@@ -41,7 +41,7 @@ public struct Store<ObjectType> {
     /// The underlying object being stored.
     public let wrappedValue: ObjectType
     
-    @ObservedObject private var observableObject: ErasedObservableObject
+    @ObservedObject internal var observableObject: ErasedObservableObject
     
     /// A projected value which has the same properties as the wrapped value, but presented as
     /// bindings.
