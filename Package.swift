@@ -15,6 +15,12 @@ let package = Package(
             targets: ["Dependiject"]
         )
     ],
+    dependencies: [
+        .package(
+            url: "https://github.com/tcldr/Entwine.git",
+            .upToNextMajor(from: "0.9.1")
+        )
+    ],
     targets: [
         .target(
             name: "Dependiject",
@@ -27,7 +33,8 @@ let package = Package(
         .testTarget(
             name: "DependijectTests",
             dependencies: [
-                .target(name: "Dependiject")
+                .target(name: "Dependiject"),
+                .product(name: "EntwineTest", package: "Entwine")
             ],
             path: "Tests"
         )

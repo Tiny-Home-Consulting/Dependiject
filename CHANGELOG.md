@@ -5,6 +5,10 @@ formatting guidelines.
 
 ## Unreleased
 
+### Added
+
+- Added automated tests for `@Store`.
+
 ## [0.2.0] - 2022-09-14
 
 ### Changed
