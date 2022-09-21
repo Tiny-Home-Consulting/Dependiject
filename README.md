@@ -128,8 +128,8 @@ Attempting to run on port 0 will result in the default behavior.
 
 ## Automated Tests
 
-To run the automated tests, simply run the command `swift test` in the terminal. The tests can also
-be run in Xcode.
+To run the automated tests, simply run the command `./runtests.sh` in the terminal. The tests can
+also be run in Xcode.
 
 ## License
 
