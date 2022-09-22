@@ -7,6 +7,8 @@
 #  Copyright (c) 2022 Tiny Home Consulting LLC. All rights reserved.
 #
 
+set -eo pipefail
+
 # Get the simulator list and pick a device.
 # The xcrun command gives a formatted list of simulators, with different OS's separated by headings
 # that start with '--'. The grep command removes these headings.
@@ -15,8 +17,6 @@
 # Finally, parse out the device's id (a capitalized, hyphenated UUID) using a regex.
 device=$(xcrun simctl list devices iPhone available | grep -v -- -- | tail -n 1)
 deviceId=$(node -p "/[0-9A-F]{8}-([0-9A-F]{4}-){3}[0-9A-F]{12}/u.exec('$device')[0]")
-
-set -e
 
 swift test
 
