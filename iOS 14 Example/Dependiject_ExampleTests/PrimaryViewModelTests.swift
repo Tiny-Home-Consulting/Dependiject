@@ -36,17 +36,14 @@ class PrimaryViewModelTests: XCTestCase {
          */
         
         Factory.register {
-            Service(.transient, DataFetcher.self) { _ in
-                self.mockFetcher
-            }
+            Service(constant: self.mockFetcher, DataFetcher.self)
             
-            Service(.transient, DataValidator.self) { _ in
-                self.mockValidator
-            }
+            Service(constant: self.mockValidator, DataValidator.self)
             
-            MultitypeService(exposedAs: [DataStateAccessor.self, DataStateUpdater.self]) { _ in
+            MultitypeService(
+                exposedAs: [DataStateAccessor.self, DataStateUpdater.self],
                 self.mockDataStateManager
-            }
+            )
         }
         
         sut = PrimaryViewModelImplementation(

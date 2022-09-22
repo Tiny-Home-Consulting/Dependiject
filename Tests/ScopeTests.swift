@@ -150,4 +150,43 @@ class ScopeTests: XCTestCase {
         // check that it can be retrieved
         _ = Factory.shared.resolve(Int.self)
     }
+    
+    /// Test that `Service(constant:_:_:)` grabs the object eagerly but only once.
+    func test_constant_isEager() {
+        // set up the dependency container
+        Factory.register {
+            Service(constant: ConstructorCounter(), ConstructorCounter.self)
+        }
+        
+        // Syntactically, that looks like it already called the init, but that's not necessarily
+        // given (e.g. `@autoclosure`).
+        XCTAssertEqual(
+            ConstructorCounter.count,
+            1,
+            "Expected 1 constant instance but found \(ConstructorCounter.count)"
+        )
+        
+        // grab the instance more than once
+        _ = Factory.shared.resolve(ConstructorCounter.self)
+        _ = Factory.shared.resolve(ConstructorCounter.self)
+        _ = Factory.shared.resolve(ConstructorCounter.self)
+        
+        // assert that only one was created
+        XCTAssertEqual(
+            ConstructorCounter.count,
+            1,
+            "Expected 1 constant instance but saw \(ConstructorCounter.count)"
+        )
+    }
+    
+    /// Test that `Service(constant:_:_:)` allows value types.
+    func test_constant_allowsStructs() {
+        // set up the dependency container
+        Factory.register {
+            Service(constant: 1, Int.self)
+        }
+        
+        // check that it can be retrieved
+        _ = Factory.shared.resolve(Int.self)
+    }
 }

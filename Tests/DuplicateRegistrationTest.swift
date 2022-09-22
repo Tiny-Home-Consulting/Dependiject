@@ -20,16 +20,16 @@ class DuplicateRegistrationTest: XCTestCase {
     func test_duplicateRegistration_laterOverridesEarlier() {
         // set up the dependency container more than once
         Factory.register {
-            Service(.transient, String.self) { _ in "earlier" }
+            Service(constant: "earlier", String.self)
         }
         
         Factory.register {
-            Service(.transient, Int.self) { _ in 1 }
-            Service(.transient, Int.self) { _ in 2 }
+            Service(constant: 1, Int.self)
+            Service(constant: 2, Int.self)
         }
         
         Factory.register {
-            Service(.transient, String.self) { _ in "later" }
+            Service(constant: "later", String.self)
         }
         
         // check that only the latter of each type is retrievable
