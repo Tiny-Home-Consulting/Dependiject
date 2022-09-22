@@ -5,6 +5,10 @@ formatting guidelines.
 
 ## Unreleased
 
+### Fixed
+
+- The example projects now look the same when run on iOS 16 as on earlier versions.
+
 ### Added
 
 - Added automated tests for `@Store`.
