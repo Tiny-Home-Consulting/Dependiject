@@ -18,7 +18,11 @@ set -eo pipefail
 device=$(xcrun simctl list devices iPhone available | grep -v -- -- | tail -n 1)
 deviceId=$(node -p "/[0-9A-F]{8}-([0-9A-F]{4}-){3}[0-9A-F]{12}/u.exec('$device')[0]")
 
-swift test
+swift test || {
+    exitCode=$?
+    printf '\n\e[1;31m** TEST FAILED **\e[m\n\n'
+    return $exitCode
+}
 
 cd "iOS 13 Example"
 pod install
