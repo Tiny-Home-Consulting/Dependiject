@@ -5,6 +5,14 @@ formatting guidelines.
 
 ## Unreleased
 
+### Breaking
+
+- Now requires Swift 5.6 (Xcode 13.3) or later.
+
+### Changed
+
+- The factory is now completely thread-safe.
+
 ### Fixed
 
 - The example projects now look the same when run on iOS 16 as on earlier versions.

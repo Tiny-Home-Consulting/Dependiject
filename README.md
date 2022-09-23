@@ -79,7 +79,7 @@ struct SomeView: View {
 
 ## Requirements
 
-To use this library requires Xcode 12.5 / Swift 5.4 or later. Dependiject is supported for all
+To use this library requires Xcode 13.3 / Swift 5.6 or later. Dependiject is supported for all
 platforms that support SwiftUI.
 
 To install the library with CocoaPods requires version 1.10.0 or later, but we recommend using
@@ -138,7 +138,7 @@ also be run in Xcode.
 
 Dependiject is released under the MPL-2.0 license. See [LICENSE][7] for details.
 
-[1]: https://img.shields.io/badge/swift-~%3E%205.4-orange
+[1]: https://img.shields.io/badge/swift-~%3E%205.6-orange
 [2]: https://img.shields.io/cocoapods/l/Dependiject?color=blue
 [3]: https://img.shields.io/cocoapods/p/Dependiject?color=yellowgreen
 [4]: #documentation
