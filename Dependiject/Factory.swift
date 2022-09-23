@@ -9,7 +9,7 @@
 /// When to check for errors.
 ///
 /// This is used by the ``Factory`` to determine whether to error if the calls to
-/// ``Resolver/resolve(_:name:)`` exceed a certain depth.
+/// ``Factory/resolve(_:name:)-6pyni`` exceed a certain depth.
 public enum ErrorCheckMode {
     /// Never perform any error checking.
     case never
@@ -122,6 +122,9 @@ public class Factory: Resolver {
     /// It is also possible to use a sequence of registration-convertible objects, such as a
     /// `[Registration]`, as a top-level expression. For an example of this, see
     /// ``MultitypeService``.
+    ///
+    /// - Important: This function is not thread-safe. Ensure you do not call it concurrently from
+    /// multiple threads.
     public static func register(@RegistrationBuilder builder: () -> [Registration]) {
         self.shared.registrations += builder()
     }

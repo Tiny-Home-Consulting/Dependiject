@@ -11,6 +11,8 @@ formatting guidelines.
 
 ### Added
 
+- Added a thread-safe overload for `resolve(_:name:)`, and documented other functions as not
+  thread-safe.
 - Added a script to run all tests, including for the example projects.
 - Added automated tests for `@Store`.
 

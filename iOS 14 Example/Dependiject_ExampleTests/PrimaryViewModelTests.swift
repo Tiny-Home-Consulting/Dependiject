@@ -50,9 +50,9 @@ class PrimaryViewModelTests: XCTestCase {
         }
         
         sut = PrimaryViewModelImplementation(
-            fetcher: Factory.shared.resolve(),
-            validator: Factory.shared.resolve(),
-            updater: Factory.shared.resolve()
+            fetcher: await Factory.shared.resolve(),
+            validator: await Factory.shared.resolve(),
+            updater: await Factory.shared.resolve()
         )
     }
     
