@@ -36,18 +36,19 @@
 /// ```
 public struct MultitypeService<T: AnyObject> {
     fileprivate let exposedTypes: [Any.Type]
-    fileprivate let callback: (Resolver) -> T
+    fileprivate let callback: @MainActor (Resolver) -> T
     
     /// Create a registration exposed under multiple protocols.
     /// - Parameters:
     ///   - types: The types under which the object should be exposed.
-    ///   - callback: The callback to use to create the shared instance of the dependency.
+    ///   - callback: The callback to use to create the shared instance of the dependency. This
+    ///   closure will always run on the main thread.
     /// - Important: The return type of the callback must be a subtype of every member of the
     /// `types` array. If this is not the case, attempting to resolve the instance will result in a
     /// fatal error.
     public init(
         exposedAs types: [Any.Type],
-        callback: @escaping (Resolver) -> T
+        callback: @MainActor @escaping (Resolver) -> T
     ) {
         self.exposedTypes = types
         self.callback = callback

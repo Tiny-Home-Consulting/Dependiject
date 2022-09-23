@@ -18,7 +18,7 @@
 ///         return service.registration
 ///     }
 ///
-///     init<T>(_ type: T.Type, _ callback: @escaping (Resolver) -> T) {
+///     init<T>(_ type: T.Type, _ callback: @MainActor @escaping (Resolver) -> T) {
 ///         self.service = Service(.singleton, type, callback)
 ///     }
 /// }
@@ -77,12 +77,12 @@ public struct Service: RegistrationConvertible {
     ///   necessary when registering two different services of the same type.
     ///   - callback: How to retrieve or create an instance of the specified type. Takes one
     ///   argument, a `Resolver`, used for any further dependencies required for the creation of the
-    ///   object.
+    ///   object. This closure will always run on the main thread.
     public init<T>(
         _ scope: Scope,
         _ type: T.Type,
         _ name: String? = nil,
-        _ callback: @escaping (Resolver) -> T
+        _ callback: @MainActor @escaping (Resolver) -> T
     ) {
         switch scope {
         case .transient:

@@ -6,10 +6,12 @@
 //  Copyright (c) 2022 Tiny Home Consulting LLC. All rights reserved.
 //
 
+import Foundation
+
 /// When to check for errors.
 ///
 /// This is used by the ``Factory`` to determine whether to error if the calls to
-/// ``Resolver/resolve(_:name:)`` exceed a certain depth.
+/// ``Factory/resolve(_:name:)`` exceed a certain depth.
 public enum ErrorCheckMode {
     /// Never perform any error checking.
     case never
@@ -53,27 +55,8 @@ public struct ResolutionOptions {
     }
 }
 
-internal func enforceCondition(
-    _ mode: ErrorCheckMode,
-    _ condition: @autoclosure () -> Bool,
-    _ message: @autoclosure () -> String,
-    file: StaticString = #file,
-    line: UInt = #line
-) {
-    switch mode {
-    case .never:
-        return
-    case .debugOnly:
-        assert(condition(), message(), file: file, line: line)
-    case .always:
-        if !condition() {
-            fatalError(message(), file: file, line: line)
-        }
-    }
-}
-
 /// The class to which you register dependencies.
-public class Factory: Resolver {
+public final class Factory: Resolver, @unchecked Sendable {
     private var registrations: [Registration] = []
     private var resolutionDepth: UInt = 0
     
@@ -84,6 +67,9 @@ public class Factory: Resolver {
     ///
     /// The default value is `(mode: .debugOnly, maxDepth: 100)`.
     public static var options: ResolutionOptions = .init(mode: .debugOnly, maxDepth: 100)
+    
+    /// The lock used to prevent simultaneous calls to ``register(builder:)``.
+    private static var lock = NSLock()
     
     private init() {
     }
@@ -122,8 +108,13 @@ public class Factory: Resolver {
     /// It is also possible to use a sequence of registration-convertible objects, such as a
     /// `[Registration]`, as a top-level expression. For an example of this, see
     /// ``MultitypeService``.
+    ///
+    /// This method should always be called from the same thread. If this is simultaneously called
+    /// from two separate threads, one will block until the other finishes.
     public static func register(@RegistrationBuilder builder: () -> [Registration]) {
+        lock.lock()
         self.shared.registrations += builder()
+        lock.unlock()
     }
     
     public func resolve<T>(_ type: T.Type, name: String?) -> T {
@@ -134,23 +125,25 @@ public class Factory: Resolver {
             )
         }
         
-        resolutionDepth += 1
-        enforceCondition(
-            Self.options.mode,
-            resolutionDepth < Self.options.maxDepth,
-            """
-            Error: resolution depth exceeded maximum expected value (resolving \(
-                type
-            ) with name \(
-                name?.debugDescription ?? "nil"
-            ))
-            """
-        )
-        defer {
-            resolutionDepth -= 1
-        }
-        
-        return registrations[index].resolve(self) as! T
+        return Util.runOnMainThreadAndWait {
+            resolutionDepth += 1
+            Util.enforceCondition(
+                Self.options.mode,
+                resolutionDepth < Self.options.maxDepth,
+                """
+                Error: resolution depth exceeded maximum expected value (resolving \(
+                    type
+                ) with name \(
+                    name?.debugDescription ?? "nil"
+                ))
+                """
+            )
+            defer {
+                resolutionDepth -= 1
+            }
+            
+            return registrations[index].resolve(self)
+        } as! T
     }
     
     /// Get the index within `registrations` where the specified type and name are registered.

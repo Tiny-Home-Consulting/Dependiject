@@ -27,9 +27,9 @@ Pod::Spec.new do |s|
   s.tvos.deployment_target = '13.0'
 
   s.cocoapods_version = '~> 1.10'
-  s.swift_versions = '5.4'
+  s.swift_versions = '5.6'
   s.source_files = 'Dependiject/**/*.swift'
 
-  s.frameworks = 'SwiftUI', 'Combine'
+  s.frameworks = 'SwiftUI', 'Combine', 'Foundation'
   # s.dependency 'AFNetworking', '~> 2.3'
 end

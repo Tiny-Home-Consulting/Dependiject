@@ -1,4 +1,4 @@
-// swift-tools-version:5.4
+// swift-tools-version:5.6
 import PackageDescription
 
 let package = Package(
@@ -27,7 +27,8 @@ let package = Package(
             path: "Dependiject",
             linkerSettings: [
                 .linkedFramework("SwiftUI"),
-                .linkedFramework("Combine")
+                .linkedFramework("Combine"),
+                .linkedFramework("Foundation")
             ]
         ),
         .testTarget(
