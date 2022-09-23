@@ -69,7 +69,7 @@ public final class Factory: Resolver, @unchecked Sendable {
     public static var options: ResolutionOptions = .init(mode: .debugOnly, maxDepth: 100)
     
     /// The lock used to prevent simultaneous calls to ``register(builder:)``.
-    private static var lock = NSLock()
+    private static var lock = NSRecursiveLock()
     
     private init() {
     }

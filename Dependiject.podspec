@@ -30,6 +30,6 @@ Pod::Spec.new do |s|
   s.swift_versions = '5.6'
   s.source_files = 'Dependiject/**/*.swift'
 
-  s.frameworks = 'SwiftUI', 'Combine', 'Foundation'
+  s.frameworks = 'SwiftUI', 'Combine'
   # s.dependency 'AFNetworking', '~> 2.3'
 end

@@ -27,8 +27,7 @@ let package = Package(
             path: "Dependiject",
             linkerSettings: [
                 .linkedFramework("SwiftUI"),
-                .linkedFramework("Combine"),
-                .linkedFramework("Foundation")
+                .linkedFramework("Combine")
             ]
         ),
         .testTarget(
