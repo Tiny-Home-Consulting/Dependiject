@@ -11,6 +11,7 @@ formatting guidelines.
 
 ### Added
 
+- Added a script to run all tests, including for the example projects.
 - Added automated tests for `@Store`.
 
 ## [0.2.0] - 2022-09-14

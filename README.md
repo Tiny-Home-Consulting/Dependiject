@@ -85,8 +85,11 @@ platforms that support SwiftUI.
 To install the library with CocoaPods requires version 1.10.0 or later, but we recommend using
 version 1.11.0 or later.
 
+To run the tests from the command line (see [Automated Tests][9] below) requires CocoaPods 1.11.3
+and NodeJS 6 or later.
+
 To host the documentation locally (see [Documentation][4] below) requires CocoaPods 1.11.3 and
-NodeJS 12.0.0 or later, and expects yarn to be installed globally.
+NodeJS 12 or later, and expects yarn to be installed globally.
 
 ## Installation
 
@@ -128,8 +131,8 @@ Attempting to run on port 0 will result in the default behavior.
 
 ## Automated Tests
 
-To run the automated tests, simply run the command `swift test` in the terminal. The tests can also
-be run in Xcode.
+To run the automated tests, simply run the command `./runtests.sh` in the terminal. The tests can
+also be run in Xcode.
 
 ## License
 
@@ -143,3 +146,4 @@ Dependiject is released under the MPL-2.0 license. See [LICENSE][7] for details.
 [6]: ./iOS%2014%20Example/
 [7]: ./LICENSE
 [8]: https://img.shields.io/cocoapods/v/Dependiject
+[9]: #automated-tests

@@ -319,7 +319,7 @@
 			);
 			name = "Generate Mockingbird Mocks";
 			outputPaths = (
-				"$(SRCROOT)/MockingbirdMocks/swiftdi_Tests-swiftdi_ExampleMocks.generated.swift",
+				"$(SRCROOT)/MockingbirdMocks/Dependiject_Tests-Dependiject_ExampleMocks.generated.swift",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
