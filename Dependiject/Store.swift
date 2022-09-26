@@ -41,7 +41,19 @@ public struct Store<ObjectType> {
     /// The underlying object being stored.
     public let wrappedValue: ObjectType
     
-    @ObservedObject internal var observableObject: ErasedObservableObject
+    // ObservedObject's wrappedValue is marked @MainActor. When using property wrapper syntax with
+    // ObservedObject, as this did originally:
+    //
+    //     @ObservedObject internal var observableObject: ErasedObservableObject
+    //
+    // the entire thing is implicitly @MainActor. However, in order for the conformance to
+    // DynamicProperty to be correct, _observableObject may not be actor-isolated. Hence, for
+    // maximal correctness, this needs to be spelled out in full.
+    fileprivate var _observableObject: ObservedObject<ErasedObservableObject>
+    
+    @MainActor internal var observableObject: ErasedObservableObject {
+        return _observableObject.wrappedValue
+    }
     
     /// A projected value which has the same properties as the wrapped value, but presented as
     /// bindings.
@@ -56,7 +68,7 @@ public struct Store<ObjectType> {
     ///     }
     /// }
     /// ```
-    public var projectedValue: Wrapper {
+    @MainActor public var projectedValue: Wrapper {
         return Wrapper(self)
     }
     
@@ -77,12 +89,12 @@ public struct Store<ObjectType> {
             let objectWillChange = observable.objectWillChange
                 .receive(on: scheduler, options: schedulerOptions)
                 .eraseToAnyPublisher()
-            self.observableObject = .init(objectWillChange: objectWillChange)
+            self._observableObject = .init(initialValue: .init(objectWillChange: objectWillChange))
         } else {
             assertionFailure(
                 "Only use the Store property wrapper with objects conforming to AnyObservableObject."
             )
-            self.observableObject = .empty()
+            self._observableObject = .init(initialValue: .empty())
         }
     }
     
@@ -93,11 +105,13 @@ public struct Store<ObjectType> {
         self.init(wrappedValue: wrappedValue, on: RunLoop.main)
     }
     
+    // This is the intended use of `@preconcurrency`. 
     /// An equivalent to SwiftUI's
     /// [`ObservedObject.Wrapper`](https://developer.apple.com/documentation/swiftui/observedobject/wrapper)
     /// type.
     @dynamicMemberLookup
-    public struct Wrapper {
+    @preconcurrency
+    @MainActor public struct Wrapper {
         private var store: Store
         
         internal init(_ store: Store<ObjectType>) {
