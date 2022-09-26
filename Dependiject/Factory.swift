@@ -66,16 +66,7 @@ public final class Factory: Resolver, @unchecked Sendable {
     /// The options used to check for circular dependencies.
     ///
     /// The default value is `(mode: .debugOnly, maxDepth: 100)`.
-    public static var options: ResolutionOptions {
-        get {
-            return Util.runOnMainThreadAndWait { _options }
-        }
-        set {
-            Util.runOnMainThreadAsync { _options = newValue }
-        }
-    }
-    
-    @MainActor private static var _options = ResolutionOptions(mode: .debugOnly, maxDepth: 100)
+    @MainActor public static var options = ResolutionOptions(mode: .debugOnly, maxDepth: 100)
     
     /// The lock used to prevent simultaneous calls to ``register(builder:)``.
     private static let lock = NSRecursiveLock()
@@ -137,8 +128,8 @@ public final class Factory: Resolver, @unchecked Sendable {
         return Util.runOnMainThreadAndWait {
             resolutionDepth += 1
             Util.enforceCondition(
-                Self._options.mode,
-                resolutionDepth < Self._options.maxDepth,
+                Self.options.mode,
+                resolutionDepth < Self.options.maxDepth,
                 """
                 Error: resolution depth exceeded maximum expected value (resolving \(
                     type

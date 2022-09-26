@@ -1,5 +1,5 @@
 //
-//  Utils.swift
+//  Util.swift
 //  
 //  Created by William Baker on 09/23/2022.
 //  Copyright (c) 2022 Tiny Home Consulting LLC. All rights reserved.
@@ -40,17 +40,6 @@ internal enum Util {
             return try unsafeExecuteWithoutActorChecking(action)
         } else {
             return try DispatchQueue.main.sync(execute: action)
-        }
-    }
-    
-    /// If already on the main thread, execute the closure immediately. Otherwise, dispatch the
-    /// closure to the main thread asynchronously.
-    internal static func runOnMainThreadAsync(action: @MainActor @Sendable @escaping () -> Void) {
-        if Thread.isMainThread {
-            // same as above
-            unsafeExecuteWithoutActorChecking(action)
-        } else {
-            DispatchQueue.main.async(execute: action)
         }
     }
     
