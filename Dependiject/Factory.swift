@@ -123,7 +123,7 @@ public class Factory: Resolver {
     /// `[Registration]`, as a top-level expression. For an example of this, see
     /// ``MultitypeService``.
     ///
-    /// - Important: This function is not thread-safe. Ensure you do not call it concurrently from
+    /// - Warning: This function is not thread-safe. Ensure you do not call it concurrently from
     /// multiple threads.
     public static func register(@RegistrationBuilder builder: () -> [Registration]) {
         self.shared.registrations += builder()
