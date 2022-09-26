@@ -28,7 +28,7 @@ internal enum Util {
     }
     
     internal static func runOnMainThreadAndWait<T>(
-        action: @MainActor () throws -> T
+        action: @MainActor @Sendable () throws -> T
     ) rethrows -> T {
         if Thread.isMainThread {
             /*
@@ -40,6 +40,17 @@ internal enum Util {
             return try unsafeExecuteWithoutActorChecking(action)
         } else {
             return try DispatchQueue.main.sync(execute: action)
+        }
+    }
+    
+    /// If already on the main thread, execute the closure immediately. Otherwise, dispatch the
+    /// closure to the main thread asynchronously.
+    internal static func runOnMainThreadAsync(action: @MainActor @Sendable @escaping () -> Void) {
+        if Thread.isMainThread {
+            // same as above
+            unsafeExecuteWithoutActorChecking(action)
+        } else {
+            DispatchQueue.main.async(execute: action)
         }
     }
     

@@ -12,7 +12,7 @@ import Foundation
 ///
 /// This is used by the ``Factory`` to determine whether to error if the calls to
 /// ``Factory/resolve(_:name:)`` exceed a certain depth.
-public enum ErrorCheckMode {
+public enum ErrorCheckMode: Sendable {
     /// Never perform any error checking.
     case never
     /// Error check using
@@ -27,7 +27,7 @@ public enum ErrorCheckMode {
 }
 
 /// The options struct used by the ``Factory`` to configure error checks.
-public struct ResolutionOptions {
+public struct ResolutionOptions: Sendable {
     /// The mode used to check for errors.
     public var mode: ErrorCheckMode
     /// The maximum depth of the dependency tree.
@@ -66,10 +66,19 @@ public final class Factory: Resolver, @unchecked Sendable {
     /// The options used to check for circular dependencies.
     ///
     /// The default value is `(mode: .debugOnly, maxDepth: 100)`.
-    public static var options: ResolutionOptions = .init(mode: .debugOnly, maxDepth: 100)
+    public static var options: ResolutionOptions {
+        get {
+            return Util.runOnMainThreadAndWait { _options }
+        }
+        set {
+            Util.runOnMainThreadAsync { _options = newValue }
+        }
+    }
+    
+    @MainActor private static var _options = ResolutionOptions(mode: .debugOnly, maxDepth: 100)
     
     /// The lock used to prevent simultaneous calls to ``register(builder:)``.
-    private static var lock = NSRecursiveLock()
+    private static let lock = NSRecursiveLock()
     
     private init() {
     }
@@ -128,8 +137,8 @@ public final class Factory: Resolver, @unchecked Sendable {
         return Util.runOnMainThreadAndWait {
             resolutionDepth += 1
             Util.enforceCondition(
-                Self.options.mode,
-                resolutionDepth < Self.options.maxDepth,
+                Self._options.mode,
+                resolutionDepth < Self._options.maxDepth,
                 """
                 Error: resolution depth exceeded maximum expected value (resolving \(
                     type
