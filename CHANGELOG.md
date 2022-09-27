@@ -5,6 +5,14 @@ formatting guidelines.
 
 ## Unreleased
 
+### Removed
+
+- Dropped support for Swift &lt; 5.5 (Xcode &lt; 13.2).
+
+### Fixed
+
+- The `@Store` property wrapper now follows Swift's concurrency rules.
+
 ### Added
 
 - Singletons which depend on weak services now trigger an assertion failure by default.
