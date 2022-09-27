@@ -6,6 +6,8 @@
 //  Copyright (c) 2022 Tiny Home Consulting LLC. All rights reserved.
 //
 
+import Foundation
+
 /// When to check for errors.
 ///
 /// This is used by the ``Factory`` to determine whether to error if the calls to
@@ -73,7 +75,8 @@ internal func enforceCondition(
 }
 
 /// The class to which you register dependencies.
-public class Factory: Resolver {
+public final class Factory: Resolver {
+    private let lock = NSRecursiveLock()
     private var registrations: [Registration] = []
     private var resolutionDepth: UInt = 0
     
@@ -123,10 +126,17 @@ public class Factory: Resolver {
     /// `[Registration]`, as a top-level expression. For an example of this, see
     /// ``MultitypeService``.
     public static func register(@RegistrationBuilder builder: () -> [Registration]) {
-        self.shared.registrations += builder()
+        shared.lock.lock()
+        shared.registrations += builder()
+        shared.lock.unlock()
     }
     
     public func resolve<T>(_ type: T.Type, name: String?) -> T {
+        lock.lock()
+        defer {
+            lock.unlock()
+        }
+        
         guard let index = getIndex(type: type, name: name) else {
             let nameToDisplay = name?.debugDescription ?? "nil"
             preconditionFailure(
@@ -135,9 +145,14 @@ public class Factory: Resolver {
         }
         
         resolutionDepth += 1
+        defer {
+            resolutionDepth -= 1
+        }
+        
+        let options = Self.options
         enforceCondition(
-            Self.options.mode,
-            resolutionDepth < Self.options.maxDepth,
+            options.mode,
+            resolutionDepth < options.maxDepth,
             """
             Error: resolution depth exceeded maximum expected value (resolving \(
                 type
@@ -146,9 +161,6 @@ public class Factory: Resolver {
             ))
             """
         )
-        defer {
-            resolutionDepth -= 1
-        }
         
         return registrations[index].resolve(self) as! T
     }
@@ -160,3 +172,9 @@ public class Factory: Resolver {
         }
     }
 }
+
+#if swift(>=5.5)
+extension Factory: @unchecked Sendable {
+}
+#endif
+
