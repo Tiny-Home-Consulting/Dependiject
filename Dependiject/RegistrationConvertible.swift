@@ -56,7 +56,7 @@ public enum Scope {
     case transient
     /// Create a lazy-loaded singleton, and re-use the same one for further requests.
     /// - Note: This scope is for singletons that are created by the callback. If the singleton is
-    /// created elsewhere and the callback only accesses it, ``transient`` is more memory-efficient.
+    /// created elsewhere, use ``Service/init(constant:_:_:)`` instead.
     case singleton
     /// Re-use an existing instance if it exists, but do not hold onto an unused instance.
     /// - Important: This scope can only be used with classes and actors. Value types are not
@@ -68,6 +68,7 @@ public enum Scope {
 public struct Service: RegistrationConvertible {
     public let registration: Registration
     
+    /// Create a lazily-loaded service.
     /// - Parameters:
     ///   - scope: How often to call the registration callback.
     ///   - type: The type to register the service as. This may be different from the actual type of
@@ -92,5 +93,17 @@ public struct Service: RegistrationConvertible {
         case .weak:
             self.registration = WeakRegistration(type, name, callback)
         }
+    }
+    
+    /// Create a service wrapping an existing instance.
+    /// - Parameters:
+    ///   - constant: The value to register.
+    ///   - type: The type to register the service as. This may be different from the actual type of
+    ///   the object, for example it may be the superclass, or a protocol that the object conforms
+    ///   to.
+    ///   - name: The name to give the registration object. This can usually be `nil`; it is only
+    ///   necessary when registering two different services of the same type.
+    public init<T>(constant: T, _ type: T.Type, _ name: String? = nil) {
+        self.registration = ConstantRegistration(type, name, constant)
     }
 }

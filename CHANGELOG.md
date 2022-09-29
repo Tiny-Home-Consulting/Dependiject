@@ -11,6 +11,7 @@ formatting guidelines.
 
 ### Added
 
+- Added a way to register existing instances as dependencies.
 - Added a script to run all tests, including for the example projects.
 - Added automated tests for `@Store`.
 

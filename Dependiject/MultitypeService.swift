@@ -6,6 +6,12 @@
 //  Copyright (c) 2022 Tiny Home Consulting LLC. All rights reserved.
 //
 
+/// A helper type for ``MultitypeService``.
+internal enum MultitypeRegistrationType<T> {
+    case singleton((Resolver) -> T)
+    case constant(T)
+}
+
 /// A service that is exposed under multiple protocols.
 ///
 /// This is for the use case that you have a single object, but want to expose only parts of it to
@@ -36,7 +42,7 @@
 /// ```
 public struct MultitypeService<T: AnyObject> {
     fileprivate let exposedTypes: [Any.Type]
-    fileprivate let callback: (Resolver) -> T
+    fileprivate let getInstance: MultitypeRegistrationType<T>
     
     /// Create a registration exposed under multiple protocols.
     /// - Parameters:
@@ -50,7 +56,18 @@ public struct MultitypeService<T: AnyObject> {
         callback: @escaping (Resolver) -> T
     ) {
         self.exposedTypes = types
-        self.callback = callback
+        self.getInstance = .singleton(callback)
+    }
+    
+    /// Create a registration exposed under multiple protocols.
+    /// - Parameters:
+    ///   - types: The types under which the object should be exposed.
+    ///   - value: The shared instance of the dependency.
+    /// - Important: The value must be a subtype of every member of the`types` array. If this is
+    /// not the case, attempting to resolve the instance will result in a fatal error.
+    public init(exposedAs types: [Any.Type], _ value: T) {
+        self.exposedTypes = types
+        self.getInstance = .constant(value)
     }
 }
 
@@ -75,13 +92,19 @@ extension MultitypeService: Sequence {
             name = "__Multitype_\(self.exposedTypes)_\(T.self)"
         }
         
+        var baseRegistration: Registration
+        switch getInstance {
+        case .constant(let value):
+            baseRegistration = ConstantRegistration(T.self, name, value)
+        case .singleton(let callback):
+            baseRegistration = SingletonRegistration(T.self, name, callback)
+        }
+        
         let arr = self.exposedTypes.map { type in
             TransientRegistration(type, nil) { r in
                 r.resolve(T.self, name: name)
             }
-        } + CollectionOfOne<Registration>(
-            SingletonRegistration(T.self, name, self.callback)
-        )
+        } + CollectionOfOne(baseRegistration)
         
         return arr.makeIterator()
     }

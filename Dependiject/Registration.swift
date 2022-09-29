@@ -6,6 +6,7 @@
 //  Copyright (c) 2022 Tiny Home Consulting LLC. All rights reserved.
 //
 
+// MARK: Protocol
 /// A single entry in the factory's registrations list.
 ///
 /// Generally you don't use this directly, and instead create a ``Service``. You use a custom
@@ -48,6 +49,7 @@ public protocol Registration: RegistrationConvertible {
     func resolve(_ resolver: Resolver) -> Any
 }
 
+// MARK: Class implementations
 /// A registration corresponding to the `weak` scope.
 internal class WeakRegistration: Registration {
     internal let type: Any.Type
@@ -76,25 +78,6 @@ internal class WeakRegistration: Registration {
     }
 }
 
-/// A registration corresponding to the `transient` scope.
-/// - Remark: Since this doesn't track any state, `resolve(_:)` is non-mutating, and this can be a
-/// struct. Right now it's a class for consistency with the other two, but this isn't necessary.
-internal class TransientRegistration: Registration {
-    internal let type: Any.Type
-    internal let name: String?
-    private let callback: (Resolver) -> Any
-    
-    internal init(_ type: Any.Type, _ name: String?, _ callback: @escaping (Resolver) -> Any) {
-        self.type = type
-        self.name = name
-        self.callback = callback
-    }
-    
-    internal func resolve(_ resolver: Resolver) -> Any {
-        return callback(resolver)
-    }
-}
-
 /// A registration corresponding to the `singleton` scope.
 internal class SingletonRegistration: Registration {
     internal let type: Any.Type
@@ -116,5 +99,40 @@ internal class SingletonRegistration: Registration {
             instance = callback(resolver)
             return instance!
         }
+    }
+}
+
+// MARK: Struct implementations
+/// A registration corresponding to the `transient` scope.
+internal struct TransientRegistration: Registration {
+    internal let type: Any.Type
+    internal let name: String?
+    private let callback: (Resolver) -> Any
+    
+    internal init(_ type: Any.Type, _ name: String?, _ callback: @escaping (Resolver) -> Any) {
+        self.type = type
+        self.name = name
+        self.callback = callback
+    }
+    
+    internal func resolve(_ resolver: Resolver) -> Any {
+        return callback(resolver)
+    }
+}
+
+/// A registration for an external constant.
+internal struct ConstantRegistration: Registration {
+    internal let type: Any.Type
+    internal let name: String?
+    private let value: Any
+
+    internal init<T>(_ type: T.Type, _ name: String? = nil, _ value: T) {
+        self.type = T.self
+        self.name = name
+        self.value = value
+    }
+
+    internal func resolve(_: Resolver) -> Any {
+        return value
     }
 }
