@@ -7,6 +7,7 @@ formatting guidelines.
 
 ### Fixed
 
+- The factory is now thread-safe: its functions may be simultaneously called on different threads.
 - The example projects now look the same when run on iOS 16 as on earlier versions.
 
 ### Added

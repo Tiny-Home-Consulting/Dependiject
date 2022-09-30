@@ -5,8 +5,8 @@
 ![Supported Platforms][3]
 ![Version][8]
 
-Dependiject provides simple and flexible dependency injection for testability and inversion of
-control in SwiftUI apps.
+Dependiject provides simple, flexible, and thread-safe dependency injection for testability and
+inversion of control in SwiftUI apps.
 
 ## Overview
 
