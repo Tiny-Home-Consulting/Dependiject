@@ -17,6 +17,13 @@ fileprivate class ConstructorCounter {
         Self.count += 1
     }
 }
+fileprivate class DependsOnClass {
+    weak var obj: ConstructorCounter?
+    
+    init(obj: ConstructorCounter) {
+        self.obj = obj
+    }
+}
 
 class ScopeTests: XCTestCase {
     /// Reset the counter between tests, and disable continue-on-failure.
@@ -188,5 +195,21 @@ class ScopeTests: XCTestCase {
         
         // check that it can be retrieved
         _ = Factory.shared.resolve(Int.self)
+    }
+    
+    /// Test that the options allow you to override singleton-requires-weak errors.
+    func test_factoryOptions_allowSingletonResolvingWeak() {
+        // set the options
+        Factory.options.singletonAcceptsWeak = true
+        
+        // set up the dependency container
+        Factory.register {
+            Service(.weak, ConstructorCounter.self) { _ in ConstructorCounter() }
+            
+            Service(.singleton, DependsOnClass.self) { r in DependsOnClass(obj: r.resolve()) }
+        }
+        
+        // check that it can be retrieved
+        _ = Factory.shared.resolve(DependsOnClass.self)
     }
 }

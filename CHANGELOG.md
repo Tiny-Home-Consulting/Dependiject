@@ -5,8 +5,13 @@ formatting guidelines.
 
 ## Unreleased
 
+### Added
+
+- Singletons which depend on weak services now trigger an assertion failure by default.
+
 ### Changed
 
+- The default options are now reflected in the initializer for `ResolutionOptions`.
 - The test and documentation scripts now use `xcpretty` to clean up `xcodebuild` output.
 - The `name` argument to `Service.init` is now a labeled argument, to better match `resolve`.
 
