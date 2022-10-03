@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file. See [Keep a Changelog] for
 formatting guidelines.
 
-## Unreleased
+## [0.3.0] - 2022-10-03
 
 ### Fixed
 
@@ -41,3 +41,4 @@ Initial release.
 [Keep a Changelog]: https://keepachangelog.com/en
 [0.1.0]: https://github.com/Tiny-Home-Consulting/Dependiject/tree/0.1.0
 [0.2.0]: https://github.com/Tiny-Home-Consulting/Dependiject/tree/0.2.0
+[0.3.0]: https://github.com/Tiny-Home-Consulting/Dependiject/tree/0.3.0
