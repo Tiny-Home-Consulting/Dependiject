@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See [Keep a Changelog] for
 formatting guidelines.
 
+## Unreleased
+
+### Breaking
+
+- `name` is now a labeled argument to `Service.init`, to better match `resolve`.
+
 ## [0.3.0] - 2022-10-03
 
 ### Fixed
