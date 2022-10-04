@@ -5,9 +5,9 @@ formatting guidelines.
 
 ## Unreleased
 
-### Breaking
+### Changed
 
-- `name` is now a labeled argument to `Service.init`, to better match `resolve`.
+- The `name` argument to `Service.init` is now a labeled argument, to better match `resolve`.
 
 ## [0.3.0] - 2022-10-03
 
