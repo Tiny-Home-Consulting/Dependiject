@@ -48,15 +48,15 @@ where Self: Registration {
 
 /// The different lifecycles for dependencies that are provided by default.
 ///
-/// This is meant to be used with ``Service/init(_:_:_:_:)``; each case describes a different way of
-/// determining when the callback should be called vs. when the previous return value should be
+/// This is meant to be used with ``Service/init(_:_:name:_:)``; each case describes a different way
+/// of determining when the callback should be called vs. when the previous return value should be
 /// re-used.
 public enum Scope {
     /// Call the provided callback every time the dependency is requested.
     case transient
     /// Create a lazy-loaded singleton, and re-use the same one for further requests.
     /// - Note: This scope is for singletons that are created by the callback. If the singleton is
-    /// created elsewhere, use ``Service/init(constant:_:_:)`` instead.
+    /// created elsewhere, use ``Service/init(constant:_:name:)`` instead.
     case singleton
     /// Re-use an existing instance if it exists, but do not hold onto an unused instance.
     /// - Important: This scope can only be used with classes and actors. Value types are not
@@ -82,7 +82,7 @@ public struct Service: RegistrationConvertible {
     public init<T>(
         _ scope: Scope,
         _ type: T.Type,
-        _ name: String? = nil,
+        name: String? = nil,
         _ callback: @escaping (Resolver) -> T
     ) {
         switch scope {
@@ -103,7 +103,7 @@ public struct Service: RegistrationConvertible {
     ///   to.
     ///   - name: The name to give the registration object. This can usually be `nil`; it is only
     ///   necessary when registering two different services of the same type.
-    public init<T>(constant: T, _ type: T.Type, _ name: String? = nil) {
+    public init<T>(constant: T, _ type: T.Type, name: String? = nil) {
         self.registration = ConstantRegistration(type, name, constant)
     }
 }

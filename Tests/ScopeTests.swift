@@ -179,7 +179,7 @@ class ScopeTests: XCTestCase {
         )
     }
     
-    /// Test that `Service(constant:_:_:)` allows value types.
+    /// Test that `Service(constant:_:name:)` allows value types.
     func test_constant_allowsStructs() {
         // set up the dependency container
         Factory.register {
