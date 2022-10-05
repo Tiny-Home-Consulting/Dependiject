@@ -7,6 +7,7 @@ formatting guidelines.
 
 ### Changed
 
+- The test and documentation scripts now use `xcpretty` to clean up `xcodebuild` output.
 - The `name` argument to `Service.init` is now a labeled argument, to better match `resolve`.
 
 ## [0.3.0] - 2022-10-03

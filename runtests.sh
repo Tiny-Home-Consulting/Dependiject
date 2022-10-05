@@ -24,12 +24,16 @@ swift test || {
     return $exitCode
 }
 
+which xcpretty &>/dev/null || bundle install
+
 cd "iOS 13 Example"
 pod install
 xcodebuild -workspace Dependiject.xcworkspace -scheme Dependiject_Example -destination \
-    "id=$deviceId" test
+    "id=$deviceId" test | xcpretty
 
 cd "../iOS 14 Example"
 pod install
 xcodebuild -workspace Dependiject_Example.xcworkspace -scheme Dependiject_Example -destination \
-    "id=$deviceId" test
+    "id=$deviceId" test | xcpretty
+
+printf '\n\e[1m** TEST SUCCEEDED **\e[m\n\n'
