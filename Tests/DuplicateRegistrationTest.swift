@@ -9,13 +9,7 @@
 import XCTest
 @testable import Dependiject
 
-class DuplicateRegistrationTest: XCTestCase {
-    override func setUp() {
-        super.setUp()
-        
-        self.continueAfterFailure = false
-    }
-    
+final class DuplicateRegistrationTest: BaseFactoryTest {
     /// Test that later registrations override earlier ones when they conflict.
     func test_duplicateRegistration_laterOverridesEarlier() {
         // set up the dependency container more than once

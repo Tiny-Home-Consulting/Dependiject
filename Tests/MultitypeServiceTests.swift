@@ -14,13 +14,7 @@ fileprivate protocol P1: AnyObject {}
 fileprivate protocol P2: AnyObject {}
 fileprivate class C: P1, P2 {}
 
-class MultitypeServiceTests: XCTestCase {
-    override func setUp() {
-        super.setUp()
-        
-        self.continueAfterFailure = false
-    }
-    
+final class MultitypeServiceTests: BaseFactoryTest {
     /// Test that the exposed types both resolve the same instance.
     func test_multitypeServiceClosure_typesResolveSame() {
         // set up the dependency container

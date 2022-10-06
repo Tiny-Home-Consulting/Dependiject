@@ -9,13 +9,7 @@
 import XCTest
 @testable import Dependiject
 
-class RegistrationNameTests: XCTestCase {
-    override func setUp() {
-        super.setUp()
-        
-        self.continueAfterFailure = false
-    }
-    
+final class RegistrationNameTests: BaseFactoryTest {
     /// Test that dependency names are handled correctly.
     func test_names_disambiguate() {
         // set up the dependency container

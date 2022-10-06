@@ -35,6 +35,7 @@ class PrimaryViewModelTests: XCTestCase {
          * -- so I'm using the factory here to demonstrate that it is possible.
          */
         
+        Factory.clearDependencies()
         Factory.register {
             Service(constant: self.mockFetcher, DataFetcher.self)
             

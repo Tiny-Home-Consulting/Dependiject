@@ -15,6 +15,7 @@ formatting guidelines.
 
 ### Added
 
+- The factory now has a `clearDependencies()` method intended for testing.
 - Singletons which depend on weak services now trigger an assertion failure by default.
 
 ### Changed
