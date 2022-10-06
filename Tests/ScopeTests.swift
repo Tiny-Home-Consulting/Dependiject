@@ -17,6 +17,7 @@ fileprivate class ConstructorCounter {
         Self.count += 1
     }
 }
+
 fileprivate class DependsOnClass {
     weak var obj: ConstructorCounter?
     
