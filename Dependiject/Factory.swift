@@ -10,8 +10,8 @@ import Foundation
 
 /// When to check for errors.
 ///
-/// This is used by the ``Factory`` to determine whether to error if the calls to
-/// ``Resolver/resolve(_:name:)`` exceed a certain depth.
+/// This is used by the ``Factory`` for sanity checks, such as detecting circular dependencies and
+/// validating scopes.
 public enum ErrorCheckMode {
     /// Never perform any error checking.
     case never
@@ -47,11 +47,18 @@ public struct ResolutionOptions {
     /// }
     /// ```
     public var maxDepth: UInt
+    /// Whether to allow a singleton service to depend on a weak service.
+    public var singletonAcceptsWeak: Bool
     
-    // the implicit init would be internal rather than public
-    public init(mode: ErrorCheckMode, maxDepth: UInt) {
+    /// The memberwise initializer.
+    public init(
+        mode: ErrorCheckMode = .debugOnly,
+        maxDepth: UInt = 100,
+        singletonAcceptsWeak: Bool = false
+    ) {
         self.mode = mode
         self.maxDepth = maxDepth
+        self.singletonAcceptsWeak = singletonAcceptsWeak
     }
 }
 
@@ -74,19 +81,24 @@ internal func enforceCondition(
     }
 }
 
+internal protocol SingletonCheckingResolver: Resolver {
+    func beginResolvingForSingleton()
+    func endResolvingForSingleton()
+    func isResolvingForSingleton() -> Bool
+}
+
 /// The class to which you register dependencies.
-public final class Factory: Resolver {
+public final class Factory: SingletonCheckingResolver {
     private let lock = NSRecursiveLock()
     private var registrations: [Registration] = []
     private var resolutionDepth: UInt = 0
+    private var singletonDepth: UInt = 0
     
     /// The singleton instance of the factory, used for dependency resolution.
     public static let shared = Factory()
     
-    /// The options used to check for circular dependencies.
-    ///
-    /// The default value is `(mode: .debugOnly, maxDepth: 100)`.
-    public static var options: ResolutionOptions = .init(mode: .debugOnly, maxDepth: 100)
+    /// The options used to check for incorrect dependencies.
+    public static var options = ResolutionOptions()
     
     private init() {
     }
@@ -163,6 +175,18 @@ public final class Factory: Resolver {
         )
         
         return registrations[index].resolve(self) as! T
+    }
+    
+    internal func beginResolvingForSingleton() {
+        singletonDepth += 1
+    }
+    
+    internal func endResolvingForSingleton() {
+        singletonDepth -= 1
+    }
+    
+    internal func isResolvingForSingleton() -> Bool {
+        return singletonDepth != 0
     }
     
     /// Get the index within `registrations` where the specified type and name are registered.

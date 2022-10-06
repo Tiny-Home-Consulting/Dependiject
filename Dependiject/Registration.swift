@@ -65,6 +65,15 @@ internal class WeakRegistration: Registration {
     }
     
     internal func resolve(_ resolver: Resolver) -> Any {
+        if let resolver = resolver as? SingletonCheckingResolver {
+            let options = Factory.options
+            enforceCondition(
+                options.mode,
+                options.singletonAcceptsWeak || !resolver.isResolvingForSingleton(),
+                "Weak registration used as a dependency for a singleton. This effectively promotes it to a singleton."
+            )
+        }
+        
         if let retval = self.instance {
             return retval
         } else {
@@ -96,7 +105,14 @@ internal class SingletonRegistration: Registration {
         if let instance = self.instance {
             return instance
         } else {
-            instance = callback(resolver)
+            if let resolver = resolver as? SingletonCheckingResolver {
+                resolver.beginResolvingForSingleton()
+                instance = callback(resolver)
+                resolver.endResolvingForSingleton()
+            } else {
+                instance = callback(resolver)
+            }
+            
             return instance!
         }
     }
