@@ -28,7 +28,7 @@ fileprivate class TestObservable: ObservableObject, AnyObservableObject {
     var notPublished = 0
 }
 
-class StoreTests: XCTestCase {
+@MainActor class StoreTests: XCTestCase {
     override func setUp() {
         super.setUp()
         

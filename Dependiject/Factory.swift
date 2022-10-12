@@ -12,7 +12,7 @@ import Foundation
 ///
 /// This is used by the ``Factory`` for sanity checks, such as detecting circular dependencies and
 /// validating scopes.
-public enum ErrorCheckMode {
+public enum ErrorCheckMode: Sendable {
     /// Never perform any error checking.
     case never
     /// Error check using
@@ -27,7 +27,7 @@ public enum ErrorCheckMode {
 }
 
 /// The options struct used by the ``Factory`` to configure error checks.
-public struct ResolutionOptions {
+public struct ResolutionOptions: Sendable {
     /// The mode used to check for errors.
     public var mode: ErrorCheckMode
     /// The maximum depth of the dependency tree.
@@ -88,7 +88,7 @@ internal protocol SingletonCheckingResolver: Resolver {
 }
 
 /// The class to which you register dependencies.
-public final class Factory: SingletonCheckingResolver {
+public final class Factory: SingletonCheckingResolver, @unchecked Sendable {
     private let lock = NSRecursiveLock()
     private var registrations: [Registration] = []
     private var resolutionDepth: UInt = 0
@@ -196,9 +196,3 @@ public final class Factory: SingletonCheckingResolver {
         }
     }
 }
-
-#if swift(>=5.5)
-extension Factory: @unchecked Sendable {
-}
-#endif
-

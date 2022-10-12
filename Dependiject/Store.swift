@@ -41,7 +41,12 @@ public struct Store<ObjectType> {
     /// The underlying object being stored.
     public let wrappedValue: ObjectType
     
-    @ObservedObject internal var observableObject: ErasedObservableObject
+    // See https://github.com/Tiny-Home-Consulting/Dependiject/issues/38
+    fileprivate var _observableObject: ObservedObject<ErasedObservableObject>
+
+    @MainActor internal var observableObject: ErasedObservableObject {
+        return _observableObject.wrappedValue
+    }
     
     /// A projected value which has the same properties as the wrapped value, but presented as
     /// bindings.
@@ -63,9 +68,6 @@ public struct Store<ObjectType> {
     /// Create a stored value on a custom scheduler.
     ///
     /// Use this init to schedule updates on a specific scheduler other than `RunLoop.main`.
-    ///
-    /// - Note: When using this property wrapper within a view, you should always use
-    /// ``init(wrappedValue:)``.
     public init<S: Scheduler>(
         wrappedValue: ObjectType,
         on scheduler: S,
@@ -77,12 +79,12 @@ public struct Store<ObjectType> {
             let objectWillChange = observable.objectWillChange
                 .receive(on: scheduler, options: schedulerOptions)
                 .eraseToAnyPublisher()
-            self.observableObject = .init(objectWillChange: objectWillChange)
+            self._observableObject = .init(initialValue: .init(objectWillChange: objectWillChange))
         } else {
             assertionFailure(
                 "Only use the Store property wrapper with objects conforming to AnyObservableObject."
             )
-            self.observableObject = .empty()
+            self._observableObject = .init(initialValue: .empty())
         }
     }
     
@@ -118,7 +120,7 @@ public struct Store<ObjectType> {
 }
 
 extension Store: DynamicProperty {
-    public mutating func update() {
+    public nonisolated mutating func update() {
         _observableObject.update()
     }
 }

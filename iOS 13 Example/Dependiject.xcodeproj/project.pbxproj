@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -234,7 +234,7 @@
 				};
 			};
 			buildConfigurationList = 607FACCB1AFB9204008FA782 /* Build configuration list for PBXProject "Dependiject" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -337,13 +337,12 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Dependiject_Example/Pods-Dependiject_Example-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Dependiject/Dependiject.framework",
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Dependiject_Example/Pods-Dependiject_Example-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Dependiject.framework",
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Dependiject_Example/Pods-Dependiject_Example-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -355,15 +354,12 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Dependiject_Tests/Pods-Dependiject_Tests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Dependiject/Dependiject.framework",
-				"${BUILT_PRODUCTS_DIR}/MockingbirdFramework/Mockingbird.framework",
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Dependiject_Tests/Pods-Dependiject_Tests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Dependiject.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mockingbird.framework",
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Dependiject_Tests/Pods-Dependiject_Tests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
