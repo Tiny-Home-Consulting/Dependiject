@@ -41,6 +41,9 @@ public extension Resolver {
     /// Without this overload, adding extraneous arguments to an `init` inside of the callback
     /// passed to ``Service/init(_:_:name:_:)`` does not error at the `init` call, but at the top
     /// of the ``Factory/register(builder:)`` block.
+    ///
+    /// - Remark: This overload does not show up in the documentation because it is explicitly
+    /// marked `unavailable`.
     @available(*, unavailable, renamed: "resolve(_:name:)", message: """
         If this is being called, Swift cannot determine the correct type.
         """)
