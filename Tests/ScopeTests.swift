@@ -26,12 +26,11 @@ fileprivate class DependsOnClass {
     }
 }
 
-class ScopeTests: XCTestCase {
-    /// Reset the counter between tests, and disable continue-on-failure.
+final class ScopeTests: BaseFactoryTest {
+    /// Reset the counter between tests.
     override func setUp() {
         super.setUp()
         
-        self.continueAfterFailure = false
         ConstructorCounter.count = 0
     }
     

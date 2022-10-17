@@ -11,13 +11,7 @@ import XCTest
 
 fileprivate class C {}
 
-class ParallelResolutionTest: XCTestCase {
-    override func setUp() {
-        super.setUp()
-        
-        self.continueAfterFailure = false
-    }
-    
+final class ParallelResolutionTest: BaseFactoryTest {
     func test_parallelResolutions() {
         Factory.register {
             // test both of the stateful registration types

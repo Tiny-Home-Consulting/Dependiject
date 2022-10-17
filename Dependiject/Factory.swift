@@ -143,6 +143,19 @@ public final class Factory: SingletonCheckingResolver, @unchecked Sendable {
         shared.lock.unlock()
     }
     
+    /// Resets the factory, clearing all dependencies.
+    ///
+    /// This is mostly meant for testing; you could call this from your test class's `setUp()` or
+    /// `setUpWithError()` method.
+    public static func clearDependencies() {
+        shared.lock.lock()
+        
+        assert(shared.resolutionDepth == 0, "Cannot reset dependencies while resolving.")
+        shared.registrations = []
+        
+        shared.lock.unlock()
+    }
+    
     public func resolve<T>(_ type: T.Type, name: String?) -> T {
         lock.lock()
         defer {
