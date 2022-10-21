@@ -44,8 +44,8 @@ public extension Resolver {
     ///
     /// - Remark: This overload does not show up in the documentation because it is explicitly
     /// marked `unavailable`.
-    @available(*, unavailable, renamed: "resolve(_:name:)", message: """
-        If this is being called, Swift cannot determine the correct type.
+    @available(*, unavailable, message: """
+        Could not determine expected type. Explicitly specify with resolve(_:) or resolve(_:name:).
         """)
     func resolve(name: String? = nil) -> Any {
         preconditionFailure("Could not determine type to resolve.")
