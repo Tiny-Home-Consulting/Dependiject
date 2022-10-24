@@ -19,7 +19,7 @@ public extension Resolver {
     /// Get an unnamed dependency of the specified type.
     /// - Returns: The unnamed instance of the type.
     /// - Important: There must be an unnamed registration of the specified type. When resolving a
-    /// named dependency, use ``resolve(_:name:)`` or ``resolve(name:)`` instead.
+    /// named dependency, use ``resolve(_:name:)`` or ``Resolver/resolve(name:)`` instead.
     func resolve<T>(_ type: T.Type) -> T {
         return self.resolve(type, name: nil)
     }
@@ -32,5 +32,22 @@ public extension Resolver {
     /// ``resolve(_:name:)`` or ``resolve(_:)`` instead (which take the type as a parameter).
     func resolve<T>(name: String? = nil) -> T {
         return self.resolve(T.self, name: name)
+    }
+    
+    /// This overload fixes compiler errors.
+    ///
+    /// To explicitly specify the type, use ``resolve(_:name:)`` or ``resolve(_:)`` instead.
+    ///
+    /// Without this overload, adding extraneous arguments to an `init` inside of the callback
+    /// passed to ``Service/init(_:_:name:_:)`` does not error at the `init` call, but at the top
+    /// of the ``Factory/register(builder:)`` block.
+    ///
+    /// - Remark: This overload does not show up in the documentation because it is explicitly
+    /// marked `unavailable`.
+    @available(*, unavailable, message: """
+        Could not determine expected type. Explicitly specify with resolve(_:) or resolve(_:name:).
+        """)
+    func resolve(name: String? = nil) -> Any {
+        preconditionFailure("Could not determine type to resolve.")
     }
 }

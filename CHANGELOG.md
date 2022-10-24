@@ -11,6 +11,7 @@ formatting guidelines.
 
 ### Fixed
 
+- Extraneous arguments in Service callbacks will now be properly diagnosed.
 - The `@Store` property wrapper now follows Swift's concurrency rules.
 
 ### Added
