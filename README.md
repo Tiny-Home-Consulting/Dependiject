@@ -82,14 +82,12 @@ struct SomeView: View {
 To use this library requires Xcode 13.2 / Swift 5.5 or later. Dependiject is supported for all
 platforms that support SwiftUI.
 
-To install the library with CocoaPods requires version 1.10.0 or later, but we recommend using
-version 1.11.0 or later.
+To install the library with CocoaPods requires version 1.11.3 or later.
 
-To run the tests from the command line (see [Automated Tests][9] below) requires CocoaPods 1.11.3
-and NodeJS 6 or later.
+To run the tests from the command line (see [Automated Tests][9] below) requires NodeJS 6 or later.
 
-To host the documentation locally (see [Documentation][4] below) requires CocoaPods 1.11.3 and
-NodeJS 12 or later, and expects yarn to be installed globally.
+To host the documentation locally (see [Documentation][4] below) requires NodeJS 12 or later, and
+expects yarn to be installed globally.
 
 ## Installation
 

@@ -7,6 +7,7 @@ formatting guidelines.
 
 ### Removed
 
+- Dropped support for CocoaPods &lt; 1.11.3.
 - Dropped support for Swift &lt; 5.5 (Xcode &lt; 13.2).
 
 ### Fixed

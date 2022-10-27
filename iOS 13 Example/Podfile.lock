@@ -15,7 +15,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  Dependiject: 72f82d59ffb0994b3fce3dfb891bbfada1dc3f69
+  Dependiject: 5ae7d97714c3ab3a4ffe0a33e4f71a3e91966ea2
   MockingbirdFramework: 54e35fbbb47b806c1a1fae2cf3ef99f6eceb55e5
 
 PODFILE CHECKSUM: 69b53b587fc6c75eef571f57668f2e8e0e0ecf77
