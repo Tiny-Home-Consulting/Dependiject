@@ -12,6 +12,7 @@ formatting guidelines.
 
 ### Fixed
 
+- Hosting the documentation locally no longer emits a warning about build order.
 - Extraneous arguments in Service callbacks will now be properly diagnosed.
 - The `@Store` property wrapper now follows Swift's concurrency rules.
 

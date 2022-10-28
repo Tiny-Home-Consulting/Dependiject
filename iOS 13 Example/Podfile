@@ -14,3 +14,11 @@ target 'Dependiject_Tests' do
 end
 
 install! 'cocoapods', :warn_for_unused_master_specs_repo => false
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['DISABLE_MANUAL_TARGET_ORDER_BUILD_WARNING'] = 'YES'
+    end
+  end
+end
