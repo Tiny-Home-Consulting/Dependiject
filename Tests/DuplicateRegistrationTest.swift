@@ -38,5 +38,17 @@ final class DuplicateRegistrationTest: BaseFactoryTest {
             Factory.shared.resolve(),
             "Expected later registration to override earlier one"
         )
+        
+        XCTAssertEqual(
+            [nil: "later"],
+            Factory.shared.resolveAll(String.self),
+            "Expected later registration to hide earlier one"
+        )
+        
+        XCTAssertEqual(
+            [nil: 2],
+            Factory.shared.resolveAll(Int.self),
+            "Expected later registration to hide earlier one"
+        )
     }
 }

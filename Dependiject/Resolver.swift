@@ -13,6 +13,14 @@ public protocol Resolver {
     /// - Precondition: A registration with the given type and name exists.
     /// - Returns: The instance of the type with the given name.
     func resolve<T>(_ type: T.Type, name: String?) -> T
+    /// Get all dependencies of the specified type which have unique names.
+    ///
+    /// As with ``resolve(_:name:)``, this does not consider registrations with the same type and
+    /// name to be distinct. This fetches only things that can be found with that method, but
+    /// without requiring a specific name.
+    /// - Returns: A dictionary whose keys are the registrations' names and whose values are the
+    /// objects requested.
+    func resolveAll<T>(_ type: T.Type) -> [String?: T]
 }
 
 public extension Resolver {
