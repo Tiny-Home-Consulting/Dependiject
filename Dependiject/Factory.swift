@@ -12,7 +12,7 @@ import Foundation
 ///
 /// This is used by the ``Factory`` for sanity checks, such as detecting circular dependencies and
 /// validating scopes.
-public enum ErrorCheckMode: Sendable {
+public enum ErrorCheckMode: Sendable, Hashable {
     /// Never perform any error checking.
     case never
     /// Error check using

@@ -23,6 +23,7 @@ formatting guidelines.
 
 ### Changed
 
+- Switching over `Scope` now requires a `default:` branch.
 - `MultitypeService.Iterator` is now an alias for `AnyIterator<Registration>`, not
   `IndexingIterator<[Registration]>`.
 - The factory's options cannot be accessed directly; instead, use the static methods `getOptions()`
