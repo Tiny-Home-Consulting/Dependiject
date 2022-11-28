@@ -23,6 +23,7 @@ formatting guidelines.
 
 ### Changed
 
+- `@Store` now publishes changes on `DispatchQueue.main` by default, rather than `RunLoop.main`.
 - The default options are now reflected in the initializer for `ResolutionOptions`.
 - The test and documentation scripts now use `xcpretty` to clean up `xcodebuild` output.
 - The `name` argument to `Service.init` is now a labeled argument, to better match `resolve`.
