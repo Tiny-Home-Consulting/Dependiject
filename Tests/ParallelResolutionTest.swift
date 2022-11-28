@@ -24,4 +24,18 @@ final class ParallelResolutionTest: BaseFactoryTest {
             _ = Factory.shared.resolve(Int.self)
         }
     }
+    
+    func test_parallelOptionsMutation_isAtomic() {
+        Factory.updateOptions { options in
+            options.maxDepth = 100
+        }
+        
+        DispatchQueue.concurrentPerform(iterations: 100) { _ in
+            Factory.updateOptions { options in
+                options.maxDepth += 1
+            }
+        }
+        
+        XCTAssertEqual(Factory.getOptions().maxDepth, 200, "Increments should be atomic")
+    }
 }
