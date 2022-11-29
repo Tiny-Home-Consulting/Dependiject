@@ -13,6 +13,9 @@ import Foundation
 /// This is used by the ``Factory`` for sanity checks, such as detecting circular dependencies and
 /// validating scopes.
 public enum ErrorCheckMode: Sendable, Hashable {
+    // Adding more cases to this enum is a breaking change that can only happen for major releases;
+    // see https://github.com/Tiny-Home-Consulting/Dependiject/issues/67 for an explanation.
+    
     /// Never perform any error checking.
     case never
     /// Error check using
