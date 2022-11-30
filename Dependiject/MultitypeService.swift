@@ -73,7 +73,7 @@ public struct MultitypeService<T: AnyObject> {
 
 extension MultitypeService: Sequence {
     public typealias Element = Registration
-    public typealias Iterator = Array<Registration>.Iterator
+    public typealias Iterator = AnyIterator<Registration>
     
     public var underestimatedCount: Int {
         // no need to underestimate, we know the count
@@ -106,6 +106,6 @@ extension MultitypeService: Sequence {
             }
         } + CollectionOfOne(baseRegistration)
         
-        return arr.makeIterator()
+        return AnyIterator(arr.makeIterator())
     }
 }

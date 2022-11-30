@@ -23,6 +23,8 @@ formatting guidelines.
 
 ### Changed
 
+- `MultitypeService.Iterator` is now an alias for `AnyIterator<Registration>`, not
+  `IndexingIterator<[Registration]>`.
 - The factory's options cannot be accessed directly; instead, use the static methods `getOptions()`
   and `updateOptions(mutation:)`.
 - `@Store` now publishes changes on `DispatchQueue.main` by default, rather than `RunLoop.main`.
