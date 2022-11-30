@@ -91,7 +91,7 @@ internal protocol SingletonCheckingResolver: Resolver {
 }
 
 /// The class to which you register dependencies.
-public final class Factory: SingletonCheckingResolver, @unchecked Sendable {
+public final class Factory: SingletonCheckingResolver, Resolver, @unchecked Sendable {
     private let lock = NSRecursiveLock()
     private var registrations: [Registration] = []
     private var resolutionDepth: UInt = 0
