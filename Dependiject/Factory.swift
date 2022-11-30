@@ -93,12 +93,10 @@ public final class Factory: SingletonCheckingResolver, @unchecked Sendable {
     private var registrations: [Registration] = []
     private var resolutionDepth: UInt = 0
     private var singletonDepth: UInt = 0
+    private var options = ResolutionOptions()
     
     /// The singleton instance of the factory, used for dependency resolution.
     public static let shared = Factory()
-    
-    /// The options used to check for incorrect dependencies.
-    public static var options = ResolutionOptions()
     
     private init() {
     }
@@ -156,6 +154,42 @@ public final class Factory: SingletonCheckingResolver, @unchecked Sendable {
         shared.lock.unlock()
     }
     
+    /// Retrieve the current resolution options.
+    ///
+    /// Do not use this as a basis to make changes; use ``updateOptions(mutation:)`` instead.
+    public static func getOptions() -> ResolutionOptions {
+        shared.lock.lock()
+        defer {
+            shared.lock.unlock()
+        }
+        
+        return shared.options
+    }
+    
+    /// Change the current resolution options.
+    ///
+    /// This method may be used to atomically make adjustments, or to entirely overwrite the
+    /// options:
+    /// ```swift
+    /// Factory.updateOptions { options in
+    ///     // increase the max resolution depth
+    ///     options.maxDepth += 5
+    /// }
+    ///
+    /// Factory.updateOptions { options in
+    ///     // initialize new options
+    ///     options = ResolutionOptions(mode: .always, maxDepth: 200)
+    /// }
+    /// ```
+    public static func updateOptions(mutation: (inout ResolutionOptions) throws -> Void) rethrows {
+        shared.lock.lock()
+        defer {
+            shared.lock.unlock()
+        }
+        
+        try mutation(&shared.options)
+    }
+    
     public func resolve<T>(_ type: T.Type, name: String?) -> T {
         lock.lock()
         defer {
@@ -174,7 +208,6 @@ public final class Factory: SingletonCheckingResolver, @unchecked Sendable {
             resolutionDepth -= 1
         }
         
-        let options = Self.options
         enforceCondition(
             options.mode,
             resolutionDepth < options.maxDepth,

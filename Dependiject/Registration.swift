@@ -66,7 +66,7 @@ internal class WeakRegistration: Registration {
     
     internal func resolve(_ resolver: Resolver) -> Any {
         if let resolver = resolver as? SingletonCheckingResolver {
-            let options = Factory.options
+            let options = Factory.getOptions()
             enforceCondition(
                 options.mode,
                 options.singletonAcceptsWeak || !resolver.isResolvingForSingleton(),

@@ -200,7 +200,9 @@ final class ScopeTests: BaseFactoryTest {
     /// Test that the options allow you to override singleton-requires-weak errors.
     func test_factoryOptions_allowSingletonResolvingWeak() {
         // set the options
-        Factory.options.singletonAcceptsWeak = true
+        Factory.updateOptions { options in
+            options.singletonAcceptsWeak = true
+        }
         
         // set up the dependency container
         Factory.register {

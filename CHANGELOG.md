@@ -23,6 +23,8 @@ formatting guidelines.
 
 ### Changed
 
+- The factory's options cannot be accessed directly; instead, use the static methods `getOptions()`
+  and `updateOptions(mutation:)`.
 - `@Store` now publishes changes on `DispatchQueue.main` by default, rather than `RunLoop.main`.
 - The default options are now reflected in the initializer for `ResolutionOptions`.
 - The test and documentation scripts now use `xcpretty` to clean up `xcodebuild` output.
