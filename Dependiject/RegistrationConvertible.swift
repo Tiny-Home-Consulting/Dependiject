@@ -51,17 +51,25 @@ where Self: Registration {
 /// This is meant to be used with ``Service/init(_:_:name:_:)``; each case describes a different way
 /// of determining when the callback should be called vs. when the previous return value should be
 /// re-used.
-public enum Scope {
+public struct Scope: Equatable {
+    internal let value: UnderlyingType
+    
     /// Call the provided callback every time the dependency is requested.
-    case transient
+    public static let transient = Scope(value: .transient)
     /// Create a lazy-loaded singleton, and re-use the same one for further requests.
     /// - Note: This scope is for singletons that are created by the callback. If the singleton is
     /// created elsewhere, use ``Service/init(constant:_:name:)`` instead.
-    case singleton
+    public static let singleton = Scope(value: .singleton)
     /// Re-use an existing instance if it exists, but do not hold onto an unused instance.
     /// - Important: This scope can only be used with classes and actors. Value types are not
     /// allowed to be registered weakly.
-    case weak
+    public static let weak = Scope(value: .weak)
+    
+    internal enum UnderlyingType: Equatable {
+        case transient
+        case singleton
+        case weak
+    }
 }
 
 /// A wrapper around a `Registration` object, intended for use with ``Factory/register(builder:)``.
@@ -85,7 +93,7 @@ public struct Service: RegistrationConvertible {
         name: String? = nil,
         _ callback: @escaping (Resolver) -> T
     ) {
-        switch scope {
+        switch scope.value {
         case .transient:
             self.registration = TransientRegistration(type, name, callback)
         case .singleton:
