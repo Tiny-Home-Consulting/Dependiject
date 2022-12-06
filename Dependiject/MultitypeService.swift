@@ -6,16 +6,72 @@
 //  Copyright (c) 2022 Tiny Home Consulting LLC. All rights reserved.
 //
 
-/// A helper type for ``MultitypeService``.
+// MARK: Helper Types
+/// A wrapper around a registered value. Either the value itself, or a callback which returns it.
 internal enum MultitypeRegistrationType<T> {
     case singleton((Resolver) -> T)
     case constant(T)
 }
 
+/// A wrapper around the types & names for a multi-type registration.
+internal enum RegistrationTypeList {
+    case sharedName([Any.Type], String?)
+    case individualNames(KeyValuePairs<Any.Type, String?>)
+    
+    internal var count: Int {
+        switch self {
+        case .sharedName(let arr, _):
+            return arr.count
+        case .individualNames(let kvp):
+            return kvp.count
+        }
+    }
+    
+    internal func getName(for type: Any.Type) -> String?? {
+        switch self {
+        case .sharedName(let arr, let name):
+            if arr.contains(where: { $0 == type }) {
+                return name
+            }
+            return .none // as opposed to .some(nil)
+        case .individualNames(let kvp):
+            return kvp.last { $0.key == type }?.value
+        }
+    }
+    
+    internal func map<T>(_ transform: (Any.Type, String?) throws -> T) rethrows -> [T] {
+        switch self {
+        case .sharedName(let arr, let name):
+            return try arr.map { try transform($0, name) }
+        case .individualNames(let kvp):
+            return try kvp.map(transform)
+        }
+    }
+}
+
+extension RegistrationTypeList: TextOutputStreamable {
+    /// This is used by the string interpolation below to guarantee a consistent, unique name is
+    /// generated. Rather than relying on the fact that different values produce different strings
+    /// by default, manually write the associated values to the string.
+    internal func write<Target: TextOutputStream>(to target: inout Target) {
+        switch self {
+        case .sharedName(let arr, let name):
+            target.write(name.debugDescription)
+            target.write(":")
+            target.write(arr.description)
+        case .individualNames(let kvp):
+            target.write(kvp.description)
+        }
+    }
+}
+
+// MARK: Struct Declaration
 /// A service that is exposed under multiple protocols.
 ///
 /// This is for the use case that you have a single object, but want to expose only parts of it to
 /// different parts of the application.
+///
+/// ### General Usage
 ///
 /// In the following example, there's one class `StateManager` responsible for managing some shared
 /// piece of state, which is exposed to different parts of the code under the protocols
@@ -32,6 +88,8 @@ internal enum MultitypeRegistrationType<T> {
 /// generic type, you may explicitly specify (e.g. `MultitypeService<StateManager>` rather than just
 /// `MultitypeService`).
 ///
+/// ### Exposing the Implementation Type
+///
 /// By default, the original type is hidden. In the example above,
 /// `Factory.shared.resolve(StateManager.self)` would fail. If resolving the original type is
 /// desired, you may add the class itself to the type array:
@@ -40,37 +98,115 @@ internal enum MultitypeRegistrationType<T> {
 ///     StateManager()
 /// }
 /// ```
+///
+/// ### Usage with Named Dependencies
+///
+/// As with ``Service``, a MultitypeService may give its registrations names.
+///
+/// To use the same name for the dependency regardless of which interface is being resolved, use
+/// ``init(exposedAs:name:callback:)`` or ``init(exposedAs:name:_:)``:
+/// ```swift
+/// Factory.register {
+///     MultitypeService(
+///         exposedAs: [StateAccessor.self, StateUpdater.self],
+///         name: "MyStateManager"
+///     ) { _ in
+///         StateManager()
+///     }
+/// }
+///
+/// let myStateAccessor = Factory.shared.resolve(StateAccessor.self, name: "MyStateManager")
+/// let myStateUpdater = Factory.shared.resolve(StateUpdater.self, name: "MyStateManager")
+/// ```
+///
+/// To use a different name for each interface, use ``init(exposedAs:callback:)`` or
+/// ``init(exposedAs:_:)``. Specify `nil` to allow the type to be resolved without a name:
+/// ```swift
+/// Factory.register {
+///     MultitypeService(exposedAs: [
+///         StateAccessor.self: nil,
+///         StateUpdater.self: "MyStateUpdater"
+///     ]) { _ in
+///         StateManager()
+///     }
+/// }
+///
+/// let myStateAccessor = Factory.shared.resolve(StateAccessor.self)
+/// let myStateUpdater = Factory.shared.resolve(StateUpdater.self, name: "MyStateUpdater")
+/// ```
 public struct MultitypeService<T: AnyObject> {
-    fileprivate let exposedTypes: [Any.Type]
+    fileprivate let exposedTypes: RegistrationTypeList
     fileprivate let getInstance: MultitypeRegistrationType<T>
     
     /// Create a registration exposed under multiple protocols.
     /// - Parameters:
     ///   - types: The types under which the object should be exposed.
+    ///   - name: A service name which will be applied to all types the object is exposed as. See
+    ///   ``Registration/name``.
     ///   - callback: The callback to use to create the shared instance of the dependency.
     /// - Important: The return type of the callback must be a subtype of every member of the
     /// `types` array. If this is not the case, attempting to resolve the instance will result in a
     /// fatal error.
     public init(
         exposedAs types: [Any.Type],
+        name: String? = nil,
         callback: @escaping (Resolver) -> T
     ) {
-        self.exposedTypes = types
+        self.exposedTypes = .sharedName(types, name)
         self.getInstance = .singleton(callback)
     }
     
     /// Create a registration exposed under multiple protocols.
     /// - Parameters:
     ///   - types: The types under which the object should be exposed.
+    ///   - name: A service name which will be applied to all types the object is exposed as. See
+    ///   ``Registration/name``.
     ///   - value: The shared instance of the dependency.
     /// - Important: The value must be a subtype of every member of the`types` array. If this is
     /// not the case, attempting to resolve the instance will result in a fatal error.
-    public init(exposedAs types: [Any.Type], _ value: T) {
-        self.exposedTypes = types
+    public init(
+        exposedAs types: [Any.Type],
+        name: String? = nil,
+        _ value: T
+    ) {
+        self.exposedTypes = .sharedName(types, name)
+        self.getInstance = .constant(value)
+    }
+    
+    /// Create a registration exposed under multiple protocols.
+    /// - Parameters:
+    ///   - interfaces: A map of the types this is exposed as, and the name associated with each
+    ///   type.
+    ///   - callback: The callback to use to create the shared instance of the dependency.
+    /// - Important: The return type of the callback must be a subtype of every key of the
+    /// `interfaces` dictionary. If this is not the case, attempting to resolve the instance will
+    /// result in a fatal error.
+    public init(
+        exposedAs interfaces: KeyValuePairs<Any.Type, String?>,
+        callback: @escaping (Resolver) -> T
+    ) {
+        self.exposedTypes = .individualNames(interfaces)
+        self.getInstance = .singleton(callback)
+    }
+    
+    /// Create a registration exposed under multiple protocols.
+    /// - Parameters:
+    ///   - interfaces: A map of the types this is exposed as, and the name associated with each
+    ///   type.
+    ///   - value: The shared instance of the dependency.
+    /// - Important: The return type of the callback must be a subtype of every key of the
+    /// `interfaces` dictionary. If this is not the case, attempting to resolve the instance will
+    /// result in a fatal error.
+    public init(
+        exposedAs interfaces: KeyValuePairs<Any.Type, String?>,
+        _ value: T
+    ) {
+        self.exposedTypes = .individualNames(interfaces)
         self.getInstance = .constant(value)
     }
 }
 
+// MARK: Sequence Implementation
 extension MultitypeService: Sequence {
     public typealias Element = Registration
     public typealias Iterator = AnyIterator<Registration>
@@ -82,27 +218,27 @@ extension MultitypeService: Sequence {
     
     public func makeIterator() -> Iterator {
         // handle allowing/hiding the original type
-        var name: String?
+        var baseName: String?
         
-        if self.exposedTypes.contains(where: { $0 == T.self }) {
+        if let providedName = self.exposedTypes.getName(for: T.self) {
             // The class itself is also exposed.
-            name = nil
+            baseName = providedName
         } else {
             // The class itself is hidden; use a private name to do so.
-            name = "__Multitype_\(self.exposedTypes)_\(T.self)"
+            baseName = "__Multitype_\(self.exposedTypes)_\(T.self)"
         }
         
         var baseRegistration: Registration
         switch getInstance {
         case .constant(let value):
-            baseRegistration = ConstantRegistration(T.self, name, value)
+            baseRegistration = ConstantRegistration(T.self, baseName, value)
         case .singleton(let callback):
-            baseRegistration = SingletonRegistration(T.self, name, callback)
+            baseRegistration = SingletonRegistration(T.self, baseName, callback)
         }
         
-        let arr = self.exposedTypes.map { type in
-            TransientRegistration(type, nil) { r in
-                r.resolve(T.self, name: name)
+        let arr = self.exposedTypes.map { type, elementName in
+            TransientRegistration(type, elementName) { r in
+                r.resolve(T.self, name: baseName)
             }
         } + CollectionOfOne(baseRegistration)
         
