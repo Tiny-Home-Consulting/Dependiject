@@ -31,12 +31,14 @@ internal enum RegistrationTypeList {
         switch self {
         case .sharedName(let arr, let name):
             if arr.contains(where: { $0 == type }) {
-                return name
+                return .some(name)
             }
-            return .none // as opposed to .some(nil)
         case .individualNames(let kvp):
-            return kvp.last { $0.key == type }?.value
+            if let last = kvp.last(where: { $0.key == type }) {
+                return .some(last.value)
+            }
         }
+        return .none
     }
     
     internal func map<T>(_ transform: (Any.Type, String?) throws -> T) rethrows -> [T] {
