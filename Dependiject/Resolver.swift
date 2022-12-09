@@ -13,11 +13,71 @@ public protocol Resolver {
     /// - Precondition: A registration with the given type and name exists.
     /// - Returns: The instance of the type with the given name.
     func resolve<T>(_ type: T.Type, name: String?) -> T
-    /// Get all dependencies of the specified type which have unique names.
+    /// Get all resolvable dependencies of the specified type.
     ///
-    /// As with ``resolve(_:name:)``, this does not consider registrations with the same type and
-    /// name to be distinct. This fetches only things that can be found with that method, but
-    /// without requiring a specific name.
+    /// If you know the name of the desired dependency, it is more efficient to use
+    /// ``resolve(_:name:)`` than this method.
+    ///
+    /// - Note: The code samples in the documentation for this method require Swift 5.7. This method
+    /// is usable in Swift 5.5 if the protocol in question does not have associated types.
+    ///
+    /// This function is intended to be used for cases where you need to operate on many instances
+    /// of a common protocol. For example, the `resetAllState` method below finds and resets all
+    /// `StateManager` instances:
+    /// ```swift
+    /// protocol StateManager<State> {
+    ///     associatedtype State
+    ///     var state: State { get }
+    ///     func reset()
+    /// }
+    ///
+    /// func resetAllState() {
+    ///     let stateManagers = Factory.shared.resolveAll((any StateManager).self)
+    ///     for (name, manager) in stateManagers {
+    ///         print("Resetting state for \(name)")
+    ///         manager.reset()
+    ///     }
+    /// }
+    /// ```
+    /// As with ``resolve(_:name:)``, this only returns registrations whose static type matches the
+    /// argument and whose name is unique for its type. Compare the following registrations:
+    /// ```swift
+    /// // This would NOT work: even though the instances conform to StateManager, they are not
+    /// // registered as such.
+    /// Factory.shared.register {
+    ///     Service(.singleton, FirstStateManagerImplementation.self) { _ in
+    ///         FirstStateManagerImplementation()
+    ///     }
+    ///
+    ///     Service(.singleton, SecondStateManagerImplementation.self) { _ in
+    ///         SecondStateManagerImplementation()
+    ///     }
+    /// }
+    ///
+    /// // This would NOT work:
+    /// // (any StateManager<FirstState>).self == (any StateManager<SecondState>).self at runtime,
+    /// // so the second state manager replaces the first one!
+    /// Factory.shared.register {
+    ///     Service(.singleton, (any StateManager<FirstState>).self) { _ in
+    ///         FirstStateManagerImplementation()
+    ///     }
+    ///
+    ///     Service(.singleton, (any StateManager<SecondState>).self) { _ in
+    ///         SecondStateManagerImplementation()
+    ///     }
+    /// }
+    ///
+    /// // This would work: they're registered under the same protocol with different names.
+    /// Factory.shared.register {
+    ///     Service(.singleton, (any StateManager).self, name: "first") { _ in
+    ///         FirstStateManagerImplementation()
+    ///     }
+    ///
+    ///     Service(.singleton, (any StateManager).self, name: "second") { _ in
+    ///         SecondStateManagerImplementation()
+    ///     }
+    /// }
+    /// ```
     /// - Returns: A dictionary whose keys are the registrations' names and whose values are the
     /// objects requested.
     func resolveAll<T>(_ type: T.Type) -> [String?: T]
