@@ -137,8 +137,8 @@ extension RegistrationTypeList: TextOutputStreamable {
 /// let myStateUpdater = Factory.shared.resolve(StateUpdater.self, name: "MyStateUpdater")
 /// ```
 public struct MultitypeService<T: AnyObject> {
-    fileprivate let exposedTypes: RegistrationTypeList
-    fileprivate let getInstance: MultitypeRegistrationType<T>
+    private let exposedTypes: RegistrationTypeList
+    private let getInstance: MultitypeRegistrationType<T>
     
     /// Create a registration exposed under multiple protocols.
     /// - Parameters:
