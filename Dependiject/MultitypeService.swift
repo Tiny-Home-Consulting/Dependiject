@@ -177,8 +177,8 @@ public struct MultitypeService<T: AnyObject> {
     
     /// Create a registration exposed under multiple protocols.
     /// - Parameters:
-    ///   - interfaces: A map of the types this is exposed as, and the name associated with each
-    ///   type.
+    ///   - interfaces: A map of the types this service is exposed as, and the name associated with
+    ///   each type.
     ///   - callback: The callback to use to create the shared instance of the dependency.
     /// - Important: The return type of the callback must be a subtype of every key of the
     /// `interfaces` dictionary. If this is not the case, attempting to resolve the instance will
@@ -193,8 +193,8 @@ public struct MultitypeService<T: AnyObject> {
     
     /// Create a registration exposed under multiple protocols.
     /// - Parameters:
-    ///   - interfaces: A map of the types this is exposed as, and the name associated with each
-    ///   type.
+    ///   - interfaces: A map of the types this service is exposed as, and the name associated with
+    ///   each type.
     ///   - value: The shared instance of the dependency.
     /// - Important: The return type of the callback must be a subtype of every key of the
     /// `interfaces` dictionary. If this is not the case, attempting to resolve the instance will
