@@ -206,24 +206,27 @@ public final class Factory: SingletonCheckingResolver, Resolver, @unchecked Send
             )
         }
         
-        resolutionDepth += 1
+        return fulfill(registration: registrations[index]) as! T
+    }
+    
+    public func resolveAll<T>(_ type: T.Type) -> [String?: T] {
+        lock.lock()
         defer {
-            resolutionDepth -= 1
+            lock.unlock()
         }
         
-        enforceCondition(
-            options.mode,
-            resolutionDepth < options.maxDepth,
-            """
-            Error: resolution depth exceeded maximum expected value (resolving \(
-                type
-            ) with name \(
-                name?.debugDescription ?? "nil"
-            ))
-            """
-        )
+        var retval: [String?: T] = [:]
         
-        return registrations[index].resolve(self) as! T
+        for registration in registrations.reversed() {
+            guard registration.type == type else { continue }
+            
+            if retval[registration.name] == nil {
+                let result = fulfill(registration: registration) as! T
+                retval[registration.name] = result
+            }
+        }
+        
+        return retval
     }
     
     internal func beginResolvingForSingleton() {
@@ -236,6 +239,28 @@ public final class Factory: SingletonCheckingResolver, Resolver, @unchecked Send
     
     internal func isResolvingForSingleton() -> Bool {
         return singletonDepth != 0
+    }
+    
+    /// Temporarily increment `resolutionDepth`, and call the registration's `resolve(_:)` method.
+    private func fulfill(registration: Registration) -> Any {
+        resolutionDepth += 1
+        defer {
+            resolutionDepth -= 1
+        }
+        
+        enforceCondition(
+            options.mode,
+            resolutionDepth < options.maxDepth,
+            """
+            Error: resolution depth exceeded maximum expected value (resolving \(
+                registration.type
+            ) with name \(
+                registration.name?.debugDescription ?? "nil"
+            ))
+            """
+        )
+        
+        return registration.resolve(self)
     }
     
     /// Get the index within `registrations` where the specified type and name are registered.

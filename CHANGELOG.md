@@ -18,6 +18,8 @@ formatting guidelines.
 
 ### Added
 
+- `Resolver` now has a new requirement, `resolveAll(_:)`, which gives a mapping of name -> instance
+  for all dependencies of a given type.
 - The factory now has a `clearDependencies()` method intended for testing.
 - Singletons which depend on weak services now trigger an assertion failure by default.
 

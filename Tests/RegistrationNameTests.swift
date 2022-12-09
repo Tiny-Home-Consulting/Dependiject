@@ -50,5 +50,12 @@ final class RegistrationNameTests: BaseFactoryTest {
             namedResolution,
             "Expected expliticly-named to be named '1' but saw registration \(namedResolution)"
         )
+        
+        // ensure resolveAll gets all of them
+        let allResolutions = Factory.shared.resolveAll(String.self)
+        XCTAssertEqual(
+            [nil: "unnamed", "1": "named 1", "2": "named 2"],
+            allResolutions
+        )
     }
 }
