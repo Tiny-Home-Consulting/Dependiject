@@ -201,7 +201,7 @@ final class MultitypeServiceTests: BaseFactoryTest {
     
     func test_multitypeServiceConstant_individualNamesAllowNil() {
         Factory.register {
-            MultitypeService( exposedAs: [C.self: nil], C())
+            MultitypeService(exposedAs: [C.self: nil], C())
         }
         
         let resolveCount = Factory.shared.resolveAll(C.self).count
