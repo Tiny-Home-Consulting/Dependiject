@@ -1,5 +1,5 @@
 PODS:
-  - Dependiject (0.3.0)
+  - Dependiject (1.0.0)
   - MockingbirdFramework (0.20.0)
 
 DEPENDENCIES:
@@ -15,7 +15,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  Dependiject: 5ae7d97714c3ab3a4ffe0a33e4f71a3e91966ea2
+  Dependiject: 19d9b890d0806d85f2f6156af97c789f0a77e8c9
   MockingbirdFramework: 54e35fbbb47b806c1a1fae2cf3ef99f6eceb55e5
 
 PODFILE CHECKSUM: 8b19bacc7326bb5fa155fd0bbe689850b9a06311
