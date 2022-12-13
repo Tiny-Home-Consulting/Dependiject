@@ -96,7 +96,7 @@ expects yarn to be installed globally.
 Add the following line to your Podfile:
 
 ```ruby
-pod 'Dependiject', '~> 0.3'
+pod 'Dependiject', '~> 1.0'
 ```
 
 ### Swift Package Manager
@@ -106,7 +106,7 @@ Add the following entry to the `dependencies` array in your Package.swift:
 ```swift
 .package(
     url: "https://github.com/Tiny-Home-Consulting/Dependiject.git",
-    .upToNextMajor(from: "0.3.0")
+    .upToNextMajor(from: "1.0.0")
 )
 ```
 
