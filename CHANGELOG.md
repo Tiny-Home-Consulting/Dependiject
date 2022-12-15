@@ -5,6 +5,10 @@ formatting guidelines.
 
 ## Unreleased
 
+### Changed
+
+- Singleton registrations no longer hold onto the closure after the instance is created.
+
 ## [1.0.0] - 2022-12-13
 
 ### Removed
