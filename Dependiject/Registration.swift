@@ -91,20 +91,20 @@ internal class WeakRegistration: Registration {
 internal class SingletonRegistration: Registration {
     internal let type: Any.Type
     internal let name: String?
-    private let callback: (Resolver) -> Any
     
-    private var instance: Any?
+    private var getInstance: CallbackOrInstance<Any>
     
     internal init(_ type: Any.Type, _ name: String?, _ callback: @escaping (Resolver) -> Any) {
         self.type = type
         self.name = name
-        self.callback = callback
+        self.getInstance = .callback(callback)
     }
     
     internal func resolve(_ resolver: Resolver) -> Any {
-        if let instance = self.instance {
-            return instance
-        } else {
+        switch self.getInstance {
+        case .callback(let callback):
+            var instance: Any
+            
             if let resolver = resolver as? SingletonCheckingResolver {
                 resolver.beginResolvingForSingleton()
                 instance = callback(resolver)
@@ -113,7 +113,10 @@ internal class SingletonRegistration: Registration {
                 instance = callback(resolver)
             }
             
-            return instance!
+            self.getInstance = .instance(instance)
+            return instance
+        case .instance(let instance):
+            return instance
         }
     }
 }

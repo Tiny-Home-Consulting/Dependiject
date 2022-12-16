@@ -7,12 +7,6 @@
 //
 
 // MARK: Helper Types
-/// A wrapper around a registered value. Either the value itself, or a callback which returns it.
-internal enum MultitypeRegistrationType<T> {
-    case singleton((Resolver) -> T)
-    case constant(T)
-}
-
 /// A wrapper around the types & names for a multi-type registration.
 internal enum RegistrationTypeList {
     case sharedName([Any.Type], String?)
@@ -138,7 +132,7 @@ extension RegistrationTypeList: TextOutputStreamable {
 /// ```
 public struct MultitypeService<T: AnyObject> {
     private let exposedTypes: RegistrationTypeList
-    private let getInstance: MultitypeRegistrationType<T>
+    private let getInstance: CallbackOrInstance<T>
     
     /// Create a registration exposed under multiple protocols.
     /// - Parameters:
@@ -155,7 +149,7 @@ public struct MultitypeService<T: AnyObject> {
         callback: @escaping (Resolver) -> T
     ) {
         self.exposedTypes = .sharedName(types, name)
-        self.getInstance = .singleton(callback)
+        self.getInstance = .callback(callback)
     }
     
     /// Create a registration exposed under multiple protocols.
@@ -172,7 +166,7 @@ public struct MultitypeService<T: AnyObject> {
         _ value: T
     ) {
         self.exposedTypes = .sharedName(types, name)
-        self.getInstance = .constant(value)
+        self.getInstance = .instance(value)
     }
     
     /// Create a registration exposed under multiple protocols.
@@ -188,7 +182,7 @@ public struct MultitypeService<T: AnyObject> {
         callback: @escaping (Resolver) -> T
     ) {
         self.exposedTypes = .individualNames(interfaces)
-        self.getInstance = .singleton(callback)
+        self.getInstance = .callback(callback)
     }
     
     /// Create a registration exposed under multiple protocols.
@@ -204,7 +198,7 @@ public struct MultitypeService<T: AnyObject> {
         _ value: T
     ) {
         self.exposedTypes = .individualNames(interfaces)
-        self.getInstance = .constant(value)
+        self.getInstance = .instance(value)
     }
 }
 
@@ -232,9 +226,9 @@ extension MultitypeService: Sequence {
         
         var baseRegistration: Registration
         switch getInstance {
-        case .constant(let value):
+        case .instance(let value):
             baseRegistration = ConstantRegistration(T.self, baseName, value)
-        case .singleton(let callback):
+        case .callback(let callback):
             baseRegistration = SingletonRegistration(T.self, baseName, callback)
         }
         
