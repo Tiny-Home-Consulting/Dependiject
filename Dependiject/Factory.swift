@@ -92,11 +92,39 @@ internal protocol SingletonCheckingResolver: Resolver {
 
 /// The class to which you register dependencies.
 public final class Factory: SingletonCheckingResolver, Resolver, @unchecked Sendable {
-    private let lock = NSRecursiveLock()
+    private var lock: Synchronizer = LockSynchronizer()
     private var registrations: [Registration] = []
     private var resolutionDepth: UInt = 0
     private var singletonDepth: UInt = 0
     private var options = ResolutionOptions()
+    
+    /// Change the synchronization method used by the factory.
+    ///
+    /// - Warning: This function is not thread-safe. You must ensure that this function is never
+    /// called concurrently with any calls to other methods on ``Factory`` (both static methods and
+    /// methods on the ``shared`` instance).
+    ///
+    /// If possible, perform any changes to the synchronization method before doing anything else,
+    /// such as registering dependencies.
+    public static func setSynchronizer(to synchronizer: Synchronizer) {
+        /*
+         * This is actually way more annoying than it first seems. Assume for the sake of argument
+         * that this method is protected by `shared.lock.synchronize { ... }`.
+         * When this method is called on two threads at once, one of them will take the lock and run
+         * immediately. The other will have to wait in line. The first one runs and changes the
+         * lock. It then unlocks and allows the second one to run. The second one is now holding a
+         * lock, but it is the wrong lock. Now, the second one can run concurrently with a call to
+         * `resolve`, and change the lock mid-resolution. This is bad. Stacking multiple locking
+         * mechanisms is generally a good way to deadlock, especially in a case like this where we
+         * cannot know what `synchronize` is doing.
+         * Since holding the lock inside this function is not helpful anyways, there's no point in
+         * even trying. The only correct course of action is to document this function as not being
+         * thread-safe.
+         */
+
+        assert(shared.resolutionDepth == 0, "Cannot change synchronizer while resolving.")
+        shared.lock = synchronizer
+    }
     
     /// The singleton instance of the factory, used for dependency resolution.
     public static let shared = Factory()
@@ -139,9 +167,9 @@ public final class Factory: SingletonCheckingResolver, Resolver, @unchecked Send
     /// `[Registration]`, as a top-level expression. For an example of this, see
     /// ``MultitypeService``.
     public static func register(@RegistrationBuilder builder: () -> [Registration]) {
-        shared.lock.lock()
-        shared.registrations += builder()
-        shared.lock.unlock()
+        shared.lock.synchronize {
+            shared.registrations += builder()
+        }
     }
     
     /// Resets the factory, clearing all dependencies.
@@ -149,24 +177,17 @@ public final class Factory: SingletonCheckingResolver, Resolver, @unchecked Send
     /// This is mostly meant for testing; you could call this from your test class's `setUp()` or
     /// `setUpWithError()` method.
     public static func clearDependencies() {
-        shared.lock.lock()
-        
-        assert(shared.resolutionDepth == 0, "Cannot reset dependencies while resolving.")
-        shared.registrations = []
-        
-        shared.lock.unlock()
+        shared.lock.synchronize {
+            assert(shared.resolutionDepth == 0, "Cannot reset dependencies while resolving.")
+            shared.registrations = []
+        }
     }
     
     /// Retrieve the current resolution options.
     ///
     /// Do not use this as a basis to make changes; use ``updateOptions(mutation:)`` instead.
     public static func getOptions() -> ResolutionOptions {
-        shared.lock.lock()
-        defer {
-            shared.lock.unlock()
-        }
-        
-        return shared.options
+        shared.lock.synchronize { shared.options }
     }
     
     /// Change the current resolution options.
@@ -185,48 +206,39 @@ public final class Factory: SingletonCheckingResolver, Resolver, @unchecked Send
     /// }
     /// ```
     public static func updateOptions(mutation: (inout ResolutionOptions) throws -> Void) rethrows {
-        shared.lock.lock()
-        defer {
-            shared.lock.unlock()
+        try shared.lock.synchronize {
+            try mutation(&shared.options)
         }
-        
-        try mutation(&shared.options)
     }
     
     public func resolve<T>(_ type: T.Type, name: String?) -> T {
-        lock.lock()
-        defer {
-            lock.unlock()
+        lock.synchronize {
+            guard let index = getIndex(type: type, name: name) else {
+                let nameToDisplay = name?.debugDescription ?? "nil"
+                preconditionFailure(
+                    "Could not resolve dependency of type \(type) with name \(nameToDisplay)."
+                )
+            }
+            
+            return fulfill(registration: registrations[index]) as! T
         }
-        
-        guard let index = getIndex(type: type, name: name) else {
-            let nameToDisplay = name?.debugDescription ?? "nil"
-            preconditionFailure(
-                "Could not resolve dependency of type \(type) with name \(nameToDisplay)."
-            )
-        }
-        
-        return fulfill(registration: registrations[index]) as! T
     }
     
     public func resolveAll<T>(_ type: T.Type) -> [String?: T] {
-        lock.lock()
-        defer {
-            lock.unlock()
-        }
-        
-        var retval: [String?: T] = [:]
-        
-        for registration in registrations.reversed() {
-            guard registration.type == type else { continue }
+        lock.synchronize {
+            var retval: [String?: T] = [:]
             
-            if retval[registration.name] == nil {
-                let result = fulfill(registration: registration) as! T
-                retval[registration.name] = result
+            for registration in registrations.reversed() {
+                guard registration.type == type else { continue }
+                
+                if retval[registration.name] == nil {
+                    let result = fulfill(registration: registration) as! T
+                    retval[registration.name] = result
+                }
             }
+            
+            return retval
         }
-        
-        return retval
     }
     
     internal func beginResolvingForSingleton() {
