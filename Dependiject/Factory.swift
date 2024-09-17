@@ -108,7 +108,7 @@ public final class Factory: SingletonCheckingResolver, Resolver, @unchecked Send
     /// such as registering dependencies.
     public static func setSynchronizer(to synchronizer: Synchronizer) {
         /*
-         * This is actually way more annoying than it first seems. Assume for the sake of argument
+         * This is actually way more complex than it first seems. Assume for the sake of argument
          * that this method is protected by `shared.lock.synchronize { ... }`.
          * When this method is called on two threads at once, one of them will take the lock and run
          * immediately. The other will have to wait in line. The first one runs and changes the
