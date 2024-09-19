@@ -5,6 +5,11 @@ formatting guidelines.
 
 ## Unreleased
 
+### Added
+
+- Added a `setSynchronizer` method to `Factory`, and a corresponding `Synchronizer` protocol, for
+  controlling how dependency resolution is synchronized.
+
 ### Changed
 
 - Singleton registrations no longer hold onto the closure after the instance is created.
