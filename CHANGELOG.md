@@ -5,6 +5,8 @@ formatting guidelines.
 
 ## Unreleased
 
+## [1.1.0] - 2024-09-19
+
 ### Added
 
 - Added a `setSynchronizer` method to `Factory`, and a corresponding `Synchronizer` protocol, for
@@ -87,3 +89,4 @@ Initial release.
 [0.2.0]: https://github.com/Tiny-Home-Consulting/Dependiject/tree/0.2.0
 [0.3.0]: https://github.com/Tiny-Home-Consulting/Dependiject/tree/0.3.0
 [1.0.0]: https://github.com/Tiny-Home-Consulting/Dependiject/tree/1.0.0
+[1.1.0]: https://github.com/Tiny-Home-Consulting/Dependiject/tree/1.1.0
