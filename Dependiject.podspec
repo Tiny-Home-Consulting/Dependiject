@@ -29,7 +29,7 @@ Pod::Spec.new do |s|
     s.tvos.deployment_target = '13.0'
     
     s.cocoapods_version = '>= 1.11.3'
-    s.swift_versions = '5.5'
+    s.swift_versions = '6', '5.5'
     s.source_files = 'Dependiject/**/*.swift'
     
     s.frameworks = 'SwiftUI', 'Combine'

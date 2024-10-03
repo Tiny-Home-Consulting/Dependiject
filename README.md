@@ -136,7 +136,7 @@ also be run in Xcode.
 
 Dependiject is released under the MPL-2.0 license. See [LICENSE][7] for details.
 
-[1]: https://img.shields.io/badge/swift-~%3E%205.5-orange
+[1]: https://img.shields.io/badge/swift-%3E=%205.5-orange
 [2]: https://img.shields.io/cocoapods/l/Dependiject?color=blue
 [3]: https://img.shields.io/cocoapods/p/Dependiject?color=yellowgreen
 [4]: #documentation
