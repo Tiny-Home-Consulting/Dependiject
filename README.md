@@ -112,9 +112,10 @@ Add the following entry to the `dependencies` array in your Package.swift:
 
 ## Example Projects
 
-There are two examples provided: 
+There are three examples provided: 
 - an [iOS 13 project][5] that uses SwiftUI for the Views but still requires the UIKit lifecycle;
-- an [iOS 14+ project][6] that can use the SwiftUI lifecycle.
+- an [iOS 14 project][6] that can use the SwiftUI lifecycle, and is compiled in Swift 5 mode;
+- an [iOS 18 project][10] that is compiled in Swift 6 mode.
 
 ## Documentation
 
@@ -145,3 +146,4 @@ Dependiject is released under the MPL-2.0 license. See [LICENSE][7] for details.
 [7]: ./LICENSE
 [8]: https://img.shields.io/cocoapods/v/Dependiject
 [9]: #automated-tests
+[10]: ./iOS%2018%20Example/

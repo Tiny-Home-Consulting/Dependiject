@@ -35,5 +35,16 @@ cd "../iOS 14 Example"
 pod install
 xcodebuild -workspace Dependiject_Example.xcworkspace -scheme Dependiject_Example -destination \
     "id=$deviceId" test | xcpretty
+    
+# iOS 18 example can only be compiled under Xcode 16
+xcode_version=$(xcodebuild -version | head -n1 | cut -d' ' -f2 | cut -d'.' -f1)
+if [ $xcode_version -ge 16 ]; then
+    cd "../iOS 18 Example"
+    pod install
+    xcodebuild -workspace Dependiject_Example.xcworkspace -scheme Dependiject_Example -destination \
+        "id=$deviceId" test | xcpretty
+else
+    echo "Skipping iOS 18 tests, as they require Xcode 16 (current Xcode is $xcode_version)"
+fi
 
 printf '\n\e[1m** TEST SUCCEEDED **\e[m\n\n'
