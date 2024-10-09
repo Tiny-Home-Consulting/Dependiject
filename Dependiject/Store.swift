@@ -107,14 +107,25 @@ public struct Store<ObjectType> {
         }
         
         /// Returns a binding to the resulting value of a given key path.
-        public subscript<Subject>(
+        @MainActor public subscript<Subject>(
             dynamicMember keyPath: ReferenceWritableKeyPath<ObjectType, Subject>
         ) -> Binding<Subject> {
+            // In Xcode 16, the callbacks passed to `Binding` may state which actor they run on, or
+            // else they are assumed to be @Sendable. In Xcode 15 and earlier, the callbacks must
+            // not specify an actor.
+#if compiler(>=6)
+            return Binding { @MainActor in
+                self.store.wrappedValue[keyPath: keyPath]
+            } set: { @MainActor in
+                self.store.wrappedValue[keyPath: keyPath] = $0
+            }
+#else
             return Binding {
                 self.store.wrappedValue[keyPath: keyPath]
             } set: {
                 self.store.wrappedValue[keyPath: keyPath] = $0
             }
+#endif
         }
     }
 }

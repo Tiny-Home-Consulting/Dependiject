@@ -1,0 +1,16 @@
+PODS:
+  - Dependiject (1.1.0)
+
+DEPENDENCIES:
+  - Dependiject (from `../`)
+
+EXTERNAL SOURCES:
+  Dependiject:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  Dependiject: bce7444b92580b663c73f7503950952db9233552
+
+PODFILE CHECKSUM: 6237f6246b883fd67cb3614045851ff6eb2ebd51
+
+COCOAPODS: 1.15.2

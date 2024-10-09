@@ -1,0 +1,15 @@
+platform :ios, '18.0'
+
+target 'Dependiject_Example' do
+  use_frameworks!
+  
+  pod 'Dependiject', :path => '../'
+end
+
+target 'Dependiject_Tests' do
+  use_frameworks!
+  
+  pod 'Dependiject', :path => '../'
+end
+
+install! 'cocoapods', :warn_for_unused_master_specs_repo => false

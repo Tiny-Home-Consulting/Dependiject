@@ -10,7 +10,7 @@ import XCTest
 @testable import Dependiject
 
 /// A class that counts how many times it was created.
-fileprivate class ConstructorCounter {
+fileprivate actor ConstructorCounter {
     static var count = 0
     
     init() {
