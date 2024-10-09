@@ -5,6 +5,15 @@ formatting guidelines.
 
 ## Unreleased
 
+### Changed
+
+- In Swift 6, `ErrorCheckMode` conforms to `BitwiseCopyable`.
+- Dependiject can now compile as Swift 6, and builds without warnings in Xcode 16.
+- The dynamic member subscript on `Store.Wrapper` is now explicitly `@MainActor`.
+- `Scope` now conforms to `Sendable`.
+- `Synchronizer` now inherits from `Sendable`. In practice it was not possible to correcly implement
+  in a non-sendable way.
+
 ## [1.1.0] - 2024-09-19
 
 ### Added
