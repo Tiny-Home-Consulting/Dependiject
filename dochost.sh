@@ -8,9 +8,6 @@
 #
 
 set -eo pipefail
-cd "iOS 13 Example"
-pod install
-cd ..
 which xcpretty &>/dev/null || bundle install
 xcodebuild docbuild | xcpretty
 cd docserver

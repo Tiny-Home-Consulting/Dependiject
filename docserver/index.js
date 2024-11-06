@@ -12,7 +12,7 @@ const inert = require('@hapi/inert');
 
 const basePath = path.join(
     __dirname,
-    '../iOS 13 Example/build/Release-iphoneos/Dependiject/Dependiject.doccarchive'
+    '../build/Release/Dependiject.doccarchive'
 );
 
 (async () => {
