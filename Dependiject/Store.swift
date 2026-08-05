@@ -68,7 +68,7 @@ public struct Store<ObjectType> {
     /// Create a stored value on a custom scheduler.
     ///
     /// Use this init to schedule updates on a specific scheduler other than `DispatchQueue.main`.
-    public init<S: Scheduler>(
+    @MainActor public init<S: Scheduler>(
         wrappedValue: ObjectType,
         on scheduler: S,
         schedulerOptions: S.SchedulerOptions? = nil
@@ -91,7 +91,7 @@ public struct Store<ObjectType> {
     /// Create a stored value which publishes on the main thread.
     ///
     /// To control when updates are published, see ``init(wrappedValue:on:schedulerOptions:)``.
-    public init(wrappedValue: ObjectType) {
+    @MainActor public init(wrappedValue: ObjectType) {
         self.init(wrappedValue: wrappedValue, on: DispatchQueue.main)
     }
     

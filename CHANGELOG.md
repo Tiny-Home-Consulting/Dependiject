@@ -13,6 +13,7 @@ formatting guidelines.
 
 ### Changed
 
+- The initializers for `Store` are now explicitly `@MainActor`.
 - The dynamic member subscript on `Store.Wrapper` is now explicitly `@MainActor`.
 - `Synchronizer` now inherits from `Sendable`. In practice it was not possible to correcly implement
   in a non-sendable way.
