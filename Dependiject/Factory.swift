@@ -29,6 +29,12 @@ public enum ErrorCheckMode: Sendable, Hashable {
     case always
 }
 
+#if swift(>=6)
+@available(swift 6)
+extension ErrorCheckMode: BitwiseCopyable {
+}
+#endif
+
 /// The options struct used by the ``Factory`` to configure error checks.
 public struct ResolutionOptions: Sendable {
     /// The mode used to check for errors.

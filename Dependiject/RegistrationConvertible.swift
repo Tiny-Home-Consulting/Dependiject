@@ -51,7 +51,7 @@ where Self: Registration {
 /// This is meant to be used with ``Service/init(_:_:name:_:)``; each case describes a different way
 /// of determining when the callback should be called vs. when the previous return value should be
 /// re-used.
-public struct Scope: Equatable {
+public struct Scope: Equatable, Sendable {
     internal let value: UnderlyingType
     
     /// Call the provided callback every time the dependency is requested.
@@ -65,7 +65,7 @@ public struct Scope: Equatable {
     /// allowed to be registered weakly.
     public static let weak = Scope(value: .weak)
     
-    internal enum UnderlyingType: Equatable {
+    internal enum UnderlyingType: Equatable, Sendable {
         case transient
         case singleton
         case weak

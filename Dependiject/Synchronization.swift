@@ -8,7 +8,7 @@
 import Foundation
 
 /// A type that serializes work to prevent data races.
-public protocol Synchronizer {
+public protocol Synchronizer: Sendable {
     /// Synchronize some work with other calls to this method.
     ///
     /// No two closures passed to this method may run at the same time. How this is achieved is up
@@ -32,7 +32,7 @@ public protocol Synchronizer {
 /// A synchronizer that uses
 /// [`NSRecursiveLock`](https://developer.apple.com/documentation/foundation/nsrecursivelock)
 /// to ensure synchronization.
-public struct LockSynchronizer: Synchronizer, Sendable {
+public struct LockSynchronizer: Synchronizer {
     private let lock = NSRecursiveLock()
     
     @Sendable

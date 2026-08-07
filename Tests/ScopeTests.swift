@@ -10,7 +10,7 @@ import XCTest
 @testable import Dependiject
 
 /// A class that counts how many times it was created.
-fileprivate class ConstructorCounter {
+@MainActor fileprivate class ConstructorCounter {
     static var count = 0
     
     init() {
@@ -26,10 +26,10 @@ fileprivate class DependsOnClass {
     }
 }
 
-final class ScopeTests: BaseFactoryTest {
+@MainActor final class ScopeTests: BaseFactoryTest, Sendable {
     /// Reset the counter between tests.
-    override func setUp() {
-        super.setUp()
+    override func setUp() async throws {
+        try await super.setUp()
         
         ConstructorCounter.count = 0
     }
