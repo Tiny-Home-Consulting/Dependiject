@@ -38,10 +38,6 @@ Carthage/Build
 #
 Pods/
 
-# Mockingbird
-*.generated.swift
-**/*.xcodeproj/MockingbirdCache
-
 # Swift Package Manager
 .swiftpm/
 .build/
