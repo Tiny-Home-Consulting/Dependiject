@@ -12,7 +12,7 @@ import Foundation
 ///
 /// This is used by the ``Factory`` for sanity checks, such as detecting circular dependencies and
 /// validating scopes.
-public enum ErrorCheckMode: Sendable, Hashable {
+public enum ErrorCheckMode: Sendable, Hashable, BitwiseCopyable {
     // Adding more cases to this enum is a breaking change that can only happen for major releases;
     // see https://github.com/Tiny-Home-Consulting/Dependiject/issues/67 for an explanation.
     
@@ -28,12 +28,6 @@ public enum ErrorCheckMode: Sendable, Hashable {
     /// Always perform error checking, even in optimized release builds.
     case always
 }
-
-#if swift(>=6)
-@available(swift 6)
-extension ErrorCheckMode: BitwiseCopyable {
-}
-#endif
 
 /// The options struct used by the ``Factory`` to configure error checks.
 public struct ResolutionOptions: Sendable {

@@ -23,13 +23,14 @@ Pod::Spec.new do |s|
         :tag => s.version
     }
     
-    s.ios.deployment_target = '13.0'
-    s.osx.deployment_target = '10.15'
-    s.watchos.deployment_target = '6.0'
-    s.tvos.deployment_target = '13.0'
+    s.ios.deployment_target = '15.0'
+    s.osx.deployment_target = '12.0'
+    s.watchos.deployment_target = '9.0'
+    s.tvos.deployment_target = '15.0'
+    s.visionos.deployment_target = '1.0'
     
-    s.cocoapods_version = '>= 1.11.3'
-    s.swift_versions = '6', '5.5'
+    s.cocoapods_version = '~> 1.16'
+    s.swift_versions = '6'
     s.source_files = 'Dependiject/**/*.swift'
     
     s.frameworks = 'SwiftUI', 'Combine'

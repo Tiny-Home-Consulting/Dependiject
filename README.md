@@ -3,7 +3,7 @@
 ![Swift Version][1]
 ![License][2]
 ![Supported Platforms][3]
-![Version][8]
+![Version][7]
 
 Dependiject provides simple, flexible, and thread-safe dependency injection for testability and
 inversion of control in SwiftUI apps.
@@ -79,12 +79,12 @@ struct SomeView: View {
 
 ## Requirements
 
-To use this library requires Xcode 13.2 / Swift 5.5 or later. Dependiject is supported for all
-platforms that support SwiftUI.
+To use this library requires Xcode 26 / Swift 6.2 or later. Dependiject is supported for all
+platforms that Xcode 27 supports.
 
-To install the library with CocoaPods requires version 1.11.3 or later.
+To install the library with CocoaPods requires version 1.16 or later.
 
-To run the tests from the command line (see [Automated Tests][9] below) requires NodeJS 6 or later.
+To run the tests from the command line (see [Automated Tests][8] below) requires NodeJS 6 or later.
 
 To host the documentation locally (see [Documentation][4] below) requires NodeJS 12 or later, and
 expects yarn to be installed globally.
@@ -110,12 +110,9 @@ Add the following entry to the `dependencies` array in your Package.swift:
 )
 ```
 
-## Example Projects
+## Example Project
 
-There are three examples provided: 
-- an [iOS 13 project][5] that uses SwiftUI for the Views but still requires the UIKit lifecycle;
-- an [iOS 14 project][6] that can use the SwiftUI lifecycle, and is compiled in Swift 5 mode;
-- an [iOS 18 project][10] that is compiled in Swift 6 mode.
+There is an example project provided in [the Example folder][5].
 
 ## Documentation
 
@@ -135,15 +132,13 @@ also be run in Xcode.
 
 ## License
 
-Dependiject is released under the MPL-2.0 license. See [LICENSE][7] for details.
+Dependiject is released under the MPL-2.0 license. See [LICENSE][6] for details.
 
-[1]: https://img.shields.io/badge/swift-%3E=%205.5-orange
+[1]: https://img.shields.io/badge/swift-~%3E%206.2-orange
 [2]: https://img.shields.io/cocoapods/l/Dependiject?color=blue
 [3]: https://img.shields.io/cocoapods/p/Dependiject?color=yellowgreen
 [4]: #documentation
-[5]: ./iOS%2013%20Example/
-[6]: ./iOS%2014%20Example/
-[7]: ./LICENSE
-[8]: https://img.shields.io/cocoapods/v/Dependiject
-[9]: #automated-tests
-[10]: ./iOS%2018%20Example/
+[5]: ./Example/
+[6]: ./LICENSE
+[7]: https://img.shields.io/cocoapods/v/Dependiject
+[8]: #automated-tests

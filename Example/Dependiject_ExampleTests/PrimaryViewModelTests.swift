@@ -11,7 +11,7 @@ import Dependiject
 @testable import Dependiject_Example
 
 @MainActor
-final class PrimaryViewModelTests: XCTestCase, Sendable {
+final class PrimaryViewModelTests: XCTestCase, @unchecked Sendable {
     var mockFetcher: DataFetcherMock!
     var mockValidator: DataValidatorMock!
     var mockDataStateManager: DataStateManagerMock!

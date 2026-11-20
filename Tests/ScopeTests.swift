@@ -26,7 +26,7 @@ fileprivate class DependsOnClass {
     }
 }
 
-@MainActor final class ScopeTests: BaseFactoryTest, Sendable {
+@MainActor final class ScopeTests: BaseFactoryTest, @unchecked Sendable {
     /// Reset the counter between tests.
     override func setUp() async throws {
         try await super.setUp()
