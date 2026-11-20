@@ -18,9 +18,6 @@ public protocol Resolver {
     /// If you know the name of the desired dependency, it is more efficient to use
     /// ``resolve(_:name:)`` than this method.
     ///
-    /// - Note: The code samples in the documentation for this method require Swift 5.7. This method
-    /// is usable in Swift 5.5 if the protocol in question does not have associated types.
-    ///
     /// This function is intended to be used for cases where you need to operate on many instances
     /// of a common protocol. For example, the `resetAllState` method below finds and resets all
     /// `StateManager` instances:

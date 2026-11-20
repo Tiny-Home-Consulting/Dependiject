@@ -1,13 +1,14 @@
-// swift-tools-version:5.5
+// swift-tools-version:6.2
 import PackageDescription
 
 let package = Package(
     name: "Dependiject",
     platforms: [
-        .iOS(.v13),
-        .macOS(.v10_15),
-        .watchOS(.v6),
-        .tvOS(.v13)
+        .iOS(.v15),
+        .macOS(.v12),
+        .watchOS(.v9),
+        .tvOS(.v15),
+        .visionOS(.v1)
     ],
     products: [
         .library(
@@ -39,8 +40,7 @@ let package = Package(
             path: "Tests"
         )
     ],
-    swiftLanguageVersions: [
-        .version("6"),
-        .v5
+    swiftLanguageModes: [
+        .v6
     ]
 )
