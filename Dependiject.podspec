@@ -13,9 +13,8 @@ Pod::Spec.new do |s|
     s.documentation_url = 'https://dependiject.tinyhomeconsultingllc.com/documentation/'
     
     s.authors = {
-        'William Baker' => 'bbrk24@gmail.com',
-        'Liam Gleeson' => 'ljgleeson2106@gmail.com',
-        'Wesley Boyd' => 'u4qr@protonmail.com'
+        'Riley Baker' => 'bbrk24@gmail.com',
+        'Brian Moyou' => 'brianmoyou@gmail.com'
     }
     
     s.source = {
