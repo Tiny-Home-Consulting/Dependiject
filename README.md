@@ -84,10 +84,11 @@ platforms that support SwiftUI.
 
 To install the library with CocoaPods requires version 1.11.3 or later.
 
-To run the tests from the command line (see [Automated Tests][9] below) requires NodeJS 6 or later.
+To run the tests from the command line (see [Automated Tests][9] below) requires NodeJS 6 or later
+and Ruby 3.4 or later.
 
-To host the documentation locally (see [Documentation][4] below) requires NodeJS 12 or later, and
-expects yarn to be installed globally.
+To host the documentation locally (see [Documentation][4] below) requires Ruby 3.4 or later and
+NodeJS 12 or later, and expects yarn to be installed globally.
 
 ## Installation
 

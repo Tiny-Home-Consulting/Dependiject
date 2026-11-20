@@ -1,18 +1,23 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    rouge (2.0.7)
-    xcpretty (0.3.0)
-      rouge (~> 2.0.7)
+    rouge (3.28.0)
+    xcpretty (0.4.1)
+      rouge (~> 3.28.0)
 
 PLATFORMS
+  arm64-darwin-25
   ruby
 
 DEPENDENCIES
-  xcpretty (~> 0.3)
+  xcpretty (~> 0.4)
+
+CHECKSUMS
+  rouge (3.28.0) sha256=0d6de482c7624000d92697772ab14e48dca35629f8ddf3f4b21c99183fd70e20
+  xcpretty (0.4.1) sha256=b14c50e721f6589ee3d6f5353e2c2cfcd8541fa1ea16d6c602807dd7327f3892
 
 RUBY VERSION
-   ruby 2.6.8p205
+  ruby 4.0.10
 
 BUNDLED WITH
-   1.17.2
+  4.1.0
