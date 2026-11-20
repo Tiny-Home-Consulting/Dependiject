@@ -9,9 +9,12 @@ formatting guidelines.
 
 - Dropped support for Swift &lt; 6.2 (Xcode &lt; 26.0).
 - Dropped support for CocoaPods &lt; 1.16.
+- Dropped support for iOS &lt; 15, macOS &lt; 12, watchOS &lt; 9, and tvOS &lt; 15, in order to
+  support Xcode 27.
 
 ### Added
 
+- Added support for visionOS.
 - `ErrorCheckMode` now conforms to `BitwiseCopyable`.
 - `Scope` now conforms to `Sendable`.
 
